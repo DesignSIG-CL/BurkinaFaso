@@ -22,14 +22,23 @@
           target: 'OurMap',
           view: new ol.View({
             center: ol.proj.fromLonLat([-2,12.1]),
-            zoom:9
+            zoom:9,
           })
-        });
-
+        })
         var osmlayer = new ol.layer.Tile({
           source: new ol.source.OSM()
-        })
+        });
+        var geolayer = new ol.layer.Vector({
+              title: 'added Layer',
+              source: new ol.source.GeoJSON({
+                 projection : 'EPSG:4326',
+                 url: './geoData/roadlines.geojson'
+               })
+        });
+
+
         map.addLayer(osmlayer);
+        map.addLayer(geolayer);
       </script>
 
     </body>
