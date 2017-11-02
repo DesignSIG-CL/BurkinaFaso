@@ -18,13 +18,18 @@
       </div>
 
       <script>
-        var = map ol.Map({
-          target: 'OurMap'
+        var map = new ol.Map({
+          target: 'OurMap',
           view: new ol.View({
             center: ol.proj.fromLonLat([-2,12.1])
             zoom:9
           })
         });
+
+        var osmlayer = new ol.layer.Tile({
+          source: new ol.source.OSM()
+        })
+        map.addLayer(osmlayer);
       </script>
 
     </body>
