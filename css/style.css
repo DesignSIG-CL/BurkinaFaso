@@ -1,0 +1,23 @@
+/*
+style.css
+---------
+Exercice pour le cours "Design de SIG"
+Par Benoît CORDAY
+*/
+
+*
+{
+  font-family: "Arial";
+}
+
+body
+{
+  background-color: rgb(186,186,186); /* Le fond de la page sera gris */
+  heigth:100%;
+  width:100%;
+}
+
+#OurMap
+{
+  heigth:100%
+}
