@@ -28,17 +28,15 @@
         var osmlayer = new ol.layer.Tile({
           source: new ol.source.OSM()
         });
-        var geolayer = new ol.layer.Vector({
-              title: 'added Layer',
-              source: new ol.source.GeoJSON({
-                 projection : 'EPSG:4326',
-                 url: './geoData/roadlines.geojson'
-               })
+        var vectorlayer = new ol.layer.Vector({
+        source: new ol.source.Vector({
+          url: './geoData/roadlines.geojson',
+          format: new ol.format.GeoJSON()
+          })
         });
 
-
         map.addLayer(osmlayer);
-        map.addLayer(geolayer);
+        map.addLayer(vectorlayer);
       </script>
 
     </body>
