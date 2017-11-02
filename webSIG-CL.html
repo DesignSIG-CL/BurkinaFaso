@@ -28,15 +28,22 @@
         var osmlayer = new ol.layer.Tile({
           source: new ol.source.OSM()
         });
-        var vectorlayer = new ol.layer.Vector({
+        var vectorlayerroad = new ol.layer.Vector({
         source: new ol.source.Vector({
           url: './geoData/roadlines.geojson',
           format: new ol.format.GeoJSON()
           })
         });
+        var vectorlayerregion = new ol.layer.Vector({
+        source: new ol.source.Vector({
+          url: './geoData/limiteadminpolygon.geojson',
+          format: new ol.format.GeoJSON()
+          })
+        });
 
         map.addLayer(osmlayer);
-        map.addLayer(vectorlayer);
+        map.addLayer(vectorlayerroad);
+        map.addLayer(vectorlayerregion);
       </script>
 
     </body>
