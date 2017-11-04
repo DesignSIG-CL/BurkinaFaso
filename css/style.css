@@ -7,17 +7,49 @@ Par Benoît CORDAY
 
 *
 {
-  font-family: "Arial";
+  font-family: "Verdana";
 }
 
 body
 {
   background-color: rgb(186,186,186); /* Le fond de la page sera gris */
-  heigth:100%;
-  width:100%;
+  height: 100%;
+  width: 100%;
 }
 
 #OurMap
 {
-  heigth:100%
+  height:100%
+}
+
+#OurLegend
+{
+  min-height: 300px;
+  min-width: 100px;
+  height: 80%;
+  width: 20%;
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  background-color: rgb(100,100,100);
+}
+
+#OurLegendTitle
+{
+  background-color: rgb(100,100,0);
+  font-size: 2em;
+  color: rgb(0,100,100);
+  position: absolute;
+  top: 0.2em;
+  left: 0.2em;
+}
+
+#OurLegendContent
+{
+  background-color: rgb(100,100,0);
+  font-size: 1em;
+  color: rgb(0,100,100);
+  position: absolute;
+  top: 4.0em;
+  left: 0.5em;
 }

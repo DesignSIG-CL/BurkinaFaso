@@ -17,6 +17,17 @@
 
       <div id=OurMap>
       </div>
+      <div id=OurLegend>
+        <div id=OurLegendTitle>
+          Legend
+        </div>
+        <div id=OurLegendContent>
+          <form>
+            <input type="checkbox" id="roadlinesCheck" onclick="setVisibleLayers(vectorlayerroad)" checked> Roadlines <br>
+            <input type="checkbox" id="regionsCheck" onclick="setVisibleLayers(vectorlayerregion)" checked> Regions<br>
+          </form>
+        </div>
+      </div>
 
       <script>
         var map = new ol.Map({
@@ -45,6 +56,20 @@
         map.addLayer(osmlayer);
         map.addLayer(vectorlayerroad);
         map.addLayer(vectorlayerregion);
+
+        function setVisibleLayers(thisLayer){
+          if (document.getElementById("roadlinesCheck").checked) {
+            vectorlayerroad.setVisible(true);
+          } else {
+            vectorlayerroad.setVisible(false);
+          }
+          if (document.getElementById("regionsCheck").checked) {
+            vectorlayerregion.setVisible(true);
+          } else {
+            vectorlayerregion.setVisible(false);
+          }
+
+        }
       </script>
 
     </body>
