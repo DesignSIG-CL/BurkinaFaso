@@ -23,8 +23,8 @@
         </div>
         <div id=OurLegendContent>
           <form>
-            <input type="checkbox" id="roadlinesCheck" onclick="setVisibleLayers(vectorlayerroad)" checked> Roadlines <br>
-            <input type="checkbox" id="regionsCheck" onclick="setVisibleLayers(vectorlayerregion)" checked> Regions<br>
+            <input type="checkbox" id="roadlinesCheck" onclick="setVisibleLayers()" checked> Roadlines <br>
+            <input type="checkbox" id="regionsCheck" onclick="setVisibleLayers()" checked> Regions<br>
           </form>
         </div>
       </div>
@@ -57,18 +57,9 @@
         map.addLayer(vectorlayerroad);
         map.addLayer(vectorlayerregion);
 
-        function setVisibleLayers(thisLayer){
-          if (document.getElementById("roadlinesCheck").checked) {
-            vectorlayerroad.setVisible(true);
-          } else {
-            vectorlayerroad.setVisible(false);
-          }
-          if (document.getElementById("regionsCheck").checked) {
-            vectorlayerregion.setVisible(true);
-          } else {
-            vectorlayerregion.setVisible(false);
-          }
-
+        function setVisibleLayers(){
+          vectorlayerroad.setVisible(document.getElementById("roadlinesCheck").checked);
+          vectorlayerregion.setVisible(document.getElementById("regionsCheck").checked);
         }
       </script>
 
