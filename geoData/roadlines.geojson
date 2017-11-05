@@ -1151,5 +1151,4 @@
 { "type": "Feature", "properties": { "MED_DESCRI": "Without Median", "RTT_DESCRI": "Secondary Route", "F_CODE_DES": "Road", "ISO": "BFA", "ISOCOUNTRY": null }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 1.576638378, 12.633083114650391 ], [ 1.575850059, 12.631000901650392 ] ] ] } },
 { "type": "Feature", "properties": { "MED_DESCRI": "Without Median", "RTT_DESCRI": "Secondary Route", "F_CODE_DES": "Road", "ISO": "BFA", "ISOCOUNTRY": null }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 2.263922136, 12.445283453650392 ], [ 2.267822151, 12.447559580650392 ] ] ] } },
 { "type": "Feature", "properties": { "MED_DESCRI": "Without Median", "RTT_DESCRI": "Secondary Route", "F_CODE_DES": "Road", "ISO": "BFA", "ISOCOUNTRY": null }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ 2.279040246, 12.064095401650391 ], [ 2.280297663, 12.065479826650392 ] ] ] } }
-]
-}
+]}
