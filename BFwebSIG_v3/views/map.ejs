@@ -1,13 +1,63 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8" />
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.4.2/css/ol.css" type="text/css">
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v4.4.2/build/ol.js"></script>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <p>If you find this text in the files, you know where the map is going.</p>
-    <p>Which file are you talking about?</p>
+    <div id=OurMap>
+    </div>
+    <div id=OurLegend>
+      <div id=OurLegendTitle>
+        Legend
+      </div>
+      <div id=OurLegendContent>
+        <form>
+          <input type="checkbox" id="roadlinesCheck" onclick="setVisibleLayers()" checked> Roadlines <br>
+          <input type="checkbox" id="regionsCheck" onclick="setVisibleLayers()" checked> Regions<br>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      var map = new ol.Map({
+        target: 'OurMap',
+        view: new ol.View({
+          center: ol.proj.fromLonLat([-2,12.1]),
+          zoom:9,
+        })
+      })
+      var osmlayer = new ol.layer.Tile({
+        source: new ol.source.OSM()
+      });
+
+      var vectorlayerroad = new ol.layer.Vector({
+      source: new ol.source.Vector({
+        url: '/images/geoData/roadlines.geojson',
+        format: new ol.format.GeoJSON()
+        })
+      });
+
+      var vectorlayerregion = new ol.layer.Vector({
+      source: new ol.source.Vector({
+        url: '/images/geoData/limiteadminpolygon.geojson',
+        format: new ol.format.GeoJSON(),
+        })
+      })
+
+      map.addLayer(osmlayer);
+      map.addLayer(vectorlayerroad);
+      map.addLayer(vectorlayerregion);
+
+      function setVisibleLayers(){
+        vectorlayerroad.setVisible(document.getElementById("roadlinesCheck").checked);
+        vectorlayerregion.setVisible(document.getElementById("regionsCheck").checked);
+      }
+    </script>
   </body>
 </html>
