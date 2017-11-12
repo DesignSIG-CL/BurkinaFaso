@@ -1,0 +1,143 @@
+/*
+style.css
+---------
+Exercice pour le cours "Design de SIG"
+Par Benoît CORDAY
+*/
+
+*
+{
+  font-family: "Arial";
+}
+
+body
+{
+  background-color: rgb(186,186,186); /* Le fond de la page sera gris */
+  display: -webkit-flex;
+  display:flex;
+	flex-direction: column;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+#header, #footer
+{
+  align-self:center;
+  height:2.5em;
+  width:100%;
+  background-color: rgb(230,230,230);
+  border-radius: 5px;
+  box-shadow: 0px 2px 2px rgb(0,50,50);
+  text-align: center;
+  overflow: hidden;
+  display: inline-flex;
+  padding:5px;
+  justify-content: space-between;
+}
+
+#logo, #imageHeader
+{
+  height: 2.5em;
+  border-radius: 5px;
+}
+
+#mainTitle
+{
+  margin : auto;
+  font-weight: bold;
+  font-size: 1em;
+  color: rgb(0,100,100);
+}
+
+#content
+{
+  align-self:center;
+  border-radius: 5px;
+  box-shadow: 0px 2px 2px rgb(0,50,50);
+  width:100%;
+  height:25em;
+  background-color: rgb(230,230,230);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding:5px;
+  display: inline-flex;
+  justify-content: space-between;
+}
+
+#map
+{
+  align-self:center;
+  border-radius: 5px;
+  width:100%;
+  height:25em;
+  background-color: rgb(0,100,100);
+  margin: 0px;
+  padding: 0px;
+}
+
+#menuButton
+{
+  border-radius: 5px;
+  box-shadow: 0px 1px 1px rgb(50,50,50);
+  background-color: rgb(255,255,255);
+  height:2em;
+  width:2em;
+  align-self:center;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+#menuOption
+{
+  display:none;
+  align-self:center;
+  width:25%;
+  min-width: 15em;
+  height:auto;
+  background-color: none;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+#author
+{
+  align-self:center;
+  font-size: 0.7em;
+  font-style: italic;
+  color: rgb(0,100,100);
+}
+
+.myLink
+{
+  background:rgb(255,255,255);
+  margin: 0.5em;
+  padding: 0.5em;
+  width:90%;
+  border-radius: 5px;
+  box-shadow: 0px 1px 1px rgb(50,50,50);
+  text-align: center;
+}
+
+a:link {
+    color: rgb(0,100,100);
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:visited {
+    color: rgb(0,100,100);
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:hover {
+    color: rgb(0,100,100);
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+a:active {
+    color: rgb(0,100,100);
+    background-color: transparent;
+    text-decoration: underline;
+}
