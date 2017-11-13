@@ -3,6 +3,6 @@ function size() {
     h += window.innerHeight-160;
     h +="px"
     document.getElementById("content").style.height = h;
-    document.getElementById("map").style.height = h;
-    document.getElementById("menuOption").style.height = h;
+    document.getElementById("OurMap").style.height = h;
+    // document.getElementById("OurLegend").style.height = h;
 }
