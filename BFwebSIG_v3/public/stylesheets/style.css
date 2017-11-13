@@ -12,9 +12,11 @@ Par Benoît CORDAY
 
 h1
 {
-  color: rgb(0,100,100);
+  color: rgb(0,0,0);
   text-align: center;
   vertical-align:middle;
+  font-weight: bold;
+  font-size: 250%;
 }
 
 a
@@ -28,18 +30,52 @@ a:hover
   color: yellow;
   background-color: rgb(0,100,100);
 }
-
+/* fond de page gris
+body
+{
+  background-color: rgb(186,186,186);
+  height: 100%;
+  width: 100%;
+}
+*/
+/* remplacé par */
 body
 {
   background-color: rgb(186,186,186); /* Le fond de la page sera gris */
-  height: 100%;
-  width: 100%;
+  display: -webkit-flex;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+#logo, #imageHeader
+{
+  height: 2.5em;
+  border-radius: 5px;
+}
+
+#mainTitle
+{
+  margin : auto;
+  font-weight: bold;
+  font-size: 1em;
+  color: rgb(0,100,100);
 }
 
 #OurMap
 {
-  height:100%;
-  width: 98%;
+  align-self:center;
+  box-shadow: 2px 2px 2px rgb(0,0,0);
+  border-radius: 5px;
+  width:100%;
+  height:25em;
+  background-color: rgb(230,230,230);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding:5px;
+  display: inline-flex;
+  justify-content: space-between;
 }
 
 #OurLegend
