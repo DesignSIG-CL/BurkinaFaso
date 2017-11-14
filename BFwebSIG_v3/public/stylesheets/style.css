@@ -107,8 +107,8 @@ body
   height: 20em;
   width: 10em;
   position: absolute;
-  top: 8em;
-  left: 1em;
+  top: 10.5em;
+  left: 1.2em;
   background-color: rgb(255,255,255);
   box-shadow: 2px 2px 2px rgb(0,0,0);
   border-radius: 2px;
@@ -141,6 +141,24 @@ body
   left: 2%;
   box-shadow: 2px 2px 2px rgb(0,0,0);
   border-radius: 2px;
+}
+
+#OurButtonLegend
+{
+  height: 1.5em;
+  width: 1.5em;
+  position: absolute;
+  top: 8.5em;
+  left: 1.2em;
+  background-color: rgb(230,230,230);
+  box-shadow: 2px 2px 2px rgb(0,0,0);
+  border-radius: 2px;
+}
+
+#imageMenu
+{
+  height:inherit;
+  width:inherit;
 }
 
 #author
