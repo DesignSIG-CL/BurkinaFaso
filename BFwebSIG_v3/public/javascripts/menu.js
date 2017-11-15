@@ -1,4 +1,4 @@
-var etat = 0;
+var etat = 1;
 
 function menu() {
     if (etat==0) {
