@@ -1,5 +1,16 @@
 console.log('mapEngine is running');
 
+//--
+var roadlinesStyle = new ol.style.Style({
+    stroke: new ol.style.Stroke({ color: 'rgba(0,100,100,1)', width: 2.0 })
+});
+
+var regionsStyle = new ol.style.Style({
+      fill: new ol.style.Fill({ color: 'rgba(100, 0, 0, 0.2)', width: 4 }),
+      stroke: new ol.style.Stroke({ color: 'rgba(100,0,0,1)', width: 1 })
+});
+//--
+
 var vectorlayerroad = new ol.layer.Vector();
 var vectorlayerregion = new ol.layer.Vector();
 
@@ -15,17 +26,19 @@ $(document).ready(function(){
     source: new ol.source.OSM()
   });
 
-  vectorlayerroad = new ol.layer.Vector({
-    source: new ol.source.Vector({
-      url: '/images/geoData/roadlines.geojson',
-      format: new ol.format.GeoJSON()
-    })
-  });
-
   vectorlayerregion = new ol.layer.Vector({
+    style: regionsStyle,
     source: new ol.source.Vector({
       url: '/images/geoData/limiteadminpolygon.geojson',
       format: new ol.format.GeoJSON(),
+    })
+  });
+
+  vectorlayerroad = new ol.layer.Vector({
+    style: roadlinesStyle,
+    source: new ol.source.Vector({
+      url: '/images/geoData/roadlines.geojson',
+      format: new ol.format.GeoJSON()
     })
   });
 
