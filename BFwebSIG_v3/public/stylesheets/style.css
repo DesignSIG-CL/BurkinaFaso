@@ -172,6 +172,5 @@ body
 #options-form
 {
   display: inline-flex;
-  align-self: flex-start;
   font-size: 50%;
 }
