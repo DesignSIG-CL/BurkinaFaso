@@ -46,6 +46,31 @@
 <!-- insérer pied de page -->
     <div id="footer">
       <div id="author"> B. CORDAY & R. LUGRIN - Design de SIG - V 37'643 </div>
+      <form id="options-form" automplete="off">
+        <div id="OurNewModifyOption">
+          <div class="radio">
+            <label>
+              <input type="radio" name="interaction" value="draw" id="draw" checked>
+              Draw &nbsp;
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" name="interaction" value="modify">
+              Modify &nbsp;
+            </label>
+          </div>
+        </div>
+        <div id="OurSelector" class="form-group">
+          <label>Draw type &nbsp;</label>
+          <select name="draw-type" id="draw-type">
+            <option value="Point">Point</option>
+            <option value="LineString">LineString</option>
+            <option value="Polygon">Polygon</option>
+            <option value="Circle">Circle</option>
+          </select>
+        </div>
+      </form>
     </div>
   </body>
 </html>
