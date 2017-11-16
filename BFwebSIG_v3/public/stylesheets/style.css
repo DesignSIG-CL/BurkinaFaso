@@ -184,3 +184,9 @@ body
   font-style: italic;
   color: rgb(100,100,100);
 }
+
+#options-form
+{
+  display: inline-flex;
+  font-size: 50%;
+}
