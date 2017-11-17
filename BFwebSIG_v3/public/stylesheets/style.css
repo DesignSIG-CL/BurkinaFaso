@@ -134,24 +134,22 @@ body
   position: absolute;
   top: 10.5em;
   left: 0em;
-  background-color: rgb(255,255,255);
+  background-color: rgba(30,30,30,0.5);
   box-shadow: 2px 2px 2px rgb(0,0,0);
-  border-radius: 2px;
 }
 
 #OurLegendTitle
 {
-  background-color: rgb(50,50,255);
+  background-color: rgb(0,100,100);
   height: 12%;
   width: 96%;
   font-size: 2em;
   text-align: center;
-  color: rgb(255,255,255);
+  color: rgb(220,220,220);
   position: absolute;
   top: 2%;
   left: 2%;
   box-shadow: 2px 2px 2px rgb(0,0,0);
-  border-radius: 2px;
 }
 
 #OurLegendContent
@@ -165,7 +163,6 @@ body
   top: 15%;
   left: 2%;
   box-shadow: 2px 2px 2px rgb(0,0,0);
-  border-radius: 0px;
 }
 
 #OurButtonLegend
