@@ -1,6 +1,6 @@
 console.log('mapEngine is running');
 
-//--
+//-- https://openlayers.org/en/latest/examples/snap.html?q=interactions
 var roadlinesStyle = new ol.style.Style({
     stroke: new ol.style.Stroke({ color: 'rgba(0,100,100,1)', width: 2.0 })
 });
