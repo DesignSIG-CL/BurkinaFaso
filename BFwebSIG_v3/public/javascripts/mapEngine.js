@@ -13,6 +13,8 @@ var regionsStyle = new ol.style.Style({
 
 var vectorlayerroad = new ol.layer.Vector();
 var vectorlayerregion = new ol.layer.Vector();
+var vector = new ol.layer.Vector();
+var source = new ol.layer.Vector();
 
 $(document).ready(function(){
   var map = new ol.Map({
@@ -42,14 +44,88 @@ $(document).ready(function(){
     })
   });
 
+// Definition of the layer for the interaction
+  var source = new ol.source.Vector();
+  var vector = new ol.layer.Vector({
+        source: source,
+        style: new ol.style.Style({
+          fill: new ol.style.Fill({
+            color: 'rgba(255, 255, 255, 0.2)'
+          }),
+          stroke: new ol.style.Stroke({
+            color: '#ffcc33',
+            width: 2
+          }),
+          image: new ol.style.Circle({
+            radius: 7,
+            fill: new ol.style.Fill({
+              color: '#ffcc33'
+            })
+          })
+        })
+      });
+
+
   map.addLayer(osmlayer);
   map.addLayer(vectorlayerroad);
   map.addLayer(vectorlayerregion);
+  map.addLayer(vector);
+
+  // Adding new vector elements on the map.
+  var modify = new ol.interaction.Modify({source: source});
+      map.addInteraction(modify);
+
+      var draw, snap; // global so we can remove them later
+      var typeSelect = document.getElementById('draw-type');
+
+      function addInteractions() {
+        draw = new ol.interaction.Draw({
+          source: source,
+          type: /** @type {ol.geom.GeometryType} */ (typeSelect.value)
+        });
+        // Adding an event at the end of the draw.
+        draw.on('drawend', function(evt){
+          console.log('And one draw appears');
+          //in evt you will get ol.feature
+          // from ol.feature get the geometry and than get coordinates
+          var coord = evt.feature.getGeometry().getCoordinates();
+          document.getElementById("OurInteraction").style.visibility="visible";
+          document.getElementById("OurInput").innerHTML = coord.toString() ;
+        });
+        // End of the event
+        map.addInteraction(draw);
+        snap = new ol.interaction.Snap({source: source});
+        map.addInteraction(snap);
+
+      }
+
+      /**
+       * Handle change event.
+       */
+      typeSelect.onchange = function() {
+        map.removeInteraction(draw);
+        map.removeInteraction(snap);
+        addInteractions();
+      };
+
+      addInteractions();
 
 });
+
+// Setting the visible layers
 
 function setVisibleLayers(){
   vectorlayerroad.setVisible(document.getElementById("roadlinesCheck").checked);
   vectorlayerregion.setVisible(document.getElementById("regionsCheck").checked);
+  source.setVisible(document.getElementById("interactionsCheck").checked); // Doesn't work
   console.log('Changing the layers visibility.');
+}
+
+function cancelAndCloseInterraction(){
+  document.getElementById("OurInteraction").style.visibility="hidden";
+}
+
+function saveAndCloseInterraction(){
+  alert("I'm not implemented.");
+  document.getElementById("OurInteraction").style.visibility="hidden";
 }

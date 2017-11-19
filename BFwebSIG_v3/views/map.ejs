@@ -29,12 +29,21 @@
         <form>
           <input type="checkbox" id="roadlinesCheck" onclick="setVisibleLayers()" checked> Roadlines <br>
           <input type="checkbox" id="regionsCheck" onclick="setVisibleLayers()" checked> Regions<br>
+          <input type="checkbox" id="interactionsCheck" onclick="setVisibleLayers()" checked> Draws<br>
         </form>
       </div>
     </div>
 
     <div id='OurButtonLegend' onclick="menu()">
       <img src="images/menu.png" alt="Menu" id="imageMenu">
+    </div>
+
+    <div id='OurInteraction'>
+      <div id='OurInput'>
+
+      </div>
+       <button type="button" id="saveButton" onclick="saveAndCloseInterraction()">Save</button>
+       <button type="button" id="cancelButton" onclick="cancelAndCloseInterraction()">Cancel</button>
     </div>
 
   </div>
