@@ -183,6 +183,35 @@ body
   width:inherit;
 }
 
+#OurInteraction
+{
+  height: 20em;
+  width: 10em;
+  position: absolute;
+  top: 10.5em;
+  left: 10.5em;
+  background-color: rgba(255,255,255,0.4);
+  box-shadow: 2px 2px 2px rgb(0,0,0);
+  visibility: hidden;
+  word-wrap: break-word;
+}
+
+#cancelButton, #saveButton
+{
+  position: absolute;
+  bottom : 5px;
+}
+
+#cancelButton
+{
+  left : 5px;
+}
+
+#saveButton
+{
+  right : 5px;
+}
+
 #author
 {
   align-self:center;
