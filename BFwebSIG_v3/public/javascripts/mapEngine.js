@@ -1,6 +1,6 @@
 console.log('mapEngine is running');
 
-//-- https://openlayers.org/en/latest/examples/snap.html?q=interactions
+// Styles of the GeoJSON static layers
 var roadlinesStyle = new ol.style.Style({
     stroke: new ol.style.Stroke({ color: 'rgba(0,100,100,1)', width: 2.0 })
 });
@@ -9,13 +9,15 @@ var regionsStyle = new ol.style.Style({
       fill: new ol.style.Fill({ color: 'rgba(100, 0, 0, 0.2)', width: 4 }),
       stroke: new ol.style.Stroke({ color: 'rgba(100,0,0,1)', width: 1 })
 });
-//--
 
+// This initial defintion allows to use the layers out of the jQuery
 var vectorlayerroad = new ol.layer.Vector();
 var vectorlayerregion = new ol.layer.Vector();
 var vector = new ol.layer.Vector();
 var source = new ol.layer.Vector();
 
+// jQuery : This part is exectuted after the initialisation of the page
+// It's necessary to allow cross origin references
 $(document).ready(function(){
   var map = new ol.Map({
     target: 'OurMap',
@@ -83,9 +85,10 @@ $(document).ready(function(){
           source: source,
           type: /** @type {ol.geom.GeometryType} */ (typeSelect.value)
         });
+
         // Adding an event at the end of the draw.
         draw.on('drawend', function(evt){
-          console.log('And one draw appears');
+          console.log('And a new draw appears');
           //in evt you will get ol.feature
           // from ol.feature get the geometry and than get coordinates
           var coord = evt.feature.getGeometry().getCoordinates();
@@ -123,9 +126,18 @@ function setVisibleLayers(){
 
 function cancelAndCloseInterraction(){
   document.getElementById("OurInteraction").style.visibility="hidden";
+  document.getElementById("BridgeInput").reset();
 }
 
 function saveAndCloseInterraction(){
-  alert("I'm not implemented.");
   document.getElementById("OurInteraction").style.visibility="hidden";
+  var x = document.getElementById("BridgeInput");
+  var text = "";
+  var i;
+  for (i = 0; i < x.length ;i++) {
+      text += x.elements[i].value + "<br>";
+  }
+  alert("Les données que vous avez saisies ne sont pas enregistrées pour le moment ! Elles sont dans la console (F12).");
+  console.log(text);
+  x.reset();
 }
