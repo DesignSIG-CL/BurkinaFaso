@@ -12,77 +12,100 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type='text/javascript' src="/javascripts/mapEngine.js"></script>
     <!-- <script src="/javascripts/size.js"></script> -->
-    <script src="/javascripts/menu.js"></script>
+    <script src="/javascripts/interfaceEngine.js"></script>
   </head>
   <body> <!-- onload="size()" onresize="size()"> -->
 
-<!-- carte + légende -->
-<div id='content'>
-    <div id='OurMap' class='map'>
-    </div>
-
-    <div id='OurLegend'>
-      <div id='OurLegendTitle'>
-        Legend
+    <!-- carte + légende -->
+    <div id='content'>
+      <div id='OurMap' class='map'>
       </div>
-      <div id='OurLegendContent'>
-        <form>
-          <input type="checkbox" id="roadlinesCheck" onclick="setVisibleLayers()" checked> Roadlines <br>
-          <input type="checkbox" id="regionsCheck" onclick="setVisibleLayers()" checked> Regions<br>
-          <input type="checkbox" id="interactionsCheck" onclick="setVisibleLayers()" checked> Draws<br>
+
+      <div id='OurLegend' class='Windows'>
+        <div id='OurLegendTitle' class='WindowsTitle'>
+          Légende
+        </div>
+        <div id='OurLegendContent' class='WindowsContent'>
+          <form>
+            <input type="checkbox" id="roadlinesCheck" onclick="setVisibleLayers()" checked> Axes routiers <br>
+            <input type="checkbox" id="regionsCheck" onclick="setVisibleLayers()" checked> Limites communales<br>
+            <input type="checkbox" id="interactionsCheck" onclick="setVisibleLayers()" checked> Dessin (HORS SERVICE)<br>
+          </form>
+        </div>
+      </div>
+
+      <div id='OurButtonLegend' class = 'OurButton' onclick="menu()">
+        <img src="images/menu.png" alt="Menu" class='ButtonImg'>
+      </div>
+
+      <div id='OurButtonEdit' class = 'OurButton' onclick="edit()">
+        <img src="images/pen.png" alt="Edit" class='ButtonImg'>
+      </div>
+
+      <div id='OurInteraction' class='Windows'>
+        <div id='BridgeInfosTitle' class='WindowsTitle'>
+          Nouveau Pont
+        </div>
+        <div id='BridgeInfosContent' class='WindowsContent'>
+          <form id='BridgeInput'>
+            Numéro <br> <input type="text" name="nume"><br>
+            Nombre de travées <br> <input type="text" name="ntra"><br>
+            Portée <br> <input type="text" name="port"> [m]<br>
+            Largeur totale <br> <input type="text" name="ltot"> [m]<br>
+            Largeur utile <br> <input type="text" name="luti"> [m]<br>
+            Hauteur <br> <input type="text" name="haut"> [m]<br>
+            Gabarit <br> <input type="text" name="gaba"> [m]<br>
+          </form>
+          <p>Coordonnées</p>
+          <div id='OurInput'>
+            <!-- dynamic content -->
+          </div>
+        </div>
+        <button type="button" id="saveButton" onclick="saveAndCloseInterraction()">Save</button>
+        <button type="button" id="cancelButton" onclick="cancelAndCloseInterraction()">Cancel</button>
+      </div>
+      <div id='EditorOption'>
+        <div class='WindowsTitle'>
+        </div>
+        <form id="options-form" automplete="off" class='WindowsContent'>
+          <div id="OurNewModifyOption">
+            <div class="radio">
+              <label>
+                <input type="radio" name="interaction" value="draw" id="draw" checked>
+                Nouveau &nbsp;
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="interaction" value="modify">
+                Modifier &nbsp;
+              </label>
+            </div>
+          </div>
+          <div id="OurSelector" class="form-group">
+            <label>Type d'ouvrage &nbsp;</label>
+            <select name="draw-type" id="draw-type">
+              <option value="Point">Ponctuel</option>
+              <option value="LineString">Linéaire</option>
+              <option value="Polygon">Polygone</option>
+              <option value="Circle">Cercle</option>
+            </select>
+          </div>
         </form>
       </div>
     </div>
 
-    <div id='OurButtonLegend' onclick="menu()">
-      <img src="images/menu.png" alt="Menu" id="imageMenu">
-    </div>
-
-    <div id='OurInteraction'>
-      <div id='OurInput'>
-
-      </div>
-       <button type="button" id="saveButton" onclick="saveAndCloseInterraction()">Save</button>
-       <button type="button" id="cancelButton" onclick="cancelAndCloseInterraction()">Cancel</button>
-    </div>
-
+  <!-- logo, titre, image -->
+  <div id="header">
+    <img src="images/logo-epfl.png" alt="Logo" id="logo">
+    <div id="mainTitle">SIG Burkina Faso</div>
+    <img src="images/photoBurkinaFaso.jpg" alt="Logo" id="imageHeader">
   </div>
 
-  <!-- logo, titre, image -->
-      <div id="header">
-        <img src="images/logo-epfl.png" alt="Logo" id="logo">
-        <div id="mainTitle">SIG Burkina Faso</div>
-        <img src="images/photoBurkinaFaso.jpg" alt="Logo" id="imageHeader">
-      </div>
-
-<!-- pied de page -->
+    <!-- pied de page -->
     <div id="footer">
       <div id="author"> B. CORDAY & R. LUGRIN - Design de SIG - V 37'647 </div>
-      <form id="options-form" automplete="off">
-        <div id="OurNewModifyOption">
-          <div class="radio">
-            <label>
-              <input type="radio" name="interaction" value="draw" id="draw" checked>
-              Draw &nbsp;
-            </label>
-          </div>
-          <div class="radio">
-            <label>
-              <input type="radio" name="interaction" value="modify">
-              Modify &nbsp;
-            </label>
-          </div>
-        </div>
-        <div id="OurSelector" class="form-group">
-          <label>Draw type &nbsp;</label>
-          <select name="draw-type" id="draw-type">
-            <option value="Point">Point</option>
-            <option value="LineString">LineString</option>
-            <option value="Polygon">Polygon</option>
-            <option value="Circle">Circle</option>
-          </select>
-        </div>
-      </form>
+
     </div>
   </body>
 </html>
