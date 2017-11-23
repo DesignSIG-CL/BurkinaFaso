@@ -82,25 +82,49 @@ function setMode() {
   console.log(this.id);
 
   if(this.id == "addButton"){
-      console.log('jysouis dans this ID 7 moawde yeah');
-
     if(mode == "add"){
+      console.log('Leaving the add mode');
       mode = "none";
       this.style.color = "black";
+      map.removeInteraction(draw);
+      map.removeInteraction(snap);
     }
     else {
-      console.log('en mode add lard enfin');
-
+      console.log('Entering into the add mode');
       mode = "add";
-      this.style.color = "red";
+      this.style.color = "green";
       draw.on('drawend', function(evt) {RoadAdded(evt)} );
       map.addInteraction(draw);
       map.addInteraction(snap);
     }
   }
   else if(this.id == "modButton") {
+    if(mode == "mod"){
+      console.log('Leaving the modify mode');
+      mode = "none";
+      this.style.color = "black";
+      // ...
+    }
+    else {
+      console.log('Entering into the modify mode');
+      mode = "mod";
+      this.style.color = "green";
+      // ...
+    }
   }
   else if(this.id == "delButton") {
+    if(mode == "del"){
+      console.log('Leaving the delete mode');
+      mode = "none";
+      this.style.color = "black";
+      // ...
+    }
+    else {
+      console.log('Entering into the delete mode');
+      mode = "del";
+      this.style.color = "green";
+      // ...
+    }
   }
 };
 
@@ -121,7 +145,7 @@ function setMode() {
 function setVisibleLayers(){
   vectorlayerroad.setVisible(document.getElementById("roadlinesCheck").checked);
   vectorlayerregion.setVisible(document.getElementById("regionsCheck").checked);
-  source.setVisible(document.getElementById("interactionsCheck").checked); // Doesn't work
+  RoadLayer.setVisible(document.getElementById("interactionsCheck").checked); // Doesn't work
   console.log('Changing the layers visibility.');
 }
 
