@@ -46,16 +46,49 @@
         <div id='BridgeInfosTitle' class='WindowsTitle'>
           Nouveau Pont
         </div>
-        <div id='BridgeInfosContent' class='WindowsContent'>
-          <form id='BridgeInput'>
-            Numéro <br> <input type="text" name="nume"><br>
-            Nombre de travées <br> <input type="text" name="ntra"><br>
-            Portée <br> <input type="text" name="port"> [m]<br>
-            Largeur totale <br> <input type="text" name="ltot"> [m]<br>
-            Largeur utile <br> <input type="text" name="luti"> [m]<br>
-            Hauteur <br> <input type="text" name="haut"> [m]<br>
-            Gabarit <br> <input type="text" name="gaba"> [m]<br>
-          </form>
+        <div id='form' class='WindowsContent'>
+          <div class="container">
+            <label>ID</label>
+            <input id="IDinput" type""text"></input>
+          </div>
+          <div class="container">
+            <label>Nombre de travées</label>
+            <input id="ntra" type""number"></input>
+          </div>
+          <div class="container">
+            <label>Portée</label>
+            <input id="port" type""number"></input>
+            <label>[m]</label>
+          </div>
+          <div class="container">
+            <label>Largeur totale</label>
+            <input id="ltot" type""number"></input>
+            <label>[m]</label>
+          </div>
+          <div class="container">
+            <label>Largeur utile</label>
+            <input id="luti" type""number"></input>
+            <label>[m]</label>
+          </div>
+          <div class="container">
+            <label>Hauteur</label>
+            <input id="port" type""number"></input>
+            <label>[m]</label>
+          </div>
+          <div class="container">
+            <label>Gabarit</label>
+            <input id="gaba" type""number"></input>
+            <label>[m]</label>
+          </div>
+          <div class="container">
+            <label>Photo</label>label>
+            <div style="min-height: 200px; border: solid 1px lightgrey"
+            <img src="" width=280px>
+            </div>
+            <input type="file"></input>
+          </div>
+        </div>
+           
           <p>Coordonnées</p>
           <div id='OurInput'>
             <!-- dynamic content -->
