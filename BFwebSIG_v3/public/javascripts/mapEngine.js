@@ -105,65 +105,6 @@ function setMode() {
 };
 
 
-// This initial defintion allows to use the layers out of the jQuery
-
-var vector = new ol.layer.Vector();
-var source = new ol.source.Vector();
-
-// jQuery : This part is exectuted after the initialisation of the page
-// It's necessary to allow cross origin references
-//$(document).ready(function(){
-/*  var map = new ol.Map({
-    target: 'OurMap',
-    view: new ol.View({
-      center: ol.proj.fromLonLat([-2,12.1]),
-      zoom:9,
-    })
-  });
-  var osmlayer = new ol.layer.Tile({
-    source: new ol.source.OSM()
-  });
-*/
-  
-
-// Definition of the layer for the interaction
-  var source = new ol.source.Vector();
-  var vector = new ol.layer.Vector({
-        source: source,
-        style: new ol.style.Style({
-          fill: new ol.style.Fill({
-            color: 'rgba(255, 255, 255, 0.2)'
-          }),
-          stroke: new ol.style.Stroke({
-            color: '#ffcc33',
-            width: 2
-          }),
-          image: new ol.style.Circle({
-            radius: 7,
-            fill: new ol.style.Fill({
-              color: '#ffcc33'
-            })
-          })
-        })
-      });
-
-/*
-  map.addLayer(osmlayer);
-  map.addLayer(vector);
-
-  // Adding new vector elements on the map.
-  var modify = new ol.interaction.Modify({source: source});
-      map.addInteraction(modify);
-
-      var draw, snap; // global so we can remove them later
-      var typeSelect = document.getElementById('draw-type');
-
-      function addInteractions() {
-        draw = new ol.interaction.Draw({
-          source: source,
-     ////     type: /** @type {ol.geom.GeometryType} */ ////(typeSelect.value)
-     ////   });
-
         // Adding an event at the end of the draw.
         function RoadAdded(evt) {
           console.log('And a new draw appears');
@@ -173,28 +114,10 @@ var source = new ol.source.Vector();
           document.getElementById("OurInteraction").style.visibility="visible";
           document.getElementById("OurInput").innerHTML = coord.toString() ;
         };
-        // End of the event
-        /*map.addInteraction(draw);
-        snap = new ol.interaction.Snap({source: source});
-        map.addInteraction(snap);
 
-      }
-
-      /**
-       * Handle change event.
-       */
-//      typeSelect.onchange = function() {
-//        map.removeInteraction(draw);
-//        map.removeInteraction(snap);
-//        addInteractions();
-//      };
-
-//      addInteractions();
-
-//});
 
 // Setting the visible layers
-/*
+
 function setVisibleLayers(){
   vectorlayerroad.setVisible(document.getElementById("roadlinesCheck").checked);
   vectorlayerregion.setVisible(document.getElementById("regionsCheck").checked);
@@ -218,4 +141,4 @@ function saveAndCloseInterraction(){
   alert("Les données que vous avez saisies ne sont pas enregistrées pour le moment ! Elles sont dans la console (F12).");
   console.log(text);
   x.reset();
-}*/
+}
