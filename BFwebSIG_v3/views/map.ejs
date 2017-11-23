@@ -69,24 +69,9 @@
         </div>
         <form id="options-form" automplete="off" class='WindowsContent'>
           <div id="OurNewModifyOption">
-            <div class="radio">
-              <label>
-                <input type="radio" name="interaction" value="draw" id="draw" checked>
-                Nouveau &nbsp;
-              </label>
-            </div>
-            <div class="radio">
-              <label>
-                <input type="radio" name="interaction" value="modify">
-                Modifier &nbsp;
-              </label>
-            </div>
-            <div class="radio">
-              <label>
-                <input type="radio" name="interaction" value="delete" id="delete">
-                Supprimer &nbsp;
-              </label>
-            </div>
+            <button type="button" id="addButton" onclick="setMode()">Ajouter</button>
+            <button type="button" id="modButton" onclick="setMode()">Modifier</button>
+            <button type="button" id="delButton" onclick="setMode()">Supprimer</button>
           </div>
           <div id="OurSelector" class="form-group">
             <label>Type d'ouvrage &nbsp;</label>
