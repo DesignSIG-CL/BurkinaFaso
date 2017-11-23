@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="https://openlayers.org/en/v4.4.2/css/ol.css" type="text/css">
+        <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+        <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+        <script src="https://openlayers.org/en/v4.4.2/build/ol.js"></script>
+
+        <title>WebSIG-CL</title>
+        $(document).ready(function(){
+    $("vectorlayerroad"){
+    var vectorlayerroad = new ol.layer.Vector({
+        source: new ol.source.Vector({
+          url: 'geoData/roadlines.geojson',
+          format: new ol.format.GeoJSON()
+          })
+        });
+
+        var vectorlayerregion = new ol.layer.Vector({
+        source: new ol.source.Vector({
+          url: 'geoData/limiteadminpolygon.geojson',
+          format: new ol.format.GeoJSON(),
+          })
+        })
+        $(this);
+    });
+
+    </head>
+
+    <body>
+
+      <div id=OurMap>
+      </div>
+      <div id=OurLegend>
+        <div id=OurLegendTitle>
+          Legend
+        </div>
+        <div id=OurLegendContent>
+          <form>
+            <input type="checkbox" id="roadlinesCheck" onclick="setVisibleLayers()" checked> Roadlines <br>
+            <input type="checkbox" id="regionsCheck" onclick="setVisibleLayers()" checked> Regions<br>
+          </form>
+        </div>
+      </div>
+
+      <script>
+        var map = new ol.Map({
+          target: 'OurMap',
+          view: new ol.View({
+            center: ol.proj.fromLonLat([-2,12.1]),
+            zoom:9,
+          })
+        })
+        var osmlayer = new ol.layer.Tile({
+          source: new ol.source.OSM()
+        });
+
+        
+
+        map.addLayer(osmlayer);
+        map.addLayer(vectorlayerroad);
+        map.addLayer(vectorlayerregion);
+
+        function setVisibleLayers(){
+          vectorlayerroad.setVisible(document.getElementById("roadlinesCheck").checked);
+          vectorlayerregion.setVisible(document.getElementById("regionsCheck").checked);
+        }
+      </script>
+
+    </body>
+
+</html>
