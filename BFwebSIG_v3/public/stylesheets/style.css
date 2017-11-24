@@ -2,7 +2,7 @@
 style.css
 ---------
 Exercice pour le cours "Design de SIG"
-Par Benoît CORDAY
+Par Benoît CORDAY et René LUGRIN
 */
 
 *
@@ -25,11 +25,11 @@ a
   background-color: yellow;
 }
 
-a:hover
+/*a:hover
 {
   color: yellow;
   background-color: rgb(0,100,100);
-}
+}/*
 /* fond de page gris
 body
 {
@@ -52,90 +52,91 @@ body
   padding: 0px;
 }
 
-#header
-{
-  position: absolute;
-  top: 0px;
-  left: 0px;
-}
+/* header and footer*/
+  #header
+  {
+    top: 0px;
+    left: 0px;
+  }
+  #footer
+  {
+    bottom: 0px;
+    left: 0px;
+  }
+  #header, #footer
+  {
+    position: absolute;
+    align-self:center;
+    /*height:2.5em;*/
+    width:100%;
+    background-color: rgba(255,255,255,0.85);
+    /*border-radius: 0px;*/
+    box-shadow: 0px 0px 2px 2px rgb(0,50,50);
+    text-align: center;
+    overflow: hidden;
+    display: inline-flex;
+    /*padding:0px;*/
+    justify-content: space-between;
+    /*opacity: 0.5;*/
+  }
 
-#footer
-{
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-}
+/* header content */
+  #logo, #imageHeader
+  {
+    height: 2.5em;
+    border-radius: 0px;
+  }
+  #mainTitle
+  {
+    margin : auto;
+    font-weight: bold;
+    font-size: 1em;
+    color: rgb(0,100,100);
+  }
 
-#header, #footer
-{
-  align-self:center;
-  /*height:2.5em;*/
-  width:100%;
-  background-color: rgba(255,255,255,0.85);
-  /*border-radius: 0px;*/
-  box-shadow: 0px 2px 2px rgb(0,50,50);
-  text-align: center;
-  overflow: hidden;
-  display: inline-flex;
-  /*padding:0px;*/
-  justify-content: space-between;
-  /*opacity: 0.5;*/
-}
 
-#logo, #imageHeader
-{
-  height: 2.5em;
-  border-radius: 0px;
-}
+/*  */
+  #content
+  {
+    align-self:center;
+    /*border-radius: px;*/
+    /*box-shadow: 0px 2px 2px rgb(0,50,50);*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+    /*height:25em;*/
+    background-color: rgb(230,230,230);
+    margin: 0px;
+    padding:0px;
+    display: inline-flex;
+    justify-content: space-between;
+  }
+/* map container*/
+  #OurMap
+  {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgb(0,100,100);
+    margin: 0;
+    /*padding: 0px;*/
+  }
 
-#mainTitle
-{
-  margin : auto;
-  font-weight: bold;
-  font-size: 1em;
-  color: rgb(0,100,100);
-}
-
-#content
-{
-  align-self:center;
-  /*border-radius: px;*/
-  /*box-shadow: 0px 2px 2px rgb(0,50,50);*/
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  overflow: hidden;
-  /*height:25em;*/
-  background-color: rgb(230,230,230);
-  margin: 0px;
-  padding:0px;
-  display: inline-flex;
-  justify-content: space-between;
-}
-
-#OurMap
-{
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgb(0,100,100);
-  margin: 0px;
-  /*padding: 0px;*/
-}
-
-.Windows
-{
-  height: 20em;
-  width: 16em;
-  position: absolute;
-  left: 0em;
-  background-color: rgba(255,255,255,0.4);
-  box-shadow: 2px 2px 2px rgb(0,0,0);
-}
+/* Global pannel including legend and attribute table */
+  .Windows
+  {
+    height: 20em;
+    width: 16em;
+    position: absolute;
+    left: 5px;
+    background-color: rgba(255,255,255,0.4);
+    box-shadow: 2px 2px 2px rgb(0,0,0);
+  }
 
 #OurLegend
 {
@@ -149,48 +150,50 @@ body
   word-wrap: break-word;
 }
 
-#EditorOption
-{
-  background-color: rgba(255,255,255,0.4);
-  position: absolute;
-  top: 3.3em;
-  left: 7em;
-  height: 6.7em;
-  width: 9em;
-  visibility: hidden;
-  box-shadow: 2px 2px 2px rgb(0,0,0);
-  z-index: 10000;
-}
+  #EditorOption
+  {
+    background-color: rgba(255,255,255,0.4);
+    position: absolute;
+    top: 3.3em;
+    left: 7em;
+    height: 6.7em;
+    width: 9em;
+    visibility: hidden;
+    box-shadow: 2px 2px 2px rgb(0,0,0);
+    z-index: 10000;
+  }
 
-.WindowsTitle /* Used for the legend and the popup*/
-{
-  background-color: rgb(0,100,100);
-  height: 12%;
-  width: 96%;
-  font-size: 2em;
-  text-align: center;
-  color: rgb(255,255,255);
-  position: absolute;
-  top: 2%;
-  left: 2%;
-  box-shadow: 2px 2px 2px rgb(0,0,0);
-}
+/* for what? */
+  .WindowsTitle
+  {
+    background-color: rgb(0,100,100);
+    height: 12%;
+    width: 96%;
+    font-size: 2em;
+    text-align: center;
+    color: rgb(255,255,255);
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    box-shadow: 2px 2px 2px rgb(0,0,0);
+  }
 
-#OurLegendTitle{}
-#BridgeInfosTitle{}
+  #OurLegendTitle{}
+  #BridgeInfosTitle{}
 
-.WindowsContent /* Used for the legend and the popup*/
-{
-  background-color: rgba(255,255,255,0.8);
-  height: 82%;
-  width: 96%;
-  font-size: 1em;
-  color: rgb(0,0,0);
-  position: absolute;
-  top: 15%;
-  left: 2%;
-  box-shadow: 2px 2px 2px rgb(0,0,0);
-}
+/* legend and attribute table */
+  .WindowsContent
+  {
+    background-color: rgba(255,255,255,0.8);
+    height: 82%;
+    width: 96%;
+    font-size: 1em;
+    color: rgb(0,0,0);
+    position: absolute;
+    top: 15%;
+    left: 2%;
+    box-shadow: 2px 2px 2px rgb(0,0,0);
+  }
 
 #OurLegendContent
 {
@@ -207,53 +210,55 @@ body
 {
 }
 
-.OurButton
-{
-  height: 1.5em;
-  width: 1.5em;
-  position: absolute;
-  top: 8.5em;
-  background-color: rgb(230,230,230);
-  box-shadow: 2px 2px 2px rgb(0,0,0);
-  border-radius: 0px;
-}
+/* all buttons*/
+  .OurButton
+  {
+    height: 1.5em;
+    width: 1.5em;
+    position: absolute;
+    top: 8.5em;
+    background-color: rgb(230,230,230);
+    box-shadow: 2px 2px 2px rgb(0,0,0);
+    border-radius: 0px;
+  }
 
-#OurButtonLegend
-{
-  left: 1.2em;
-}
+  #OurButtonLegend
+  {
+    left: 1.2em;
+  }
 
-#OurButtonEdit
-{
-  left: 2.8em;
-}
+  #OurButtonEdit
+  {
+    left: 2.8em;
+  }
 
-.ButtonImg
-{
-  height:inherit;
-  width:inherit;
-}
+  .ButtonImg
+  {
+    height:inherit;
+    width:inherit;
+  }
 
-#cancelButton, #saveButton
-{
-  position: absolute;
-  bottom : 2%;
-}
+  #cancelButton, #saveButton
+  {
+    position: absolute;
+    bottom : 2%;
+  }
 
-#cancelButton
-{
-  left : 2%;
-}
+  #cancelButton
+  {
+    left : 2%;
+  }
 
-#saveButton
-{
-  right : 2%;
-}
+  #saveButton
+  {
+    right : 2%;
+  }
 
-#author
-{
-  align-self:center;
-  font-size: 50%;
-  font-style: italic;
-  color: rgb(100,100,100);
-}
+/* text at page bottom */
+  #author
+  {
+    align-self:center;
+    font-size: 50%;
+    font-style: italic;
+    color: rgb(100,100,100);
+  }
