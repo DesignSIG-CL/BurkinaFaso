@@ -17,25 +17,26 @@
   <body> <!-- onload="size()" onresize="size()"> -->
 
 <!-- map + legend -->
-    <div id='content'>
       <div id='OurMap' class='map'>
       </div>
-      
-<!-- legend -->
-      <div id='OurLegend' class='Windows'>
-    <!-- title -->    
-        <div id='OurLegendTitle' class='WindowsTitle'>
-          Légende
+  
+<!-- lateral panel -->
+  <div id='LateralPanel'>    
+  <!-- legend -->
+        <div id='OurLegend' class='Windows'>
+      <!-- title -->    
+          <div class='WindowsTitle'>
+            Légende
+          </div>
+      <!-- legend content -->    
+          <div class='WindowsContent'>
+            <form>
+              <input type="checkbox" id="roadlinesCheck" onclick="setVisibleLayers()" checked> Axes routiers <br>
+              <input type="checkbox" id="regionsCheck" onclick="setVisibleLayers()" checked> Limites communales<br>
+              <input type="checkbox" id="interactionsCheck" onclick="setVisibleLayers()" checked> Dessin (HORS SERVICE)<br>
+            </form>
+          </div>
         </div>
-    <!-- legend content -->    
-        <div id='OurLegendContent' class='WindowsContent'>
-          <form>
-            <input type="checkbox" id="roadlinesCheck" onclick="setVisibleLayers()" checked> Axes routiers <br>
-            <input type="checkbox" id="regionsCheck" onclick="setVisibleLayers()" checked> Limites communales<br>
-            <input type="checkbox" id="interactionsCheck" onclick="setVisibleLayers()" checked> Dessin (HORS SERVICE)<br>
-          </form>
-        </div>
-      </div>
 
 <!-- display legend or not -->
       <div id='OurButtonLegend' class = 'OurButton' onclick="menu()">
@@ -47,8 +48,8 @@
       </div>
 
 <!-- attribute table -->
-      <div id='OurInteraction' class='Windows'>
-        <div id='BridgeInfosTitle' class='WindowsTitle'>
+    <div id='OurInteraction' class='Windows'>
+        <div class='WindowsTitle'>
           Nouveau Pont
         </div>
         <div id='form' class='WindowsContent'>
@@ -88,19 +89,19 @@
           <div class="container">
             <label>Photo</label>label>
             <div style="min-height: 200px; border: solid 1px lightgrey"
-            <img src="" width=280px>
+              <img src="" width=280px>
             </div>
             <input type="file"></input>
           </div>
-        </div>
            
           <p>Coordonnées</p>
           <div id='OurInput'>
             <!-- dynamic content -->
           </div>
-        </div>
+
         <button type="button" id="saveButton" onclick="saveAndCloseInterraction()">Save</button>
         <button type="button" id="cancelButton" onclick="cancelAndCloseInterraction()">Cancel</button>
+        </div>
       </div>
       <div id='EditorOption'>
         <div class='WindowsTitle'>
@@ -134,7 +135,7 @@
 
 <!-- pied de page -->
     <div id="footer">
-      <div id="author"> B. CORDAY & R. LUGRIN - Design de SIG - V 37'647 </div>
+      <div id="author"> B. CORDAY & R. LUGRIN - Design de SIG - V 37'649 </div>
 
     </div>
   </body>

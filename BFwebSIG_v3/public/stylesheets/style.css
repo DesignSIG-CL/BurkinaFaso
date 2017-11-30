@@ -10,64 +10,24 @@ Par Benoît CORDAY et René LUGRIN
   font-family: "Verdana";
 }
 
-h1
-{
-  color: rgb(0,0,0);
-  text-align: center;
-  vertical-align:middle;
-  font-weight: bold;
-  font-size: 250%;
-}
-
-a
-{
-  color: rgb(0,100,100);
-  background-color: yellow;
-}
-
-/*a:hover
-{
-  color: yellow;
-  background-color: rgb(0,100,100);
-}/*
-/* fond de page gris
-body
-{
-  background-color: rgb(186,186,186);
-  height: 100%;
-  width: 100%;
-}
-*/
-/* remplacé par */
-body
-{
-  height: 100%;
-  width: 100%;
-  margin: 0px;
-  background-color: rgb(200,200,200); /* Le fond de la page sera gris */
-  display: -webkit-flex;
-  display:flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 0px;
-}
-
 /* header and footer*/
   #header
   {
     top: 0px;
     left: 0px;
+    height: 2.5em;
+
   }
   #footer
   {
     bottom: 0px;
     left: 0px;
+    height: 1.5em;
   }
   #header, #footer
   {
     position: absolute;
     align-self:center;
-    /*height:2.5em;*/
     width:100%;
     background-color: rgba(255,255,255,0.85);
     /*border-radius: 0px;*/
@@ -96,24 +56,25 @@ body
 
 
 /*  */
-  #content
+/*semble inutile  #content
   {
     align-self:center;
     /*border-radius: px;*/
     /*box-shadow: 0px 2px 2px rgb(0,50,50);*/
-    position: fixed;
+/*    position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
     overflow: hidden;
-    /*height:25em;*/
-    background-color: rgb(230,230,230);
+*/    /*height:25em;*/
+/*    background-color: rgb(230,230,230);
     margin: 0px;
     padding:0px;
     display: inline-flex;
     justify-content: space-between;
   }
+*/
 /* map container*/
   #OurMap
   {
@@ -123,29 +84,39 @@ body
     bottom: 0;
     right: 0;
     background-color: rgb(0,100,100);
-    margin: 0;
-    /*padding: 0px;*/
   }
 
 /* Global pannel including legend and attribute table */
-  .Windows
+  #LateralPanel
   {
-    height: 20em;
-    width: 16em;
-    position: absolute;
-    left: 5px;
-    background-color: rgba(255,255,255,0.4);
-    box-shadow: 2px 2px 2px rgb(0,0,0);
+  	background-color: rgb(0,100,100);
+	width: 16em;
+	position: absolute;
+	left: 0px;
+	top: 2.5em;
+	bottom: 1.5em;
+	background-color: rgba(255,255,255,0.4);
+	box-shadow: 2px 2px 2px rgb(0,0,0);
+	padding: 3px;
   }
 
-#OurLegend
+/* Elements inside the pannel */
+  
+  .Windows
+  {
+    position: relative;
+    background-color: rgba(255,255,255,0.6);
+    box-shadow: 2px 2px 2px rgb(0,0,0);
+    padding: 6px;
+  }
+
+/*#OurLegend
 {
   top: 10.5em;
-}
+}*/
 
 #OurInteraction
 {
-  top: 31em;
   visibility: hidden;
   word-wrap: break-word;
 }
@@ -163,41 +134,34 @@ body
     z-index: 10000;
   }
 
-/* for what? */
+ 
   .WindowsTitle
   {
     background-color: rgb(0,100,100);
-    height: 12%;
-    width: 96%;
+    height: 1.4em;
     font-size: 2em;
     text-align: center;
     color: rgb(255,255,255);
-    position: absolute;
-    top: 2%;
-    left: 2%;
+    position: relative;
+    top: 0px;
     box-shadow: 2px 2px 2px rgb(0,0,0);
   }
-
-  #OurLegendTitle{}
-  #BridgeInfosTitle{}
 
 /* legend and attribute table */
   .WindowsContent
   {
     background-color: rgba(255,255,255,0.8);
     height: 82%;
-    width: 96%;
     font-size: 1em;
     color: rgb(0,0,0);
-    position: absolute;
-    top: 15%;
-    left: 2%;
+    position: relative;
+    top: 0px;
     box-shadow: 2px 2px 2px rgb(0,0,0);
   }
 
 #OurLegendContent
 {
-  height: 82%;
+  /*height: 82%;*/
 }
 
 #BridgeInfosContent
