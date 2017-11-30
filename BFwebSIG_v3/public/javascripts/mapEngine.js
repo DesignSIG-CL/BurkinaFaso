@@ -6,7 +6,7 @@ var roadlinesStyle = new ol.style.Style({
 });
 
 var regionsStyle = new ol.style.Style({
-      fill: new ol.style.Fill({ color: 'rgba(100, 0, 0, 0.2)', width: 4 }),
+      fill: new ol.style.Fill({ color: 'rgba(100, 0, 0, 0.0)', width: 4 }),
       stroke: new ol.style.Stroke({ color: 'rgba(100,0,0,1)', width: 1 })
 });
 var map;
@@ -43,7 +43,7 @@ document.getElementById("delButton").onclick = setMode;
 vectorlayerregion = new ol.layer.Vector({
     style: regionsStyle,
     source: new ol.source.Vector({
-      url: '/images/geoData/limiteadminpolygon.geojson',
+      url: '/data/limiteadminpolygon',
       format: new ol.format.GeoJSON(),
     })
   });
@@ -51,7 +51,7 @@ vectorlayerregion = new ol.layer.Vector({
 vectorlayerroad = new ol.layer.Vector({
     style: roadlinesStyle,
     source: new ol.source.Vector({
-      url: '/images/geoData/roadlines.geojson',
+      url: '/data/roadlines',
       format: new ol.format.GeoJSON()
     })
   });

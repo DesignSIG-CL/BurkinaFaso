@@ -1,0 +1,19 @@
+﻿Démarrer la base de données :
+ --> Nouveau terminal : mongod
+
+Ouvrir le shell :
+ --> Nouveau termial : mongo
+
+Ajouter une couche dans une collection
+ --> Nouveau terminal : mongoimport --db test --collection abc --file cheminjusquaABC.json
+
+Ajouter une collection
+ --> Dans le shell : db.createCollection("NOM DE LA COLLECTION")
+
+Trouver un élément dans une collection
+ --> Dans le shell : db.staticlayercollection.find({"name":"roadlines"})
+
+Quitter le shell mongo
+ --> quit()
+
+
