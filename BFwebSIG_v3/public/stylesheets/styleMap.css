@@ -92,6 +92,8 @@ body
   background-color: rgba(255,255,255,0.4);
   box-shadow: 2px 2px 2px rgb(0,0,0);
   padding: 3px;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 /* Elements inside the pannel */
@@ -133,9 +135,9 @@ body
 {
   background-color: rgba(255,255,255,0.4);
   position: absolute;
-  top: 3.3em;
-  left: 7em;
-  height: 6.7em;
+  top: 6em;
+  left: 17em;
+  height: 9em;
   width: 9em;
   visibility: hidden;
   box-shadow: 2px 2px 2px rgb(0,0,0);
@@ -160,7 +162,7 @@ body
   height: 1.5em;
   width: 1.5em;
   position: absolute;
-  top: 8.5em;
+  top: 3.5em;
   background-color: rgb(230,230,230);
   box-shadow: 2px 2px 2px rgb(0,0,0);
   border-radius: 0px;
@@ -168,12 +170,12 @@ body
 
 #OurButtonLegend
 {
-  left: 1.2em;
+  left: 17em;
 }
 
 #OurButtonEdit
 {
-  left: 2.8em;
+  left: 19em;
 }
 
 .ButtonImg

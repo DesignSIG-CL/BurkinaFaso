@@ -38,15 +38,6 @@
           </div>
         </div>
 
-<!-- display legend or not -->
-      <div id='OurButtonLegend' class = 'OurButton' onclick="menu()">
-        <img src="images/menu.png" alt="Menu" class='ButtonImg'>
-      </div>
-
-      <div id='OurButtonEdit' class = 'OurButton' onclick="edit()">
-        <img src="images/pen.png" alt="Edit" class='ButtonImg'>
-      </div>
-
 <!-- attribute table -->
     <div id='OurInteraction' class='Windows'>
         <div class='WindowsTitle'>
@@ -103,27 +94,40 @@
         <button type="button" id="cancelButton" onclick="cancelAndCloseInterraction()">Cancel</button>
         </div>
       </div>
-      <div id='EditorOption'>
-        <div class='WindowsTitle'>
-        </div>
-        <form id="options-form" automplete="off" class='WindowsContent'>
-          <div id="OurNewModifyOption">
-            <!-- The actions button below are defined in the js. -->
-            <button type="button" id="addButton">Ajouter</button>
-            <button type="button" id="modButton">Modifier</button>
-            <button type="button" id="delButton">Supprimer</button>
-          </div>
-          <div id="OurSelector" class="form-group">
-            <label>Type d'ouvrage &nbsp;</label>
-            <select name="draw-type" id="draw-type">
-              <option value="Point">Ponctuel</option>
-              <option value="LineString">Linéaire</option>
-              <option value="Polygon">Polygone</option>
-              <option value="Circle">Cercle</option>
-            </select>
-          </div>
-        </form>
+
+    </div>
+
+<!-- display legend or not -->
+    <div id='OurButtonLegend' class = 'OurButton' onclick="menu()">
+        <img src="images/menu.png" alt="Menu" class='ButtonImg'>
+    </div>
+
+    <div id='OurButtonEdit' class = 'OurButton' onclick="edit()">
+        <img src="images/pen.png" alt="Edit" class='ButtonImg'>
+    </div>
+
+<!-- option to edit the map -->
+    <div id='EditorOption'>
+      <div class='WindowsTitle'>
+        Éditer la carte
       </div>
+      <form id="options-form" automplete="off" class='WindowsContent'>
+        <div id="OurNewModifyOption">
+          <!-- The actions button below are defined in the js. -->
+          <button type="button" id="addButton">Ajouter</button>
+          <button type="button" id="modButton">Modifier</button>
+          <button type="button" id="delButton">Supprimer</button>
+        </div>
+        <div id="OurSelector" class="form-group">
+          <label>Type d'ouvrage &nbsp;</label>
+          <select name="draw-type" id="draw-type">
+            <option value="Point">Ponctuel</option>
+            <option value="LineString">Linéaire</option>
+            <option value="Polygon">Polygone</option>
+            <option value="Circle">Cercle</option>
+          </select>
+        </div>
+      </form>
     </div>
 
 <!-- logo, titre, image -->
