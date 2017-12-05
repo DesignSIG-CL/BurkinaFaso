@@ -40,10 +40,14 @@ map.addLayer(vectorlayerroad);
 map.addLayer(vectorlayerregion);
 map.addLayer(vectorlayerobservation);
 
+// Button for the edition mode
 document.getElementById("addButton").onclick = setMode;
 document.getElementById("modButton").onclick = setMode;
 document.getElementById("delButton").onclick = setMode;
 
+// Button to save the formular
+document.getElementById("saveButton").onclick = cancelFormular;
+document.getElementById("cancelButton").onclick = function(){saveFormular(onsaved)};
 }
 
 vectorlayerregion = new ol.layer.Vector({
@@ -149,13 +153,13 @@ function RoadAdded(evt) {
   var tFeature ={
     'type': 'Feature',
     'properties': {
-      'IDinput': '0',
-      'ntra':'0',
-      'port':'0',
-      'ltot':'0',
-      'luti':'0',
-      'haut':'0',
-      'gaba':'0',
+      'IDobjet': '0',
+      'ntravee':'0',
+      'portee':'0',
+      'ltotale':'0',
+      'lutile':'0',
+      'hauteur':'0',
+      'gabarit':'0',
       'img':'',
     },
     'geometry': {
@@ -170,35 +174,69 @@ function RoadAdded(evt) {
   // Setting the visibility of the formular to visible on the webpage
   document.getElementById("OurInteraction").style.visibility="visible";
   // Setting the value of the element in formular to the default values
-  document.getElementById('IDinput').value = tFeature.properties.IDinput;
-  // CONTINUER ICI !
-  document.getElementById('').value = tFeature.properties.;
+  document.getElementById('IDinput').value = tFeature.properties.IDobjet;
+  document.getElementById('ntra').value = tFeature.properties.ntravee;
+  document.getElementById('port').value = tFeature.properties.portee;
+  document.getElementById('ltot').value = tFeature.properties.ltotale;
+  document.getElementById('luti').value = tFeature.properties.lutile;
+  document.getElementById('haut').value = tFeature.properties.hauteur;
+  document.getElementById('gaba').value = tFeature.properties.gabarit;
+  // ADDING HERE SOME ELEMENTS WITH GEOMETRY if user does upgrade it
 };
 
+// Action executed when the button save is pressed
+function saveFormular(callback){
+  saveData(callback);
+};
+
+// Action exectuted when the button cancel is pressed
+function cancelFormular(){
+  onsaved(null,'Annulation');
+};
+
+// Action executed to save the data
+function saveData(callback){
+  var request = windows.superagent;
+  var observation = {'IDobjet': document.getElementById('IDinput').value,
+  'ntravee': document.getElementById('ntra').value,
+  'portee': document.getElementById('port').value,
+  'ltotale': document.getElementById('ltot').value,
+  'lutile': document.getElementById('luti').value,
+  'hauteur': document.getElementById('haut').value,
+  'gabarit': document.getElementById('gaba').value,
+  'img':null,
+  // The geometry has to be updated if the user can change the coordinate in the formular.
+  //'geometry': {
+  //  'type': 'LineString',
+  //  'coordinates': evt.feature.getGeometry().getCoordinates()
+  //  }
+  };
+  if(mode =='add'){
+    request
+      .post('/form')
+      .send(observation)
+      .end(function(err,res){
+        if(err){
+          return callback(null, 'Erreur de connexion au serveur, ' + err.message);
+        }
+        if(res.statut !== 200){
+          return callback(null, res.text);
+        }
+        var jsonResp = JSON.parse(res.text);
+        callback(jsonResp);
+      });
+  }
+};
+
+// Action exetuted when the data are saved in the MongoDB or cancelled
+function onsaved(org,msg){
+
+};
 
 // Setting the visible layers
-
 function setVisibleLayers(){
   vectorlayerroad.setVisible(document.getElementById("roadlinesCheck").checked);
   vectorlayerregion.setVisible(document.getElementById("regionsCheck").checked);
   RoadLayer.setVisible(document.getElementById("interactionsCheck").checked); // Doesn't work
   console.log('Changing the layers visibility.');
-}
-
-function cancelAndCloseInterraction(){
-  document.getElementById("OurInteraction").style.visibility="hidden";
-  document.getElementById("BridgeInput").reset();
-}
-
-function saveAndCloseInterraction(){
-  document.getElementById("OurInteraction").style.visibility="hidden";
-  var x = document.getElementById("BridgeInput");
-  var text = "";
-  var i;
-  for (i = 0; i < x.length ;i++) {
-      text += x.elements[i].value + "<br>";
-  }
-  alert("Les données que vous avez saisies ne sont pas enregistrées pour le moment ! Elles sont dans la console (F12).");
-  console.log(text);
-  x.reset();
 }
