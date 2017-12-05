@@ -46,14 +46,14 @@ document.getElementById("modButton").onclick = setMode;
 document.getElementById("delButton").onclick = setMode;
 
 // Button to save the formular
-document.getElementById("saveButton").onclick = cancelFormular;
-document.getElementById("cancelButton").onclick = function(){saveFormular(onsaved)};
+document.getElementById("saveButton").onclick = function(){saveFormular(onsaved)};
+document.getElementById("cancelButton").onclick = cancelFormular;
 }
 
 vectorlayerregion = new ol.layer.Vector({
     style: regionsStyle,
     source: new ol.source.Vector({
-      url: '/data/limiteadminpolygon',
+      url: '/data/r/limiteadminpolygon',
       format: new ol.format.GeoJSON(),
     })
   });
@@ -61,7 +61,7 @@ vectorlayerregion = new ol.layer.Vector({
 vectorlayerroad = new ol.layer.Vector({
     style: roadlinesStyle,
     source: new ol.source.Vector({
-      url: '/data/roadlines',
+      url: '/data/r/roadlines',
       format: new ol.format.GeoJSON()
     })
   });
@@ -145,7 +145,6 @@ function setMode() {
   }
 };
 
-
 // Adding an event at the end of the draw.
 function RoadAdded(evt) {
   console.log('And a new draw appears');
@@ -171,8 +170,6 @@ function RoadAdded(evt) {
   var reader = new ol.format.GeoJSON();
   tempFeature = reader.readFeature(tFeature);
   vectorlayerobservation.getSource().addFeature(tempFeature);
-  // Setting the visibility of the formular to visible on the webpage
-  document.getElementById("OurInteraction").style.visibility="visible";
   // Setting the value of the element in formular to the default values
   document.getElementById('IDinput').value = tFeature.properties.IDobjet;
   document.getElementById('ntra').value = tFeature.properties.ntravee;
@@ -181,7 +178,10 @@ function RoadAdded(evt) {
   document.getElementById('luti').value = tFeature.properties.lutile;
   document.getElementById('haut').value = tFeature.properties.hauteur;
   document.getElementById('gaba').value = tFeature.properties.gabarit;
+  document.getElementById('coord').value = tFeature.geometry.coordinates;
   // ADDING HERE SOME ELEMENTS WITH GEOMETRY if user does upgrade it
+  // Setting the visibility of the formular to visible on the webpage
+  document.getElementById("OurInteraction").style.visibility="visible";
 };
 
 // Action executed when the button save is pressed
@@ -196,7 +196,9 @@ function cancelFormular(){
 
 // Action executed to save the data
 function saveData(callback){
-  var request = windows.superagent;
+  console.log('Saving the data')
+  var request = window.superagent;
+
   var observation = {'IDobjet': document.getElementById('IDinput').value,
   'ntravee': document.getElementById('ntra').value,
   'portee': document.getElementById('port').value,
@@ -205,15 +207,15 @@ function saveData(callback){
   'hauteur': document.getElementById('haut').value,
   'gabarit': document.getElementById('gaba').value,
   'img':null,
-  // The geometry has to be updated if the user can change the coordinate in the formular.
-  //'geometry': {
-  //  'type': 'LineString',
-  //  'coordinates': evt.feature.getGeometry().getCoordinates()
-  //  }
+
+  'geometry': {
+    'type': 'LineString',
+    'coordinates': document.getElementById('coord').value,
+    }
   };
   if(mode =='add'){
     request
-      .post('/form')
+      .post('/data/f')
       .send(observation)
       .end(function(err,res){
         if(err){
