@@ -9,6 +9,11 @@ var regionsStyle = new ol.style.Style({
       fill: new ol.style.Fill({ color: 'rgba(100, 0, 0, 0.0)', width: 4 }),
       stroke: new ol.style.Stroke({ color: 'rgba(100,0,0,1)', width: 1 })
 });
+
+var observationsStyle = new ol.style.Style({
+    stroke: new ol.style.Stroke({ color: 'rgba(100,100,0,1)', width: 3.0 })
+});
+
 var map;
 var vectorlayerroad = new ol.layer.Vector();
 var vectorlayerregion = new ol.layer.Vector();
@@ -33,6 +38,7 @@ map = new ol.Map({
 });
 map.addLayer(vectorlayerroad);
 map.addLayer(vectorlayerregion);
+map.addLayer(vectorlayerobservation);
 
 document.getElementById("addButton").onclick = setMode;
 document.getElementById("modButton").onclick = setMode;
@@ -56,12 +62,19 @@ vectorlayerroad = new ol.layer.Vector({
     })
   });
 
+vectorlayerobservation = new ol.layer.Vector({
+    style: observationsStyle,
+    source: new ol.source.Vector({
+      format: new ol.format.GeoJSON(),
+      projection: 'EPSG 4326'
+    })
+  });
+
 var RoadStyle = new ol.style.Style({
   stroke: new ol.style.Stroke({ color: 'rgba(50,100,0,1)', width:1.5})
 });
 
 var RoadSource = new ol.source.Vector();
-
 var RoadLayer = new ol.layer.Vector({
   style: RoadStyle,
   source: RoadSource
@@ -129,15 +142,38 @@ function setMode() {
 };
 
 
-        // Adding an event at the end of the draw.
-        function RoadAdded(evt) {
-          console.log('And a new draw appears');
-          //in evt you will get ol.feature
-          // from ol.feature get the geometry and than get coordinates
-          var coord = evt.feature.getGeometry().getCoordinates();
-          document.getElementById("OurInteraction").style.visibility="visible";
-          document.getElementById("OurInput").innerHTML = coord.toString() ;
-        };
+// Adding an event at the end of the draw.
+function RoadAdded(evt) {
+  console.log('And a new draw appears');
+  // Creating a temporary feature with a Json structure
+  var tFeature ={
+    'type': 'Feature',
+    'properties': {
+      'IDinput': '0',
+      'ntra':'0',
+      'port':'0',
+      'ltot':'0',
+      'luti':'0',
+      'haut':'0',
+      'gaba':'0',
+      'img':'',
+    },
+    'geometry': {
+      'type': 'LineString',
+      'coordinates': evt.feature.getGeometry().getCoordinates()
+    }
+  };
+  // Putting the temporary feature in a geoJSON object
+  var reader = new ol.format.GeoJSON();
+  tempFeature = reader.readFeature(tFeature);
+  vectorlayerobservation.getSource().addFeature(tempFeature);
+  // Setting the visibility of the formular to visible on the webpage
+  document.getElementById("OurInteraction").style.visibility="visible";
+  // Setting the value of the element in formular to the default values
+  document.getElementById('IDinput').value = tFeature.properties.IDinput;
+  // CONTINUER ICI !
+  document.getElementById('').value = tFeature.properties.;
+};
 
 
 // Setting the visible layers
