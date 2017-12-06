@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 // Mongoose connection to MongoDB
-mongoose.connect('mongodb://localhost:27017/test', {
+mongoose.connect('mongodb://localhost:27017/burkina', {
   useMongoClient : true,
   promiseLibrary: require('bluebird'),
 },
@@ -40,7 +40,7 @@ var obs = new Schema({
 var observation = mongoose.model('observation',obs,'observations')
 
 /*GET GeoJSON data. */
-router.get('/r/:name', function(req, res){
+router.get('/static/:name', function(req, res){
   console.log('Data requested in database MongoDB...')
   if(req.params.name){
     Json.findOne({name: req.params.name},{}, function(err,docs){
@@ -50,7 +50,7 @@ router.get('/r/:name', function(req, res){
 });
 
 /* POST formular data*/
-router.post('/f', function(req,res){
+router.post('/form', function(req,res){
   console.log(req.body);
   var newObs = new observation(req.body);
   newObs.save(function(err,newobj){

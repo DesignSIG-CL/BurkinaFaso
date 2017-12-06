@@ -53,7 +53,7 @@ document.getElementById("cancelButton").onclick = cancelFormular;
 vectorlayerregion = new ol.layer.Vector({
     style: regionsStyle,
     source: new ol.source.Vector({
-      url: '/data/r/limiteadminpolygon',
+      url: '/data/static/limiteadminpolygon',
       format: new ol.format.GeoJSON(),
     })
   });
@@ -61,7 +61,7 @@ vectorlayerregion = new ol.layer.Vector({
 vectorlayerroad = new ol.layer.Vector({
     style: roadlinesStyle,
     source: new ol.source.Vector({
-      url: '/data/r/roadlines',
+      url: '/data/static/roadlines',
       format: new ol.format.GeoJSON()
     })
   });
@@ -215,7 +215,7 @@ function saveData(callback){
   };
   if(mode =='add'){
     request
-      .post('/data/f')
+      .post('/data/form')
       .send(observation)
       .end(function(err,res){
         if(err){

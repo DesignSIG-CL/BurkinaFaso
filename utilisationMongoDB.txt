@@ -1,6 +1,12 @@
 ﻿Démarrer la base de données :
  --> Nouveau terminal : mongod
 
+Exporter une base de données : (directement dans un nouveau terminal et adapter les noms et chemins)
+ --> mongodump --db burkina --out C:/data/backup
+
+Importer une base de données : (directement dans un nouveau terminal et adapter les noms et chemins)
+ --> mongorestore --dir C:/data/backup/burkina --db burkina
+
 Ouvrir le shell :
  --> Nouveau termial : mongo
 
@@ -15,5 +21,13 @@ Trouver un élément dans une collection
 
 Quitter le shell mongo
  --> quit()
+
+Copier une base de données (dans le serveur)
+ --> db.copyDatabase('test','burkina','localhost')
+
+Afficher les bases de données disponibles
+ --> show databases
+
+
 
 
