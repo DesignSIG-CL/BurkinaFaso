@@ -33,6 +33,35 @@ var vectorlayerroad = new ol.layer.Vector();
 var vectorlayerregion = new ol.layer.Vector();
 
 // AJOUTER ICI LA DERNIüRE PAGE
+function loadData(url, layerSrc, callback){
+  var request = window.superagent;
+  request
+    .get(url)
+    .end(function(err, res){
+      if (err) {
+        return callback(null, null, 'Erreur de connexion au serveur, ' + err.message);
+      }
+      if (res.status !== 200){
+        return callback(null, null, res.text);
+      }
+      var olFeatures = [];
+      var data = JSON.parse(res.text);
+      for (i = 0; i < data.length; i++) {
+        var reader = new ol.format.GeoJSON();
+        var olFeature = reader.readFeature(data[i]);
+        olFeature.model = data[i];
+        olFeatures.push(olFeature);
+      }
+      return callback(>layerSrc, olFeatures);
+    });
+}
+
+var addFeaturesToSource = function(layerSrc, features, msg) {
+  if (msg != null)
+    console.log(msg);
+  else
+    layerSrc.addFeatures(features);
+}
 
 function init() {
 // Crée la carte Lat/Lon avec une couche de fond OpenStreetMap
