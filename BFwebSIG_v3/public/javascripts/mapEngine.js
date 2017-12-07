@@ -52,7 +52,7 @@ function loadData(url, layerSrc, callback){
         olFeature.model = data[i];
         olFeatures.push(olFeature);
       }
-      return callback(>layerSrc, olFeatures);
+      return callback(layerSrc, olFeatures);
     });
 }
 
