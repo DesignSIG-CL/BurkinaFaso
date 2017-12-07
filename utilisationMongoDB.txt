@@ -7,14 +7,20 @@ Exporter une base de données : (directement dans un nouveau terminal et adapter
 Importer une base de données : (directement dans un nouveau terminal et adapter les noms et chemins)
  --> mongorestore --dir C:/data/backup/burkina --db burkina
 
-Ouvrir le shell :
- --> Nouveau termial : mongo
-
 Ajouter une couche dans une collection
  --> Nouveau terminal : mongoimport --db test --collection abc --file cheminjusquaABC.json
 
+Ajouter une couche dans une collection (sous forme de tableau d'éléments)
+ --> Nouveau terminal : mongoimport --db test --collection abc --file cheminjusquaABC.json --jsonArray
+
+Ouvrir le shell :
+ --> Nouveau termial : mongo
+
 Ajouter une collection
  --> Dans le shell : db.createCollection("NOM DE LA COLLECTION")
+
+Renommer une collection
+ --> db.routes.renameCollection('routesLL')
 
 Trouver un élément dans une collection
  --> Dans le shell : db.staticlayercollection.find({"name":"roadlines"})

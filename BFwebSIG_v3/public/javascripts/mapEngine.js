@@ -74,8 +74,60 @@ vectorlayerobservation = new ol.layer.Vector({
     })
 });
 
-// Adding observation to the layer vectorlayerobservation
-addObservation();
+// Source for the pimpable data
+var rSrc = new ol.source.Vector({
+  format: new ol.format.GeoJSON(),
+  loader: function(extent, resolution, projection){
+    loadData('/routes', rSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features)})
+  }
+});
+
+var pSrc = new ol.source.Vector({
+  format: new ol.format.GeoJSON(),
+  loader: function(extent, resolution, projection){
+    loadData('/pistes', pSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features)})
+  }
+});
+
+var oSrc = new ol.source.Vector({
+  format: new ol.format.GeoJSON(),
+  loader: function(extent, resolution, projection){
+    loadData('/ouvrages', oSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features)})
+  }
+});
+
+var selectedSrc = oSrc;
+var selectedType = 'Point';
+
+// Layer for the roads pimpable by the user
+var vector = new ol.layer.Vector({
+  source: rSrc,
+  name: 'routes',
+  style: routesStyle,
+  visible: true,
+  projection: 'EPSG:4326'
+});
+layers.push(vector);
+
+// Layer for the tracks pimpable by the user
+var vector = new ol.layer.Vector({
+  source: pSrc,
+  name: 'pistes',
+  style: pistesStyle,
+  visible: true,
+  projection: 'EPSG:4326'
+});
+layers.push(vector);
+
+// Layer for the ouvrages d'art pimpable by the user
+var vector = new ol.layer.Vector({
+  source: oSrc,
+  name: 'ouvrages',
+  style: ouvragesStyle,
+  visible: true,
+  projection: 'EPSG:4326'
+});
+layers.push(vector);
 
 var RoadStyle = new ol.style.Style({
   stroke: new ol.style.Stroke({ color: 'rgba(50,100,0,1)', width:1.5})
