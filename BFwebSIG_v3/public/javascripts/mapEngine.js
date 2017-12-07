@@ -32,7 +32,7 @@ var map;
 var vectorlayerroad = new ol.layer.Vector();
 var vectorlayerregion = new ol.layer.Vector();
 
-
+// AJOUTER ICI LA DERNIüRE PAGE
 
 function init() {
 // Crée la carte Lat/Lon avec une couche de fond OpenStreetMap
