@@ -14,6 +14,20 @@ var observationsStyle = new ol.style.Style({
     stroke: new ol.style.Stroke({ color: 'rgba(100,100,0,1)', width: 3.0 })
 });
 
+// Styles for pimpable data
+var routesStyle = new ol.style.Style({
+    stroke: new ol.style.Stroke({ color: 'rgba(0,100,100,1)', width: 2.0 })
+});
+
+var pistesStyle = new ol.style.Style({
+    stroke: new ol.style.Stroke({ color: 'rgba(0,100,100,1)', width: 2.0 })
+});
+
+// Styles for pimpable data
+var ouvragesStyle = new ol.style.Style({
+    stroke: new ol.style.Stroke({ color: 'rgba(0,100,100,1)', width: 2.0 })
+});
+
 var map;
 var vectorlayerroad = new ol.layer.Vector();
 var vectorlayerregion = new ol.layer.Vector();
