@@ -23,14 +23,13 @@ var pistesStyle = new ol.style.Style({
     stroke: new ol.style.Stroke({ color: 'rgba(0,100,100,1)', width: 2.0 })
 });
 
-// Styles for pimpable data
 var ouvragesStyle = new ol.style.Style({
     stroke: new ol.style.Stroke({ color: 'rgba(0,100,100,1)', width: 2.0 })
 });
 
 var map;
 
-// AJOUTER ICI LA DERNIüRE PAGE
+// Function to load data from the pimpable layers
 function loadData(url, layerSrc, callback){
   var request = window.superagent;
   request
@@ -61,9 +60,9 @@ var addFeaturesToSource = function(layerSrc, features, msg) {
     layerSrc.addFeatures(features);
 };
 
+// This function generate and display the openlayer integration when the webpage is loaded
 function init() {
-// Crée la carte Lat/Lon avec une couche de fond OpenStreetMap
-
+// Creation of a new map with a OSM layer
 map = new ol.Map({
   layers: [
     new ol.layer.Tile({
@@ -76,24 +75,25 @@ map = new ol.Map({
     center: ol.proj.transform([-2, 12.1], 'EPSG:4326', 'EPSG:3857'),
     zoom: 7
   })
-});
-map.addLayer(vectorlayerroad);
-map.addLayer(vectorlayerregion);
-map.addLayer(vectorlayerobservation);
-map.addLayer(vectorRoutes);
-map.addLayer(vectorPistes);
-map.addLayer(vectorOuvrages);
+  });
+  // Adding all the layers to the map we created
+  map.addLayer(vectorlayerroad);
+  map.addLayer(vectorlayerregion);
+  map.addLayer(vectorlayerobservation);
+  map.addLayer(vectorRoutes);
+  map.addLayer(vectorPistes);
+  map.addLayer(vectorOuvrages);
+  // The buttons below don't work out off the init function
+  // Button for the edition mode
+  document.getElementById("addButton").onclick = setMode;
+  document.getElementById("modButton").onclick = setMode;
+  document.getElementById("delButton").onclick = setMode;
+  // Button to save the formular
+  document.getElementById("saveButton").onclick = function(){saveFormular(onsaved)};
+  document.getElementById("cancelButton").onclick = cancelFormular;
+};
 
-// Button for the edition mode
-document.getElementById("addButton").onclick = setMode;
-document.getElementById("modButton").onclick = setMode;
-document.getElementById("delButton").onclick = setMode;
-
-// Button to save the formular
-document.getElementById("saveButton").onclick = function(){saveFormular(onsaved)};
-document.getElementById("cancelButton").onclick = cancelFormular;
-}
-
+// Creating some layers with the "cosmetic" data
 vectorlayerregion = new ol.layer.Vector({
     style: regionsStyle,
     source: new ol.source.Vector({
@@ -110,6 +110,7 @@ vectorlayerroad = new ol.layer.Vector({
     })
   });
 
+// THIS LAYER IS WILL BE USELESS IN A FUTUR VERSION
 vectorlayerobservation = new ol.layer.Vector({
     style: observationsStyle,
     source: new ol.source.Vector({
@@ -122,26 +123,26 @@ vectorlayerobservation = new ol.layer.Vector({
 var rSrc = new ol.source.Vector({
   format: new ol.format.GeoJSON(),
   loader: function(extent, resolution, projection){
-    loadData('/data/routes', rSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features)})
+    loadData('/data/routes', rSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features, msg)})
   }
 });
 
 var pSrc = new ol.source.Vector({
   format: new ol.format.GeoJSON(),
   loader: function(extent, resolution, projection){
-    loadData('/data/pistes', pSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features)})
+    loadData('/data/pistes', pSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features, msg)})
   }
 });
 
 var oSrc = new ol.source.Vector({
   format: new ol.format.GeoJSON(),
   loader: function(extent, resolution, projection){
-    loadData('/data/ouvrages', oSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features)})
+    loadData('/data/ouvrages', oSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features, msg)})
   }
 });
 
 var selectedSrc = oSrc;
-var selectedType = 'Point';
+var selectedType = 'Point'; // We want to edit the ouvrages d'art as point elements
 
 // Layer for the roads pimpable by the user
 var vectorRoutes = new ol.layer.Vector({
@@ -173,24 +174,25 @@ var vectorOuvrages = new ol.layer.Vector({
 });
 //layers.push(vector);
 
+// THIS STYLE WILL BE USELESS IN A FUTUTR VERSION
 var RoadStyle = new ol.style.Style({
   stroke: new ol.style.Stroke({ color: 'rgba(50,100,0,1)', width:1.5})
 });
 
+// ALSO USELESS IN A NEAR FUTUR
 var RoadSource = new ol.source.Vector();
 var RoadLayer = new ol.layer.Vector({
   style: RoadStyle,
   source: RoadSource
 });
-// ajouter les couches Pistes, Ouvrages, Ponts
 
 var mode = "none";
 
 var draw = new ol.interaction.Draw({
-  source: RoadSource,
-  type: "LineString"
+  source: selectedSrc,
+  type: selectedType
   });
-var snap = new ol.interaction.Snap({source: RoadSource});
+var snap = new ol.interaction.Snap({source: RoadSource}); // TO BE UPDATED
 
 //var modifier à ajouter et delete
 
@@ -244,10 +246,10 @@ function setMode() {
   }
 };
 
-// Adding an event at the end of the draw.
+// Adding an event at the end of the draw. // TO BE UPDATED
 function RoadAdded(evt) {
   console.log('And a new draw appears');
-  // Creating a temporary feature with a Json structure
+  // Creating a temporary feature with a Json structure // TO BE UPDATED
   var tFeature ={
     'type': 'Feature',
     'properties': {
@@ -284,17 +286,17 @@ function RoadAdded(evt) {
 };
 
 // Action executed when the button save is pressed
-function saveFormular(callback){
+function saveFormular(callback){ // TO BE CONTINUED
   saveData(callback);
 };
 
 // Action exectuted when the button cancel is pressed
 function cancelFormular(){
-  onsaved(null,'Annulation');
+  onsaved(null,'Annulation'); // TO BE CONTINUED
 };
 
 // Action executed to save the data
-function saveData(callback){
+function saveData(callback){ // TO BE UPDATED
   console.log('Saving the data')
   var request = window.superagent;
 
@@ -312,7 +314,7 @@ function saveData(callback){
     'coordinates': document.getElementById('coord').value,
     }
   };
-  if(mode =='add'){
+  if(mode =='add'){ // TO BE UPDATED
     request
       .post('/data/form')
       .send(observation)
@@ -330,7 +332,7 @@ function saveData(callback){
 };
 
 // Action exetuted when the data are saved in the MongoDB or cancelled
-function onsaved(org,msg){
+function onsaved(org,msg){ // TO BE UPDATED
 
 };
 
@@ -340,10 +342,10 @@ function addObservation(){
   request //CONTINUER ICI
 };*/
 
-// Setting the visible layers
+// Setting the visible layers, this function is for the legend, no link with database or data edition
 function setVisibleLayers(){
   vectorlayerroad.setVisible(document.getElementById("roadlinesCheck").checked);
   vectorlayerregion.setVisible(document.getElementById("regionsCheck").checked);
-  RoadLayer.setVisible(document.getElementById("interactionsCheck").checked); // Doesn't work
+  RoadLayer.setVisible(document.getElementById("interactionsCheck").checked); // TO BE UPDATED
   console.log('Changing the layers visibility.');
 }
