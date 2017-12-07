@@ -49,7 +49,7 @@ var routesSchema = new Schema({
   Classe      : String,
   Type        : String,
   geometry    : {
-    type: String},
+    type: {String},
     coordinates: []
   }
 });
@@ -65,10 +65,8 @@ var ouvragesSchema = new Schema({
     type: {type: String},
     coordinates: []
   }
-})
-
+});
 var ouvrages = mongoose.model('ouvrages', ouvragesSchema, 'ouvrages')
-
 
 /*GET GeoJSON data. */
 router.get('/static/:name', function(req, res){
@@ -91,9 +89,6 @@ router.get('/ouvrages', function(req,res) {
     res.send(docs);
   });
 });
-
-
-
 
 /* POST formular data*/
 router.post('/form', function(req,res){
