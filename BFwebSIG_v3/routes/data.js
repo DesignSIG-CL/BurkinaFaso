@@ -78,7 +78,7 @@ router.get('/static/:name', function(req, res){
   }
 });
 
-router.get('/pistes', function(req,res9) {
+router.get('/pistes', function(req,res) {
   routes.find({}, function(err,docs){
     res.send(docs);
   });

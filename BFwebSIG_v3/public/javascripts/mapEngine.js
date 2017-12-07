@@ -29,8 +29,6 @@ var ouvragesStyle = new ol.style.Style({
 });
 
 var map;
-var vectorlayerroad = new ol.layer.Vector();
-var vectorlayerregion = new ol.layer.Vector();
 
 // AJOUTER ICI LA DERNIüRE PAGE
 function loadData(url, layerSrc, callback){
@@ -54,14 +52,14 @@ function loadData(url, layerSrc, callback){
       }
       return callback(layerSrc, olFeatures);
     });
-}
+};
 
 var addFeaturesToSource = function(layerSrc, features, msg) {
   if (msg != null)
     console.log(msg);
   else
     layerSrc.addFeatures(features);
-}
+};
 
 function init() {
 // Crée la carte Lat/Lon avec une couche de fond OpenStreetMap
@@ -124,21 +122,21 @@ vectorlayerobservation = new ol.layer.Vector({
 var rSrc = new ol.source.Vector({
   format: new ol.format.GeoJSON(),
   loader: function(extent, resolution, projection){
-    loadData('/routes', rSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features)})
+    loadData('/data/routes', rSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features)})
   }
 });
 
 var pSrc = new ol.source.Vector({
   format: new ol.format.GeoJSON(),
   loader: function(extent, resolution, projection){
-    loadData('/pistes', pSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features)})
+    loadData('/data/pistes', pSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features)})
   }
 });
 
 var oSrc = new ol.source.Vector({
   format: new ol.format.GeoJSON(),
   loader: function(extent, resolution, projection){
-    loadData('/ouvrages', oSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features)})
+    loadData('/data/ouvrages', oSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features)})
   }
 });
 
@@ -336,11 +334,11 @@ function onsaved(org,msg){
 
 };
 
-// Adding observations to the layer vectorlayerobservation
+/*// Adding observations to the layer vectorlayerobservation -- PROBABLY USELESS
 function addObservation(){
   var request = window.superagent;
   request //CONTINUER ICI
-};
+};*/
 
 // Setting the visible layers
 function setVisibleLayers(){
