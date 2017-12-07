@@ -22,22 +22,53 @@ var JsonSchema = new Schema({
 });
 var Json = mongoose.model('JString',JsonSchema,'staticlayercollection')
 
-// Schema for the formular
+// Schema for the formular ancien model
 var obs = new Schema({
-  IDobjet: String,
-  ntravee: String,
-  portee: String,
-  ltotale: String,
-  lutile: String,
-  hauteur: String,
-  gabarit: String,
-  img: String,
+  IDobjet : String,
+  ntravee : String,
+  portee  : String,
+  ltotale : String,
+  lutile  : String,
+  hauteur : String,
+  gabarit : String,
+  img     : String,
   geometry: {
     type: {type:String},
     coordinates: []
   }
 });
 var observation = mongoose.model('observation',obs,'observations')
+
+// Schema for roads
+var routesSchema = new Schema({
+  Route       : String,
+  Origine     : String,
+  Fin         : String,
+  Code        : String,
+  Longueur    : String,
+  Classe      : String,
+  Type        : String,
+  geometry    : {
+    type: String},
+    coordinates: []
+  }
+});
+var routes = mongoose.model('routes', routesSchema, 'routesLL');
+
+var ouvragesSchema = new Schema({
+  nom         : String,
+  type        : String,
+  date        : String,
+  commentaire : String,
+  photoid     : String,
+  geometry    : {
+    type: {type: String},
+    coordinates: []
+  }
+})
+
+var ouvrages = mongoose.model('ouvrages', ouvragesSchema, 'ouvrages')
+
 
 /*GET GeoJSON data. */
 router.get('/static/:name', function(req, res){
@@ -48,6 +79,21 @@ router.get('/static/:name', function(req, res){
     });
   }
 });
+
+router.get('/pistes', function(req,res9) {
+  routes.find({}, function(err,docs){
+    res.send(docs);
+  });
+});
+
+router.get('/ouvrages', function(req,res) {
+  pistes.find({}, function(err,docs){
+    res.send(docs);
+  });
+});
+
+
+
 
 /* POST formular data*/
 router.post('/form', function(req,res){
