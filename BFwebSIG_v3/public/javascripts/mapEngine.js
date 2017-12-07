@@ -82,6 +82,9 @@ map = new ol.Map({
 map.addLayer(vectorlayerroad);
 map.addLayer(vectorlayerregion);
 map.addLayer(vectorlayerobservation);
+map.addLayer(vectorRoutes);
+map.addLayer(vectorPistes);
+map.addLayer(vectorOuvrages);
 
 // Button for the edition mode
 document.getElementById("addButton").onclick = setMode;
@@ -143,34 +146,34 @@ var selectedSrc = oSrc;
 var selectedType = 'Point';
 
 // Layer for the roads pimpable by the user
-var vector = new ol.layer.Vector({
+var vectorRoutes = new ol.layer.Vector({
   source: rSrc,
   name: 'routes',
   style: routesStyle,
   visible: true,
   projection: 'EPSG:4326'
 });
-layers.push(vector);
+//layers.push(vector);
 
 // Layer for the tracks pimpable by the user
-var vector = new ol.layer.Vector({
+var vectorPistes = new ol.layer.Vector({
   source: pSrc,
   name: 'pistes',
   style: pistesStyle,
   visible: true,
   projection: 'EPSG:4326'
 });
-layers.push(vector);
+//layers.push(vector);
 
 // Layer for the ouvrages d'art pimpable by the user
-var vector = new ol.layer.Vector({
+var vectorOuvrages = new ol.layer.Vector({
   source: oSrc,
   name: 'ouvrages',
   style: ouvragesStyle,
   visible: true,
   projection: 'EPSG:4326'
 });
-layers.push(vector);
+//layers.push(vector);
 
 var RoadStyle = new ol.style.Style({
   stroke: new ol.style.Stroke({ color: 'rgba(50,100,0,1)', width:1.5})
