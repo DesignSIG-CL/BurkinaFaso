@@ -72,7 +72,10 @@ vectorlayerobservation = new ol.layer.Vector({
       format: new ol.format.GeoJSON(),
       projection: 'EPSG 4326'
     })
-  });
+});
+
+// Adding observation to the layer vectorlayerobservation
+addObservation();
 
 var RoadStyle = new ol.style.Style({
   stroke: new ol.style.Stroke({ color: 'rgba(50,100,0,1)', width:1.5})
@@ -233,6 +236,12 @@ function saveData(callback){
 // Action exetuted when the data are saved in the MongoDB or cancelled
 function onsaved(org,msg){
 
+};
+
+// Adding observations to the layer vectorlayerobservation
+function addObservation(){
+  var request = window.superagent;
+  request //CONTINUER ICI
 };
 
 // Setting the visible layers

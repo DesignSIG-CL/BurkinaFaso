@@ -28,6 +28,9 @@ Copier une base de données (dans le serveur)
 Afficher les bases de données disponibles
  --> show databases
 
+Changer de base de données
+ --> use burkina
+
 
 
 
