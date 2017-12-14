@@ -58,16 +58,17 @@ map = new ol.Map({
   })
   });
   // Adding all the layers to the map we created
+  
+  map.addLayer(vectorlayerpays);
+  map.addLayer(vectorlayerregions);
+  map.addLayer(vectorlayerprovinces);
+  map.addLayer(vectorlayerlocalites);
   map.addLayer(vectorlayerroad);
   map.addLayer(vectorRoutes);
   map.addLayer(vectorPistes);
   map.addLayer(vectorOuvrages);
-  map.addLayer(vectorwaterareas);
-  map.addLayer(vectorwaterlines);
-  map.addLayer(vectorpays);
-  map.addLayer(vectorregions);
-  map.addLayer(vectorprovinces);
-  map.addLayer(vectorlayerlocalites);
+  map.addLayer(vectorlayerwaterareas);
+  map.addLayer(vectorlayerwaterlines);
 
 
   // The buttons below don't work out off the init function
