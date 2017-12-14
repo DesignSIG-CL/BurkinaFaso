@@ -12,7 +12,7 @@ function menu() {
 
     } else {
       // We want to hide the legend
-      document.getElementById("OurLegend").style.visibility="hidden";
+      document.getElementById("OurLegend").style.visibility="collapse";
       document.getElementById("OurButtonLegend").style.backgroundColor="rgb(100,0,0)";
       document.getElementById("OurInteraction").style.top = '10.5em';
       console.log('Hide menu')
@@ -30,7 +30,7 @@ function edit() {
 
     } else {
       // We want to hide the editor options
-      document.getElementById("EditorOption").style.visibility="hidden";
+      document.getElementById("EditorOption").style.visibility="collapse";
       document.getElementById("OurButtonEdit").style.backgroundColor="rgb(100,0,0)";
       console.log('Hide editor')
       etatEditor = 0;

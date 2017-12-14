@@ -63,7 +63,7 @@ map = new ol.Map({
   map.addLayer(vectorRoutes);
   map.addLayer(vectorPistes);
   map.addLayer(vectorOuvrages);
-  
+
   // The buttons below don't work out off the init function
   // Button for the edition mode
   document.getElementById("addButton").onclick = setMode;
@@ -251,7 +251,7 @@ function RoadAdded(evt) {
   // Putting the temporary feature in a geoJSON object
   var reader = new ol.format.GeoJSON();
   tempFeature = reader.readFeature(tFeature);
-  vectorlayerobservation.getSource().addFeature(tempFeature);
+  vectorOuvrages.getSource().addFeature(tempFeature);
   // Setting the value of the element in formular to the default values
   document.getElementById('IDinput').value = tFeature.properties.IDobjet;
   document.getElementById('ntra').value = tFeature.properties.ntravee;

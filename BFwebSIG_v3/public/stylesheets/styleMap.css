@@ -127,7 +127,7 @@ body
 
 #OurInteraction
 {
-  visibility: hidden;
+  visibility: collapse;
   word-wrap: break-word;
 }
 
@@ -139,7 +139,7 @@ body
   left: 17em;
   height: 9em;
   width: 9em;
-  visibility: hidden;
+  visibility: collapse;
   box-shadow: 2px 2px 2px rgb(0,0,0);
   z-index: 10000;
 }
