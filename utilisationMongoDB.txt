@@ -1,6 +1,7 @@
-Démarrer la base de données :
+Démarrer la base de données, dans un terminal particulier, à part!:
  --> Nouveau terminal : mongod
 
+Dans un autre terminal:
 Exporter une base de données : (directement dans un nouveau terminal et adapter les noms et chemins)
  --> mongodump --db burkina --out C:/data/backup
 
