@@ -1,11 +1,12 @@
-﻿Démarrer la base de données :
+Démarrer la base de données :
  --> Nouveau terminal : mongod
 
 Exporter une base de données : (directement dans un nouveau terminal et adapter les noms et chemins)
  --> mongodump --db burkina --out C:/data/backup
 
-Importer une base de données : (directement dans un nouveau terminal et adapter les noms et chemins)
+Importer une base de données : (directement dans un nouveau terminal et adapter les noms et chemins), cela nécessite d'avoir créer le dossier "db" pour réceptionner les données
  --> mongorestore --dir C:/data/backup/burkina --db burkina
+ --> mongorestore --dir data/backup/burkina --db burkina
 
 Ajouter une couche dans une collection
  --> Nouveau terminal : mongoimport --db test --collection abc --file cheminjusquaABC.json
