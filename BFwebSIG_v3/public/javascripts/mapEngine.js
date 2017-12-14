@@ -59,10 +59,27 @@ map = new ol.Map({
   });
   // Adding all the layers to the map we created
   map.addLayer(vectorlayerroad);
-  map.addLayer(vectorlayerregion);
   map.addLayer(vectorRoutes);
   map.addLayer(vectorPistes);
   map.addLayer(vectorOuvrages);
+  map.addLayer(vectorwaterareas);
+  map.addLayer(vectorwaterlines);
+  map.addLayer(vectorpays);
+  map.addLayer(vectorregions);
+  map.addLayer(vectorprovinces);
+  map.addLayer(vectorlayerlocalites);
+
+
+  ajfoijasdéiofjaséofjaéksjdfkaésjdfiékasjdfkéjadskéjhasfjasdfjaséoidfjasdéfjasdhjfasédf
+  ajfoijasdéiofjaséofjaéksjdfkaésjdfiékasjdfkéjadskéjhasfjasdfjaséoidfjasdéfjasdhjfasédf
+  ajfoijasdéiofjaséofjaéksjdfkaésjdfiékasjdfkéjadskéjhasfjasdfjaséoidfjasdéfjasdhjfasédf
+  ajfoijasdéiofjaséofjaéksjdfkaésjdfiékasjdfkéjadskéjhasfjasdfjaséoidfjasdéfjasdhjfasédf
+  ajfoijasdéiofjaséofjaéksjdfkaésjdfiékasjdfkéjadskéjhasfjasdfjaséoidfjasdéfjasdhjfasédf
+  ajfoijasdéiofjaséofjaéksjdfkaésjdfiékasjdfkéjadskéjhasfjasdfjaséoidfjasdéfjasdhjfasédf
+  ajfoijasdéiofjaséofjaéksjdfkaésjdfiékasjdfkéjadskéjhasfjasdfjaséoidfjasdéfjasdhjfasédf
+  ajfoijasdéiofjaséofjaéksjdfkaésjdfiékasjdfkéjadskéjhasfjasdfjaséoidfjasdéfjasdhjfasédf
+  ajfoijasdéiofjaséofjaéksjdfkaésjdfiékasjdfkéjadskéjhasfjasdfjaséoidfjasdéfjasdhjfasédf
+
 
   // The buttons below don't work out off the init function
   // Button for the edition mode
@@ -75,13 +92,6 @@ map = new ol.Map({
 };
 
 // Creating some layers with the "cosmetic" data
-vectorlayerregion = new ol.layer.Vector({
-    style: regionsStyle,
-    source: new ol.source.Vector({
-      url: '/data/static/limiteadminpolygon',
-      format: new ol.format.GeoJSON(),
-    })
-  });
 
 vectorlayerroad = new ol.layer.Vector({
     style: roadlinesStyle,
@@ -90,6 +100,55 @@ vectorlayerroad = new ol.layer.Vector({
       format: new ol.format.GeoJSON()
     })
   });
+
+vectorlayerwaterareas = new ol.layer.Vector({
+    style: waterareasStyle,
+    source: new ol.source.Vector({
+      url: '/data/static/waterareas',
+      format: new ol.format.GeoJSON(),
+    })
+  });
+
+vectorlayerwaterlines = new ol.layer.Vector({
+    style: waterlinesStyle,
+    source: new ol.source.Vector({
+      url: '/data/static/waterlines',
+      format: new ol.format.GeoJSON(),
+    })
+  });
+
+vectorlayerpays = new ol.layer.Vector({
+    style: paysStyle,
+    source: new ol.source.Vector({
+      url: '/data/static/pays',
+      format: new ol.format.GeoJSON(),
+    })
+  });
+
+vectorlayerregions = new ol.layer.Vector({
+    style: regionsStyle,
+    source: new ol.source.Vector({
+      url: '/data/static/regions',
+      format: new ol.format.GeoJSON(),
+    })
+  });
+
+vectorlayerprovinces = new ol.layer.Vector({
+    style: provincesStyle,
+    source: new ol.source.Vector({
+      url: '/data/static/provinces',
+      format: new ol.format.GeoJSON(),
+    })
+  });
+
+vectorlayerlocalites = new ol.layer.Vector({
+    style: localitesStyle,
+    source: new ol.source.Vector({
+      url: '/data/static/limiteadminpolygon',
+      format: new ol.format.GeoJSON(),
+    })
+  });
+
 
 // Source for the pimpable data
 var rSrc = new ol.source.Vector({
@@ -296,7 +355,15 @@ function onsaved(org,msg){ // TO BE UPDATED
 // Setting the visible layers, this function is for the legend, no link with database or data edition
 function setVisibleLayers(){
   vectorlayerroad.setVisible(document.getElementById("roadlinesCheck").checked);
-  vectorlayerregion.setVisible(document.getElementById("regionsCheck").checked);
+  vectorlayerwaterareas.setVisible(document.getElementById("waterareasCheck").checked);
+  vectorlayerwaterlines.setVisible(document.getElementById("waterlinesCheck").checked);
+  vectorlayerpays.setVisible(document.getElementById("paysCheck").checked);
+  vectorlayerregions.setVisible(document.getElementById("regionsCheck").checked);
+  vectorlayerprovinces.setVisible(document.getElementById("provincesCheck").checked);
+  vectorlayerlocalites.setVisible(document.getElementById("localitesCheck").checked);
+
+
+
   //RoadLayer.setVisible(document.getElementById("interactionsCheck").checked); // TO BE UPDATED
   console.log('Changing the layers visibility.');
 }
