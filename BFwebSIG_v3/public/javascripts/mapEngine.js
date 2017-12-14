@@ -91,15 +91,6 @@ vectorlayerroad = new ol.layer.Vector({
     })
   });
 
-/* // THIS LAYER IS WILL BE USELESS IN A FUTUR VERSION
-vectorlayerobservation = new ol.layer.Vector({
-    style: observationsStyle,
-    source: new ol.source.Vector({
-      format: new ol.format.GeoJSON(),
-      projection: 'EPSG 4326'
-    })
-}); */
-
 // Source for the pimpable data
 var rSrc = new ol.source.Vector({
   format: new ol.format.GeoJSON(),
@@ -154,18 +145,6 @@ var vectorOuvrages = new ol.layer.Vector({
   projection: 'EPSG:4326'
 });
 //layers.push(vector);
-
-/* // THIS STYLE WILL BE USELESS IN A FUTUTR VERSION
-var RoadStyle = new ol.style.Style({
-  stroke: new ol.style.Stroke({ color: 'rgba(50,100,0,1)', width:1.5})
-});
-
-// ALSO USELESS IN A NEAR FUTUR
-var RoadSource = new ol.source.Vector();
-var RoadLayer = new ol.layer.Vector({
-  style: RoadStyle,
-  source: RoadSource
-}); */
 
 var mode = "none";
 
@@ -316,12 +295,6 @@ function saveData(callback){ // TO BE UPDATED
 function onsaved(org,msg){ // TO BE UPDATED
 
 };
-
-/*// Adding observations to the layer vectorlayerobservation -- PROBABLY USELESS
-function addObservation(){
-  var request = window.superagent;
-  request //CONTINUER ICI
-};*/
 
 // Setting the visible layers, this function is for the legend, no link with database or data edition
 function setVisibleLayers(){
