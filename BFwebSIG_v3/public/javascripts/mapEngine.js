@@ -206,6 +206,7 @@ function setMode() {
   }
 };
 
+//var coordinatesTemp = '';
 // Adding an event at the end of the draw. // TO BE UPDATED
 function newObjectAdded(evt) {
   console.log('And a new draw appears');
@@ -224,6 +225,7 @@ function newObjectAdded(evt) {
       'coordinates': evt.feature.getGeometry().getCoordinates()
     }
   };
+  //coordinatesTemp = evt.feature.getGeometry().getCoordinates();
   // Putting the temporary feature in a geoJSON object
   var reader = new ol.format.GeoJSON();
   tempFeature = reader.readFeature(tFeature);
@@ -256,6 +258,7 @@ function saveData(callback){ // TO BE UPDATED
   var request = window.superagent;
 
   var newObjectOnTheMap = {
+  'type' : 'Feature', // comme dans les éléments de base
   'properties':{
     'oNom'         : document.getElementById('oNom').value,
     'oType'        : document.getElementById('oType').value,
@@ -265,12 +268,12 @@ function saveData(callback){ // TO BE UPDATED
   },
   'geometry': {
     'type'         : 'LineString',
-    'coordinates'  : document.getElementById('oCoordonnees').value,
+    'coordinates'  : document.getElementById('oCoordonnees').value
     }
   };
   if(mode =='add'){ // TO BE UPDATED
     request
-      .post('/data/ouvrages')
+      .post('/data/oForm')
       .send(newObjectOnTheMap)
       .end(function(err,res){
         if(err){
