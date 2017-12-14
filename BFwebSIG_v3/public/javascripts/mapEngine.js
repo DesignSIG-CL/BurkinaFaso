@@ -70,17 +70,6 @@ map = new ol.Map({
   map.addLayer(vectorlayerlocalites);
 
 
-  ajfoijasdéiofjaséofjaéksjdfkaésjdfiékasjdfkéjadskéjhasfjasdfjaséoidfjasdéfjasdhjfasédf
-  ajfoijasdéiofjaséofjaéksjdfkaésjdfiékasjdfkéjadskéjhasfjasdfjaséoidfjasdéfjasdhjfasédf
-  ajfoijasdéiofjaséofjaéksjdfkaésjdfiékasjdfkéjadskéjhasfjasdfjaséoidfjasdéfjasdhjfasédf
-  ajfoijasdéiofjaséofjaéksjdfkaésjdfiékasjdfkéjadskéjhasfjasdfjaséoidfjasdéfjasdhjfasédf
-  ajfoijasdéiofjaséofjaéksjdfkaésjdfiékasjdfkéjadskéjhasfjasdfjaséoidfjasdéfjasdhjfasédf
-  ajfoijasdéiofjaséofjaéksjdfkaésjdfiékasjdfkéjadskéjhasfjasdfjaséoidfjasdéfjasdhjfasédf
-  ajfoijasdéiofjaséofjaéksjdfkaésjdfiékasjdfkéjadskéjhasfjasdfjaséoidfjasdéfjasdhjfasédf
-  ajfoijasdéiofjaséofjaéksjdfkaésjdfiékasjdfkéjadskéjhasfjasdfjaséoidfjasdéfjasdhjfasédf
-  ajfoijasdéiofjaséofjaéksjdfkaésjdfiékasjdfkéjadskéjhasfjasdfjaséoidfjasdéfjasdhjfasédf
-
-
   // The buttons below don't work out off the init function
   // Button for the edition mode
   document.getElementById("addButton").onclick = setMode;

@@ -7,33 +7,32 @@ var roadlinesStyle = new ol.style.Style({
 });
 
 var waterareasStyle = new ol.style.Style({
-      fill: new ol.style.Fill({ color: 'rgba(0, 0, 255, 0.2)', width: 4 }),
+      fill: new ol.style.Fill({ color: 'rgba(0, 0, 255, 1)', width: 4 }),
       stroke: new ol.style.Stroke({ color: 'rgba(100,0,0,1)', width: 1 })
 });
 
 var waterlinesStyle = new ol.style.Style({
-      fill: new ol.style.Fill({ color: 'rgba(0, 0, 255, 0.2)', width: 4 }),
-      stroke: new ol.style.Stroke({ color: 'rgba(100,0,0,1)', width: 1 })
+      stroke: new ol.style.Stroke({ color: 'rgba(0,0,255,1)', width: 1 })
 });
 
 var paysStyle = new ol.style.Style({
-      fill: new ol.style.Fill({ color: 'rgba(255, 0, 0, 0.2)', width: 4 }),
+      fill: new ol.style.Fill({ color: 'rgba(255, 0, 0, 1)', width: 4 }),
       stroke: new ol.style.Stroke({ color: 'rgba(255,0,0,1)', width: 1 })
 });
 
 var regionsStyle = new ol.style.Style({
-      fill: new ol.style.Fill({ color: 'rgba(200, 50, 50, 0.2)', width: 4 }),
-      stroke: new ol.style.Stroke({ color: 'rgba(100,0,0,1)', width: 1 })
+      fill: new ol.style.Fill({ color: 'rgba(200, 50, 50, 1)', width: 4 }),
+      stroke: new ol.style.Stroke({ color: 'rgba(200,50,50,1)', width: 1 })
 });
 
 var provincesStyle = new ol.style.Style({
-      fill: new ol.style.Fill({ color: 'rgba(150, 100, 100, 0.0)', width: 4 }),
-      stroke: new ol.style.Stroke({ color: 'rgba(100,0,0,1)', width: 1 })
+      fill: new ol.style.Fill({ color: 'rgba(150, 100, 100, 1)', width: 4 }),
+      stroke: new ol.style.Stroke({ color: 'rgba(150,100,100,1)', width: 1 })
 });
 
 var localitesStyle = new ol.style.Style({
       fill: new ol.style.Fill({ color: 'rgba(100, 100, 100, 0.0)', width: 4 }),
-      stroke: new ol.style.Stroke({ color: 'rgba(100,0,0,1)', width: 1 })
+      stroke: new ol.style.Stroke({ color: 'rgba(100,100,100,1)', width: 1 })
 });
 
 
