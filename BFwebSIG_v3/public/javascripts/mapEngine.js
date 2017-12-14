@@ -99,21 +99,21 @@ vectorlayerobservation = new ol.layer.Vector({
 var rSrc = new ol.source.Vector({
   format: new ol.format.GeoJSON(),
   loader: function(extent, resolution, projection){
-    loadData('/data/routes', rSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features, msg)})
+    loadData('/data/routes', rSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features)})
   }
 });
 
 var pSrc = new ol.source.Vector({
   format: new ol.format.GeoJSON(),
   loader: function(extent, resolution, projection){
-    loadData('/data/pistes', pSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features, msg)})
+    loadData('/data/pistes', pSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features)})
   }
 });
 
 var oSrc = new ol.source.Vector({
   format: new ol.format.GeoJSON(),
   loader: function(extent, resolution, projection){
-    loadData('/data/ouvrages', oSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features, msg)})
+    loadData('/data/ouvrages', oSrc, function(layerSrc, features){addFeaturesToSource(layerSrc, features)})
   }
 });
 

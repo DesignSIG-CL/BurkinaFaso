@@ -12,7 +12,11 @@ mongoose.connect('mongodb://localhost:27017/burkina', {
 },
 function(error){
   if(error){console.log('IS THE SERVER RUNNING ?');console.log(error)}
-  if(!error){console.log('Connect to database MongoDB')}
+  if(!error){
+    console.log('Connect to database MongoDB, some usefull info :');
+    console.log('200 = Data are transmitted, no error');
+    console.log('304 = Data already in cache, no error')
+  }
 });
 
 // Mongoose general Schema & model definition: mongoose.model(name, schema, collection)
@@ -21,23 +25,6 @@ var JsonSchema = new Schema({
   type : Schema.Types.Mixed
 });
 var Json = mongoose.model('JString',JsonSchema,'staticlayercollection')
-
-/*// Schema for the formular ancien model
-var obs = new Schema({
-  IDobjet : String,
-  ntravee : String,
-  portee  : String,
-  ltotale : String,
-  lutile  : String,
-  hauteur : String,
-  gabarit : String,
-  img     : String,
-  geometry: {
-    type: {type:String},
-    coordinates: []
-  }
-});
-var observation = mongoose.model('observation',obs,'observations')*/
 
 // Schema for roads
 var routesSchema = new Schema({
@@ -113,19 +100,5 @@ router.get('/ouvrages', function(req,res) {
     res.send(docs);
   });
 });
-
-/* POST formular data
-router.post('/form', function(req,res){
-  console.log(req.body);
-  var newObs = new observation(req.body);
-  newObs.save(function(err,newobj){
-    if(err){
-      res.send(err.message);
-    }
-    else{
-      res.send(newobj);
-    };
-  });
-}); */
 
 module.exports = router;
