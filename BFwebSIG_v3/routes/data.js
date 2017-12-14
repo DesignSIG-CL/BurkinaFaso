@@ -22,7 +22,7 @@ var JsonSchema = new Schema({
 });
 var Json = mongoose.model('JString',JsonSchema,'staticlayercollection')
 
-// Schema for the formular ancien model
+/*// Schema for the formular ancien model
 var obs = new Schema({
   IDobjet : String,
   ntravee : String,
@@ -37,7 +37,7 @@ var obs = new Schema({
     coordinates: []
   }
 });
-var observation = mongoose.model('observation',obs,'observations')
+var observation = mongoose.model('observation',obs,'observations')*/
 
 // Schema for roads
 var routesSchema = new Schema({
@@ -49,11 +49,29 @@ var routesSchema = new Schema({
   Classe      : String,
   Type        : String,
   geometry    : {
-    type: {String},
+    type: { type: String},
     coordinates: []
   }
 });
 var routes = mongoose.model('routes', routesSchema, 'routesLL');
+
+var pistesSchema = new Schema({
+  Piste       : String,
+  Origine     : String,
+  Fin         : String,
+  Longueur    : String,
+  Type        : String,
+  Etat        : String,
+  AnneeCons   : String,
+  BureauEtud  : String,
+  Entreprise  : String,
+  Observation : String,
+  geometry    : {
+    type: {type : String},
+    coordinates : []
+  }
+});
+var pistes = mongoose.model('pistes', pistesSchema, 'pistesLL');
 
 var ouvragesSchema = new Schema({
   nom         : String,
@@ -66,7 +84,7 @@ var ouvragesSchema = new Schema({
     coordinates: []
   }
 });
-var ouvrages = mongoose.model('ouvrages', ouvragesSchema, 'ouvrages')
+var ouvrages = mongoose.model('ouvrages', ouvragesSchema, 'ouvragesLL')
 
 /*GET GeoJSON data. */
 router.get('/static/:name', function(req, res){
@@ -78,19 +96,25 @@ router.get('/static/:name', function(req, res){
   }
 });
 
-router.get('/pistes', function(req,res) {
+router.get('/routes', function(req,res) {
   routes.find({}, function(err,docs){
     res.send(docs);
   });
 });
 
-router.get('/ouvrages', function(req,res) {
+router.get('/pistes', function(req,res) {
   pistes.find({}, function(err,docs){
     res.send(docs);
   });
 });
 
-/* POST formular data*/
+router.get('/ouvrages', function(req,res) {
+  ouvrages.find({}, function(err,docs){
+    res.send(docs);
+  });
+});
+
+/* POST formular data
 router.post('/form', function(req,res){
   console.log(req.body);
   var newObs = new observation(req.body);
@@ -102,6 +126,6 @@ router.post('/form', function(req,res){
       res.send(newobj);
     };
   });
-});
+}); */
 
 module.exports = router;

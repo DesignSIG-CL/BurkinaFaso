@@ -37,6 +37,8 @@ Afficher les bases de données disponibles
 Changer de base de données
  --> use burkina
 
+Afficher les collections de données disponibles
+ --> show collections
 
 
 
