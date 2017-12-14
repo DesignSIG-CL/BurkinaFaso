@@ -14,7 +14,8 @@ function loadData(url, layerSrc, callback){
       if (err) {
         return callback(null, null, 'Erreur de connexion au serveur, ' + err.message);
       }
-      if (res.status !== 200){
+      if (res.status !== 200 /* || res.status !== 304 */){
+        console.log(res.status);
         return callback(null, null, res.text);
       }
       var olFeatures = [];
@@ -30,10 +31,13 @@ function loadData(url, layerSrc, callback){
 };
 
 var addFeaturesToSource = function(layerSrc, features, msg) {
-  if (msg != null)
+  if (msg != null){
     console.log(msg);
-  else
+  }
+  else{
     layerSrc.addFeatures(features);
+    console.log('Adding features to source');
+  }
 };
 
 // This function generate and display the openlayer integration when the webpage is loaded
@@ -55,10 +59,11 @@ map = new ol.Map({
   // Adding all the layers to the map we created
   map.addLayer(vectorlayerroad);
   map.addLayer(vectorlayerregion);
-  map.addLayer(vectorlayerobservation);
+  //map.addLayer(vectorlayerobservation);
   map.addLayer(vectorRoutes);
   map.addLayer(vectorPistes);
   map.addLayer(vectorOuvrages);
+  
   // The buttons below don't work out off the init function
   // Button for the edition mode
   document.getElementById("addButton").onclick = setMode;
@@ -86,14 +91,14 @@ vectorlayerroad = new ol.layer.Vector({
     })
   });
 
-// THIS LAYER IS WILL BE USELESS IN A FUTUR VERSION
+/* // THIS LAYER IS WILL BE USELESS IN A FUTUR VERSION
 vectorlayerobservation = new ol.layer.Vector({
     style: observationsStyle,
     source: new ol.source.Vector({
       format: new ol.format.GeoJSON(),
       projection: 'EPSG 4326'
     })
-});
+}); */
 
 // Source for the pimpable data
 var rSrc = new ol.source.Vector({
@@ -150,7 +155,7 @@ var vectorOuvrages = new ol.layer.Vector({
 });
 //layers.push(vector);
 
-// THIS STYLE WILL BE USELESS IN A FUTUTR VERSION
+/* // THIS STYLE WILL BE USELESS IN A FUTUTR VERSION
 var RoadStyle = new ol.style.Style({
   stroke: new ol.style.Stroke({ color: 'rgba(50,100,0,1)', width:1.5})
 });
@@ -160,7 +165,7 @@ var RoadSource = new ol.source.Vector();
 var RoadLayer = new ol.layer.Vector({
   style: RoadStyle,
   source: RoadSource
-});
+}); */
 
 var mode = "none";
 
@@ -168,7 +173,7 @@ var draw = new ol.interaction.Draw({
   source: selectedSrc,
   type: selectedType
   });
-var snap = new ol.interaction.Snap({source: RoadSource}); // TO BE UPDATED
+var snap = new ol.interaction.Snap({source: selectedSrc}); // TO BE UPDATED
 
 //var modifier à ajouter et delete
 
