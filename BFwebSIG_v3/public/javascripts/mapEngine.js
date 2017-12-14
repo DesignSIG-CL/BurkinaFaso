@@ -1,3 +1,6 @@
+/* B. Corday et R. Lugrin
+    This javascript's file is the main part of the client-side js.*/
+
 console.log('mapEngine is running');
 
 var map;

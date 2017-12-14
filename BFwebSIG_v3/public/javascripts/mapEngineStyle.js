@@ -1,3 +1,6 @@
+/* B. Corday et R. Lugrin
+    This javascript's file generate the style for each layer on the map.*/
+
 // Styles of the GeoJSON static layers
 var roadlinesStyle = new ol.style.Style({
     stroke: new ol.style.Stroke({ color: 'rgba(0,100,100,1)', width: 2.0 })
