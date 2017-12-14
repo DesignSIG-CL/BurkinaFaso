@@ -14,7 +14,7 @@ function loadData(url, layerSrc, callback){
       if (err) {
         return callback(null, null, 'Erreur de connexion au serveur, ' + err.message);
       }
-      if (res.status !== 200 /* || res.status !== 304 */){
+      if (res.status !== 200){
         console.log(res.status);
         return callback(null, null, res.text);
       }
@@ -52,14 +52,14 @@ map = new ol.Map({
   target: 'OurMap',
   renderer: 'canvas',
   view: new ol.View({
-    center: ol.proj.transform([-2, 12.1], 'EPSG:4326', 'EPSG:3857'),
-    zoom: 7
+    center: [-2, 12.1],
+    zoom: 7,
+    projection: 'EPSG:4326',
   })
   });
   // Adding all the layers to the map we created
   map.addLayer(vectorlayerroad);
   map.addLayer(vectorlayerregion);
-  //map.addLayer(vectorlayerobservation);
   map.addLayer(vectorRoutes);
   map.addLayer(vectorPistes);
   map.addLayer(vectorOuvrages);
@@ -113,9 +113,6 @@ var oSrc = new ol.source.Vector({
   }
 });
 
-var selectedSrc = oSrc;
-var selectedType = 'Point'; // We want to edit the ouvrages d'art as point elements
-
 // Layer for the roads pimpable by the user
 var vectorRoutes = new ol.layer.Vector({
   source: rSrc,
@@ -146,13 +143,16 @@ var vectorOuvrages = new ol.layer.Vector({
 });
 //layers.push(vector);
 
+// We select a type of elements to update on the map
+var selectedSrc = oSrc;
+var selectedType = 'Point'; // We want to edit the ouvrages d'art as point elements
 var mode = "none";
 
 var draw = new ol.interaction.Draw({
   source: selectedSrc,
   type: selectedType
   });
-var snap = new ol.interaction.Snap({source: selectedSrc}); // TO BE UPDATED
+var snap = new ol.interaction.Snap({source: selectedSrc});
 
 //var modifier à ajouter et delete
 
@@ -171,7 +171,7 @@ function setMode() {
       console.log('Entering into the add mode');
       mode = "add";
       this.style.color = "green";
-      draw.on('drawend', function(evt) {RoadAdded(evt)} );
+      draw.on('drawend', function(evt) {newObjectAdded(evt)} );
       map.addInteraction(draw);
       map.addInteraction(snap);
     }
@@ -207,20 +207,17 @@ function setMode() {
 };
 
 // Adding an event at the end of the draw. // TO BE UPDATED
-function RoadAdded(evt) {
+function newObjectAdded(evt) {
   console.log('And a new draw appears');
   // Creating a temporary feature with a Json structure // TO BE UPDATED
   var tFeature ={
     'type': 'Feature',
     'properties': {
-      'IDobjet': '0',
-      'ntravee':'0',
-      'portee':'0',
-      'ltotale':'0',
-      'lutile':'0',
-      'hauteur':'0',
-      'gabarit':'0',
-      'img':'',
+      'oNom': '',
+      'oType':'',
+      'oDate':'',
+      'oCommentaire':'',
+      'oPhoto':'',
     },
     'geometry': {
       'type': 'LineString',
@@ -232,14 +229,12 @@ function RoadAdded(evt) {
   tempFeature = reader.readFeature(tFeature);
   vectorOuvrages.getSource().addFeature(tempFeature);
   // Setting the value of the element in formular to the default values
-  document.getElementById('IDinput').value = tFeature.properties.IDobjet;
-  document.getElementById('ntra').value = tFeature.properties.ntravee;
-  document.getElementById('port').value = tFeature.properties.portee;
-  document.getElementById('ltot').value = tFeature.properties.ltotale;
-  document.getElementById('luti').value = tFeature.properties.lutile;
-  document.getElementById('haut').value = tFeature.properties.hauteur;
-  document.getElementById('gaba').value = tFeature.properties.gabarit;
-  document.getElementById('coord').value = tFeature.geometry.coordinates;
+  document.getElementById('oNom').value = tFeature.properties.oNom;
+  document.getElementById('oType').value = tFeature.properties.oType;
+  document.getElementById('oDate').value = tFeature.properties.oDate;
+  document.getElementById('oCommentaire').value = tFeature.properties.oCommentaire;
+  document.getElementById('oCoordonnees').value = tFeature.geometry.coordinates;
+  document.getElementById('oPhoto').value = tFeature.properties.oPhoto;
   // ADDING HERE SOME ELEMENTS WITH GEOMETRY if user does upgrade it
   // Setting the visibility of the formular to visible on the webpage
   document.getElementById("OurInteraction").style.visibility="visible";
@@ -260,24 +255,23 @@ function saveData(callback){ // TO BE UPDATED
   console.log('Saving the data')
   var request = window.superagent;
 
-  var observation = {'IDobjet': document.getElementById('IDinput').value,
-  'ntravee': document.getElementById('ntra').value,
-  'portee': document.getElementById('port').value,
-  'ltotale': document.getElementById('ltot').value,
-  'lutile': document.getElementById('luti').value,
-  'hauteur': document.getElementById('haut').value,
-  'gabarit': document.getElementById('gaba').value,
-  'img':null,
-
+  var newObjectOnTheMap = {
+  'properties':{
+    'oNom'         : document.getElementById('oNom').value,
+    'oType'        : document.getElementById('oType').value,
+    'oDate'        : document.getElementById('oDate').value,
+    'oCommentaire' : document.getElementById('oCommentaire').value,
+    'oPhoto'       : document.getElementById('oPhoto').value,
+  },
   'geometry': {
-    'type': 'LineString',
-    'coordinates': document.getElementById('coord').value,
+    'type'         : 'LineString',
+    'coordinates'  : document.getElementById('oCoordonnees').value,
     }
   };
   if(mode =='add'){ // TO BE UPDATED
     request
-      .post('/data/form')
-      .send(observation)
+      .post('/data/ouvrages')
+      .send(newObjectOnTheMap)
       .end(function(err,res){
         if(err){
           return callback(null, 'Erreur de connexion au serveur, ' + err.message);
@@ -300,6 +294,6 @@ function onsaved(org,msg){ // TO BE UPDATED
 function setVisibleLayers(){
   vectorlayerroad.setVisible(document.getElementById("roadlinesCheck").checked);
   vectorlayerregion.setVisible(document.getElementById("regionsCheck").checked);
-  RoadLayer.setVisible(document.getElementById("interactionsCheck").checked); // TO BE UPDATED
+  //RoadLayer.setVisible(document.getElementById("interactionsCheck").checked); // TO BE UPDATED
   console.log('Changing the layers visibility.');
 }
