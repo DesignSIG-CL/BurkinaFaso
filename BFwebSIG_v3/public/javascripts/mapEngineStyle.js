@@ -21,5 +21,27 @@ var pistesStyle = new ol.style.Style({
 });
 
 var ouvragesStyle = new ol.style.Style({
-    stroke: new ol.style.Stroke({ color: 'rgba(255,0,255,1)', width: 2.0 })
+  image: new ol.style.Circle({
+    radius: 6,
+    stroke: new ol.style.Stroke({
+      color: 'white',
+      width: 2
+    }),
+    fill: new ol.style.Fill({
+      color: 'green'
+    })
+  })
+});
+
+var ouvragesStyleTemp = new ol.style.Style({
+  image: new ol.style.Circle({
+    radius: 6,
+    stroke: new ol.style.Stroke({
+      color: 'white',
+      width: 2
+    }),
+    fill: new ol.style.Fill({
+      color: 'red'
+    })
+  })
 });

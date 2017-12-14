@@ -206,7 +206,7 @@ function setMode() {
   }
 };
 
-//var coordinatesTemp = '';
+var coordinatesTemp = '';
 // Adding an event at the end of the draw. // TO BE UPDATED
 function newObjectAdded(evt) {
   console.log('And a new draw appears');
@@ -221,11 +221,11 @@ function newObjectAdded(evt) {
       'oPhoto':'',
     },
     'geometry': {
-      'type': 'LineString',
-      'coordinates': evt.feature.getGeometry().getCoordinates()
-    }
+      'type': 'Point',
+      'coordinates': [],
+    },
   };
-  //coordinatesTemp = evt.feature.getGeometry().getCoordinates();
+  coordinatesTemp = evt.feature.getGeometry().getCoordinates();
   // Putting the temporary feature in a geoJSON object
   var reader = new ol.format.GeoJSON();
   tempFeature = reader.readFeature(tFeature);
@@ -235,11 +235,11 @@ function newObjectAdded(evt) {
   document.getElementById('oType').value = tFeature.properties.oType;
   document.getElementById('oDate').value = tFeature.properties.oDate;
   document.getElementById('oCommentaire').value = tFeature.properties.oCommentaire;
-  document.getElementById('oCoordonnees').value = tFeature.geometry.coordinates;
   document.getElementById('oPhoto').value = tFeature.properties.oPhoto;
   // ADDING HERE SOME ELEMENTS WITH GEOMETRY if user does upgrade it
   // Setting the visibility of the formular to visible on the webpage
   document.getElementById("OurInteraction").style.visibility="visible";
+
 };
 
 // Action executed when the button save is pressed
@@ -267,9 +267,9 @@ function saveData(callback){ // TO BE UPDATED
     'oPhoto'       : document.getElementById('oPhoto').value,
   },
   'geometry': {
-    'type'         : 'LineString',
-    'coordinates'  : document.getElementById('oCoordonnees').value
-    }
+    'type'         : 'Point',
+    'coordinates'  : coordinatesTemp,
+  },
   };
   if(mode =='add'){ // TO BE UPDATED
     request
