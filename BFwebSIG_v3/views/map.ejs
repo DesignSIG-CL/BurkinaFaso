@@ -16,7 +16,7 @@
     <script src="/javascripts/interfaceEngine.js"></script>
     <script type='text/javascript' src="/javascripts/superagent.js"></script>
   </head>
-  <body> <!-- onload="size()" onresize="size()"> -->
+  <body onload="setVisibleLayers()"> <!-- onload="size()" onresize="size()"> -->
 
 <!-- map + legend -->
       <div id='OurMap' class='map'>
@@ -34,7 +34,7 @@
           <div class='WindowsContent'>
             <form>
               <input type="checkbox" id="roadlinesCheck" onclick="setVisibleLayers()" checked> Axes routiers<br>
-              
+
               <input type="checkbox" id="waterlinesCheck" onclick="setVisibleLayers()" checked> Rivières <br>
               <input type="checkbox" id="waterareasCheck" onclick="setVisibleLayers()" checked> Lacs<br>
               <input type="checkbox" id="localitesCheck" onclick="setVisibleLayers()" checked> Limites communales<br>
