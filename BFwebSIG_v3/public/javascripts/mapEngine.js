@@ -58,7 +58,7 @@ map = new ol.Map({
   })
   });
   // Adding all the layers to the map we created
-  
+
   map.addLayer(vectorlayerpays);
   map.addLayer(vectorlayerregions);
   map.addLayer(vectorlayerprovinces);
@@ -309,11 +309,11 @@ function saveData(callback){ // TO BE UPDATED
   var newObjectOnTheMap = {
   'type' : 'Feature', // comme dans les éléments de base
   'properties':{
-    'oNom'         : document.getElementById('oNom').value,
-    'oType'        : document.getElementById('oType').value,
-    'oDate'        : document.getElementById('oDate').value,
-    'oCommentaire' : document.getElementById('oCommentaire').value,
-    'oPhoto'       : document.getElementById('oPhoto').value,
+    'nom'         : document.getElementById('oNom').value,
+    'type'        : document.getElementById('oType').value,
+    'date'        : document.getElementById('oDate').value,
+    'commentaire' : document.getElementById('oCommentaire').value,
+    'photoid'     : document.getElementById('oPhoto').value,
   },
   'geometry': {
     'type'         : 'Point',
