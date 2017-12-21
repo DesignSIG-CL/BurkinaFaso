@@ -83,15 +83,12 @@ body
 /* Global pannel including legend and attribute table */
 #LateralPanel
 {
-	background-color: rgb(0,100,100);
   width: 16em;
   position: absolute;
   left: 0px;
   top: 2.5em;
   bottom: 1.5em;
-  background-color: rgba(255,255,255,0.4);
-  box-shadow: 2px 2px 2px rgb(0,0,0);
-  padding: 3px;
+  background-color: rgba(0,0,0,0);
   overflow-x: hidden;
   overflow-y: scroll;
 }
@@ -101,7 +98,7 @@ body
 .Windows /* Container for legend, interaction, ... */
 {
   position: relative;
-  background-color: rgba(0,0,255,0.6); /* Just to see the windows during development*/
+  background-color: rgba(255,255,255,0.4); /* Just to see the windows during development*/
   padding: 6px;
 }
 
