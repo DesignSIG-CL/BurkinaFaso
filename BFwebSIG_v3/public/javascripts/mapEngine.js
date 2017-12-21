@@ -359,8 +359,6 @@ function setVisibleLayers(){
   vectorlayerprovinces.setVisible(document.getElementById("provincesCheck").checked);
   vectorlayerlocalites.setVisible(document.getElementById("localitesCheck").checked);
 
-
-
   //RoadLayer.setVisible(document.getElementById("interactionsCheck").checked); // TO BE UPDATED
   console.log('Changing the layers visibility.');
 }
