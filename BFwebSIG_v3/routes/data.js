@@ -61,11 +61,14 @@ var pistesSchema = new Schema({
 var pistes = mongoose.model('pistes', pistesSchema, 'pistesLL');
 
 var ouvragesSchema = new Schema({
-    nom         : String,
-    type        : String,
-    date        : String,
-    commentaire : String,
-    photoid     : String,
+  type : String,
+  properties : {
+    nom         : {type : String},
+    type        : {type : String},
+    date        : {type : String},
+    commentaire : {type : String},
+    photoid     : {type : String},
+  },
   geometry    : {
     type: {type: String},
     coordinates: []
