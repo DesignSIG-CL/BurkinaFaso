@@ -69,8 +69,6 @@ map = new ol.Map({
   map.addLayer(vectorOuvrages);
   map.addLayer(vectorlayerwaterareas);
   map.addLayer(vectorlayerwaterlines);
-  map.addLayer(tempVector);
-
 
   // The buttons below don't work out off the init function
   // Button for the edition mode
@@ -191,14 +189,6 @@ var vectorOuvrages = new ol.layer.Vector({
   visible: true,
   projection: 'EPSG:4326'
 });
-
-var tempSource = new ol.source.Vector({wrapX: false});
-var tempVector = new ol.layer.Vector({
-  source: tempSource,
-  style: oTemporaireStyle,
-  visible: true,
-  projection: 'EPSG:4326'
-});
 //layers.push(vector);
 
 // We select a type of elements to update on the map
@@ -282,7 +272,6 @@ function saveFormular(callback){ // TO BE CONTINUED
 // Action exectuted when the button cancel is pressed
 function cancelFormular(){
   if(mode == 'add'){
-      //tempSource.clear()// make something HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERE
       vectorOuvrages.getSource().removeFeature(featureTemp)
       setMode('addButton');
   }
