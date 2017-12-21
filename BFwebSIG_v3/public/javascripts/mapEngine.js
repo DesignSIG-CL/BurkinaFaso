@@ -263,40 +263,6 @@ function setMode(buttonId) {
 
 var coordinatesTemp = '';
 var tempFeature = '';
-// Adding an event at the end of the draw. // TO BE UPDATED
-function newObjectAdded(evt) {
-  console.log('And a new draw appears');
-  // Temporary saving the coordinates in a variable
-  coordinatesTemp = evt.feature.getGeometry().getCoordinates();
-  // Creating a temporary feature with a Json structure
-  var tFeature ={
-    'type': 'Feature',
-    'properties': {
-      'oNom': '',
-      'oType':'',
-      'oDate':'',
-      'oCommentaire':'',
-      'oPhoto':'',
-    },
-    'geometry': {
-      'type': 'Point',
-      'coordinates': coordinatesTemp,
-    },
-  };
-  //idTemp = evt.feature...
-  // Putting the temporary feature in a geoJSON object
-  var reader = new ol.format.GeoJSON();
-  tempFeature = reader.readFeature(tFeature);
-  vectorOuvrages.getSource().addFeature(tempFeature);
-  // Setting the value of the element in formular to the default values
-  document.getElementById('oNom').value = tFeature.properties.oNom;
-  document.getElementById('oType').value = tFeature.properties.oType;
-  document.getElementById('oDate').value = tFeature.properties.oDate;
-  document.getElementById('oCommentaire').value = tFeature.properties.oCommentaire;
-  document.getElementById('oPhoto').value = tFeature.properties.oPhoto;
-  // Setting the visibility of the formular to visible on the webpage
-  document.getElementById("OurInteraction").style.visibility="visible";
-};
 
 // Action executed when the button save is pressed
 function saveFormular(callback){ // TO BE CONTINUED
@@ -309,6 +275,41 @@ function cancelFormular(){
       vectorOuvrages.getSource().removeFeature(tempFeature);
   }
   onsaved(null,'Annulation');
+};
+
+// Adding an event at the end of the draw. // TO BE UPDATED
+function newObjectAdded(evt) {
+  console.log('And a new draw appears');
+  // Temporary saving the coordinates in a variable
+  coordinatesTemp = evt.feature.getGeometry().getCoordinates();
+  // Creating a temporary feature with a Json structure
+  var tFeature ={
+    'type': 'Feature',
+    'properties': {
+      'nom': '',
+      'type':'',
+      'date':'',
+      'commentaire':'',
+      'photoid':'',
+    },
+    'geometry': {
+      'type': 'Point',
+      'coordinates': coordinatesTemp,
+    },
+  };
+  //idTemp = evt.feature...
+  // Putting the temporary feature in a geoJSON object
+  var reader = new ol.format.GeoJSON();
+  tempFeature = reader.readFeature(tFeature);
+  vectorOuvrages.getSource().addFeature(tempFeature);
+  // Setting the value of the element in formular to the default values
+  document.getElementById('oNom').value = tFeature.properties.nom;
+  document.getElementById('oType').value = tFeature.properties.type;
+  document.getElementById('oDate').value = tFeature.properties.date;
+  document.getElementById('oCommentaire').value = tFeature.properties.commentaire;
+  document.getElementById('oPhoto').value = tFeature.properties.photoid;
+  // Setting the visibility of the formular to visible on the webpage
+  document.getElementById("OurInteraction").style.visibility="visible";
 };
 
 // Action executed to save the data
