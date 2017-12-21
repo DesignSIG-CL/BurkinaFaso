@@ -107,12 +107,12 @@ router.get('/ouvrages', function(req,res) {
 router.post('/oForm', function(req, res){
   console.log(req.body);
   var newObjectOnTheMap = new ouvrages(req.body);
-  newObjectOnTheMap.save(function(err,newObjectOnTheMap){
+  newObjectOnTheMap.save(function(err,savedObjectOnTheMap){
     if(err){
       res.send(err.message);
     }
     else {
-      res.send(newObjectOnTheMap);
+      res.send(savedObjectOnTheMap);
     };
   });
 });

@@ -69,6 +69,7 @@ map = new ol.Map({
   map.addLayer(vectorOuvrages);
   map.addLayer(vectorlayerwaterareas);
   map.addLayer(vectorlayerwaterlines);
+  map.addLayer(tempVector);
 
 
   // The buttons below don't work out off the init function
@@ -190,6 +191,14 @@ var vectorOuvrages = new ol.layer.Vector({
   visible: true,
   projection: 'EPSG:4326'
 });
+
+var tempSource = new ol.source.Vector({wrapX: false});
+var tempVector = new ol.layer.Vector({
+  source: tempSource,
+  style: oTemporaireStyle,
+  visible: true,
+  projection: 'EPSG:4326'
+});
 //layers.push(vector);
 
 // We select a type of elements to update on the map
@@ -261,8 +270,9 @@ function setMode(buttonId) {
   }
 };
 
+// A global variable to store the coordinates temporary
 var coordinatesTemp = '';
-var tempFeature = '';
+var featureTemp = '';
 
 // Action executed when the button save is pressed
 function saveFormular(callback){ // TO BE CONTINUED
@@ -272,42 +282,27 @@ function saveFormular(callback){ // TO BE CONTINUED
 // Action exectuted when the button cancel is pressed
 function cancelFormular(){
   if(mode == 'add'){
-      vectorOuvrages.getSource().removeFeature(tempFeature);
+      //tempSource.clear()// make something HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERE
+      vectorOuvrages.getSource().removeFeature(featureTemp)
+      setMode('addButton');
   }
   onsaved(null,'Annulation');
 };
 
 // Adding an event at the end of the draw. // TO BE UPDATED
 function newObjectAdded(evt) {
-  console.log('And a new draw appears');
+  console.log('Un point a été dessiné.');
+  map.removeInteraction(draw);
+  map.removeInteraction(snap);
   // Temporary saving the coordinates in a variable
   coordinatesTemp = evt.feature.getGeometry().getCoordinates();
-  // Creating a temporary feature with a Json structure
-  var tFeature ={
-    'type': 'Feature',
-    'properties': {
-      'nom': '',
-      'type':'',
-      'date':'',
-      'commentaire':'',
-      'photoid':'',
-    },
-    'geometry': {
-      'type': 'Point',
-      'coordinates': coordinatesTemp,
-    },
-  };
-  //idTemp = evt.feature...
-  // Putting the temporary feature in a geoJSON object
-  var reader = new ol.format.GeoJSON();
-  tempFeature = reader.readFeature(tFeature);
-  vectorOuvrages.getSource().addFeature(tempFeature);
+  featureTemp = evt.feature;
   // Setting the value of the element in formular to the default values
-  document.getElementById('oNom').value = tFeature.properties.nom;
-  document.getElementById('oType').value = tFeature.properties.type;
-  document.getElementById('oDate').value = tFeature.properties.date;
-  document.getElementById('oCommentaire').value = tFeature.properties.commentaire;
-  document.getElementById('oPhoto').value = tFeature.properties.photoid;
+  document.getElementById('oNom').value = '';
+  document.getElementById('oType').value = 'test';
+  document.getElementById('oDate').value = '';
+  document.getElementById('oCommentaire').value = '';
+  document.getElementById('oPhoto').value = '';
   // Setting the visibility of the formular to visible on the webpage
   document.getElementById("OurInteraction").style.visibility="visible";
 };
@@ -329,17 +324,18 @@ function saveData(callback){ // TO BE UPDATED
   'geometry': {
     'type'         : 'Point',
     'coordinates'  : coordinatesTemp,
-  },
+    },
   };
-  if(mode =='add'){ // TO BE UPDATED
+  if(mode =='add'){
     request
       .post('/data/oForm')
       .send(newObjectOnTheMap)
       .end(function(err,res){
+        console.log('Statut de la requête : ' + res.status)
         if(err){
           return callback(null, 'Erreur de connexion au serveur, ' + err.message);
         }
-        if(res.statut !== 200){
+        if(res.status !== 200){
           return callback(null, res.text);
         }
         var jsonResp = JSON.parse(res.text);
@@ -354,11 +350,13 @@ function onsaved(arg,msg){
     console.log(msg);
   }
   else{
-    if(mode = 'add'){
-        // tempFeature._id = arg._id; // A DEBUGGER
+    if(mode == 'add'){
+        setMode('addButton');
+        console.log('Données enregistrées avec succès.');
+        featureTemp.setProperties(arg.properties);
+        featureTemp._id = arg._id;
     }
   }
-  setMode('addButton');
   document.getElementById('OurInteraction').style.visibility = 'collapse';
 };
 
