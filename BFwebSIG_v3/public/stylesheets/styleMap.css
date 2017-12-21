@@ -89,7 +89,7 @@ body
   top: 2.5em;
   bottom: 1.5em;
   background-color: rgba(0,0,0,0);
-  overflow-x: hidden;
+  overflow-x: scroll;
   overflow-y: scroll;
 }
 
@@ -100,6 +100,7 @@ body
   position: relative;
   background-color: rgba(255,255,255,0.4); /* Just to see the windows during development*/
   padding: 6px;
+  position: relative;
 }
 
 .WindowsTitle /* Title for the element in container */
