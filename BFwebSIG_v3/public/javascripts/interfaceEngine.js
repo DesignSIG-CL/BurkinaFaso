@@ -36,3 +36,28 @@ function edit() {
       etatEditor = 0;
     }
 }
+//Bonjour Benoît tu peux déplacer tout cecicela dans mapengine.js
+function onFileSelected(event){
+  var selectedFile = event.target.files[0];
+  var reader = new FileReadElementById("imgElement");
+  imgtag.title= selectedFile.name;
+  reader.onload = function(event){
+    imgtag.src = event.target.result;
+  };
+  reader.readAsDataURL(selectedFile);
+}
+function saveform(callback){
+  var files = document.getElementById("fileinput").files;
+  var request = window.superagent;
+  request
+    .post('/file')
+    .attach('fileToUpload',file,file.name)
+    .end(function(err, res){
+      if (res.status !== 200){
+        return callback(null, res.text);
+      }
+      else {
+        savedata(callback);
+      }
+    }
+}
