@@ -69,6 +69,7 @@ map = new ol.Map({
   map.addLayer(vectorOuvrages);
   map.addLayer(vectorlayerwaterareas);
   map.addLayer(vectorlayerwaterlines);
+  map.addLayer(tempVector);
 
 
   // The buttons below don't work out off the init function
@@ -190,6 +191,14 @@ var vectorOuvrages = new ol.layer.Vector({
   visible: true,
   projection: 'EPSG:4326'
 });
+
+var tempSource = new ol.source.Vector({wrapX: false});
+var tempVector = new ol.layer.Vector({
+  source: tempSource,
+  style: oTemporaireStyle,
+  visible: true,
+  projection: 'EPSG:4326'
+});
 //layers.push(vector);
 
 // We select a type of elements to update on the map
@@ -205,91 +214,65 @@ var snap = new ol.interaction.Snap({source: selectedSrc});
 
 //var modifier à ajouter et delete
 
-function setMode() {
-  console.log(this.id);
+function setMode(buttonId) {
+    if(this.id != null){ //this condition allow to call setMode when we close the form.
+    id = this.id;
+  }
+  else{
+    id = buttonId;
+  };
+  console.log(id)
 
-  if(this.id == "addButton"){
+  if(id == "addButton"){
     if(mode == "add"){
       console.log('Leaving the add mode');
       mode = "none";
-      this.style.color = "black";
+      document.getElementById(id).style.color = "black";
       map.removeInteraction(draw);
       map.removeInteraction(snap);
     }
     else {
       console.log('Entering into the add mode');
       mode = "add";
-      this.style.color = "green";
+      document.getElementById(id).style.color = "green";
       draw.on('drawend', function(evt) {newObjectAdded(evt)} );
       map.addInteraction(draw);
       map.addInteraction(snap);
     }
   }
-  else if(this.id == "modButton") {
+  else if(id == "modButton") {
     if(mode == "mod"){
       console.log('Leaving the modify mode');
       mode = "none";
-      this.style.color = "black";
+      document.getElementById(id).style.color = "black";
       // ...
     }
     else {
       console.log('Entering into the modify mode');
       mode = "mod";
-      this.style.color = "green";
+      document.getElementById(id).style.color = "green";
       // ...
     }
   }
-  else if(this.id == "delButton") {
+  else if(id == "delButton") {
     if(mode == "del"){
       console.log('Leaving the delete mode');
       mode = "none";
-      this.style.color = "black";
+      document.getElementById(id).style.color = "black";
       // ...
     }
     else {
       console.log('Entering into the delete mode');
       mode = "del";
-      this.style.color = "green";
+      document.getElementById(id).style.color = "green";
       // ...
     }
   }
 };
 
+// A global variable to store the coordinates temporary
 var coordinatesTemp = '';
-// Adding an event at the end of the draw. // TO BE UPDATED
-function newObjectAdded(evt) {
-  console.log('And a new draw appears');
-  // Creating a temporary feature with a Json structure // TO BE UPDATED
-  var tFeature ={
-    'type': 'Feature',
-    'properties': {
-      'oNom': '',
-      'oType':'',
-      'oDate':'',
-      'oCommentaire':'',
-      'oPhoto':'',
-    },
-    'geometry': {
-      'type': 'Point',
-      'coordinates': [],
-    },
-  };
-  coordinatesTemp = evt.feature.getGeometry().getCoordinates();
-  // Putting the temporary feature in a geoJSON object
-  var reader = new ol.format.GeoJSON();
-  tempFeature = reader.readFeature(tFeature);
-  vectorOuvrages.getSource().addFeature(tempFeature);
-  // Setting the value of the element in formular to the default values
-  document.getElementById('oNom').value = tFeature.properties.oNom;
-  document.getElementById('oType').value = tFeature.properties.oType;
-  document.getElementById('oDate').value = tFeature.properties.oDate;
-  document.getElementById('oCommentaire').value = tFeature.properties.oCommentaire;
-  document.getElementById('oPhoto').value = tFeature.properties.oPhoto;
-  // ADDING HERE SOME ELEMENTS WITH GEOMETRY if user does upgrade it
-  // Setting the visibility of the formular to visible on the webpage
-  document.getElementById("OurInteraction").style.visibility="visible";
-
-};
+var featureTemp = '';
 
 // Action executed when the button save is pressed
 function saveFormular(callback){ // TO BE CONTINUED
@@ -298,7 +281,30 @@ function saveFormular(callback){ // TO BE CONTINUED
 
 // Action exectuted when the button cancel is pressed
 function cancelFormular(){
-  onsaved(null,'Annulation'); // TO BE CONTINUED
+  if(mode == 'add'){
+      //tempSource.clear()// make something HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERE
+      vectorOuvrages.getSource().removeFeature(featureTemp)
+      setMode('addButton');
+  }
+  onsaved(null,'Annulation');
+};
+
+// Adding an event at the end of the draw. // TO BE UPDATED
+function newObjectAdded(evt) {
+  console.log('Un point a été dessiné.');
+  map.removeInteraction(draw);
+  map.removeInteraction(snap);
+  // Temporary saving the coordinates in a variable
+  coordinatesTemp = evt.feature.getGeometry().getCoordinates();
+  featureTemp = evt.feature;
+  // Setting the value of the element in formular to the default values
+  document.getElementById('oNom').value = '';
+  document.getElementById('oType').value = 'test';
+  document.getElementById('oDate').value = '';
+  document.getElementById('oCommentaire').value = '';
+  document.getElementById('oPhoto').value = '';
+  // Setting the visibility of the formular to visible on the webpage
+  document.getElementById("OurInteraction").style.visibility="visible";
 };
 
 // Action executed to save the data
@@ -318,17 +324,18 @@ function saveData(callback){ // TO BE UPDATED
   'geometry': {
     'type'         : 'Point',
     'coordinates'  : coordinatesTemp,
-  },
+    },
   };
-  if(mode =='add'){ // TO BE UPDATED
+  if(mode =='add'){
     request
       .post('/data/oForm')
       .send(newObjectOnTheMap)
       .end(function(err,res){
+        console.log('Statut de la requête : ' + res.status)
         if(err){
           return callback(null, 'Erreur de connexion au serveur, ' + err.message);
         }
-        if(res.statut !== 200){
+        if(res.status !== 200){
           return callback(null, res.text);
         }
         var jsonResp = JSON.parse(res.text);
@@ -338,8 +345,19 @@ function saveData(callback){ // TO BE UPDATED
 };
 
 // Action exetuted when the data are saved in the MongoDB or cancelled
-function onsaved(org,msg){ // TO BE UPDATED
-
+function onsaved(arg,msg){
+  if(arg == null){
+    console.log(msg);
+  }
+  else{
+    if(mode == 'add'){
+        setMode('addButton');
+        console.log('Données enregistrées avec succès.');
+        featureTemp.setProperties(arg.properties);
+        featureTemp._id = arg._id;
+    }
+  }
+  document.getElementById('OurInteraction').style.visibility = 'collapse';
 };
 
 // Setting the visible layers, this function is for the legend, no link with database or data edition
