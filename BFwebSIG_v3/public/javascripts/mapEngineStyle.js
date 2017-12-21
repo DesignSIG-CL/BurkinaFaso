@@ -60,7 +60,7 @@ var ouvragesStyle = new ol.style.Style({
   })
 });
 
-var ouvragesStyleTemp = new ol.style.Style({
+var oTemporaireStyle = new ol.style.Style({
   image: new ol.style.Circle({
     radius: 6,
     stroke: new ol.style.Stroke({

@@ -205,51 +205,59 @@ var snap = new ol.interaction.Snap({source: selectedSrc});
 
 //var modifier à ajouter et delete
 
-function setMode() {
+function setMode(buttonId) {
   console.log(this.id);
+  console.log(buttonId);
 
-  if(this.id == "addButton"){
+  if(this.id != null){ //this condition allow to call setMode when we close the form.
+    id = this.id;
+  }
+  else{
+    id = buttonId;
+  };
+
+  if(id == "addButton"){
     if(mode == "add"){
       console.log('Leaving the add mode');
       mode = "none";
-      this.style.color = "black";
+      document.getElementById(id).style.color = "black";
       map.removeInteraction(draw);
       map.removeInteraction(snap);
     }
     else {
       console.log('Entering into the add mode');
       mode = "add";
-      this.style.color = "green";
+      document.getElementById(id).style.color = "green";
       draw.on('drawend', function(evt) {newObjectAdded(evt)} );
       map.addInteraction(draw);
       map.addInteraction(snap);
     }
   }
-  else if(this.id == "modButton") {
+  else if(id == "modButton") {
     if(mode == "mod"){
       console.log('Leaving the modify mode');
       mode = "none";
-      this.style.color = "black";
+      document.getElementById(id).style.color = "black";
       // ...
     }
     else {
       console.log('Entering into the modify mode');
       mode = "mod";
-      this.style.color = "green";
+      document.getElementById(id).style.color = "green";
       // ...
     }
   }
-  else if(this.id == "delButton") {
+  else if(id == "delButton") {
     if(mode == "del"){
       console.log('Leaving the delete mode');
       mode = "none";
-      this.style.color = "black";
+      document.getElementById(id).style.color = "black";
       // ...
     }
     else {
       console.log('Entering into the delete mode');
       mode = "del";
-      this.style.color = "green";
+      document.getElementById(id).style.color = "green";
       // ...
     }
   }
@@ -259,7 +267,7 @@ var coordinatesTemp = '';
 // Adding an event at the end of the draw. // TO BE UPDATED
 function newObjectAdded(evt) {
   console.log('And a new draw appears');
-  // Creating a temporary feature with a Json structure // TO BE UPDATED
+  // Creating a temporary feature with a Json structure
   var tFeature ={
     'type': 'Feature',
     'properties': {
@@ -278,14 +286,13 @@ function newObjectAdded(evt) {
   // Putting the temporary feature in a geoJSON object
   var reader = new ol.format.GeoJSON();
   tempFeature = reader.readFeature(tFeature);
-  vectorOuvrages.getSource().addFeature(tempFeature);
+  //--- vectorOuvrages.getSource().addFeature(tempFeature); // reste sur la carte sans cette ligne
   // Setting the value of the element in formular to the default values
   document.getElementById('oNom').value = tFeature.properties.oNom;
   document.getElementById('oType').value = tFeature.properties.oType;
   document.getElementById('oDate').value = tFeature.properties.oDate;
   document.getElementById('oCommentaire').value = tFeature.properties.oCommentaire;
   document.getElementById('oPhoto').value = tFeature.properties.oPhoto;
-  // ADDING HERE SOME ELEMENTS WITH GEOMETRY if user does upgrade it
   // Setting the visibility of the formular to visible on the webpage
   document.getElementById("OurInteraction").style.visibility="visible";
 
@@ -298,7 +305,10 @@ function saveFormular(callback){ // TO BE CONTINUED
 
 // Action exectuted when the button cancel is pressed
 function cancelFormular(){
-  onsaved(null,'Annulation'); // TO BE CONTINUED
+  if(mode == 'add'){
+    vectorOuvrages.getSource().removeFeature(tempFeature);
+  }
+  onsaved(null,'Annulation');
 };
 
 // Action executed to save the data
@@ -338,8 +348,17 @@ function saveData(callback){ // TO BE UPDATED
 };
 
 // Action exetuted when the data are saved in the MongoDB or cancelled
-function onsaved(org,msg){ // TO BE UPDATED
-
+function onsaved(arg,msg){
+  if(arg == null){
+    console.log(msg);
+  }
+  else{
+    if(mode = 'add'){
+      //tempFeature._id = arg._id; // A DEBUGGER
+    }
+  }
+  setMode('addButton');
+  document.getElementById('OurInteraction').style.visibility = 'collapse';
 };
 
 // Setting the visible layers, this function is for the legend, no link with database or data edition
