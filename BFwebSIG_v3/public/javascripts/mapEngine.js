@@ -206,15 +206,13 @@ var snap = new ol.interaction.Snap({source: selectedSrc});
 //var modifier à ajouter et delete
 
 function setMode(buttonId) {
-  console.log(this.id);
-  console.log(buttonId);
-
-  if(this.id != null){ //this condition allow to call setMode when we close the form.
+    if(this.id != null){ //this condition allow to call setMode when we close the form.
     id = this.id;
   }
   else{
     id = buttonId;
   };
+  console.log(id)
 
   if(id == "addButton"){
     if(mode == "add"){
@@ -264,9 +262,12 @@ function setMode(buttonId) {
 };
 
 var coordinatesTemp = '';
+var tempFeature = '';
 // Adding an event at the end of the draw. // TO BE UPDATED
 function newObjectAdded(evt) {
   console.log('And a new draw appears');
+  // Temporary saving the coordinates in a variable
+  coordinatesTemp = evt.feature.getGeometry().getCoordinates();
   // Creating a temporary feature with a Json structure
   var tFeature ={
     'type': 'Feature',
@@ -279,14 +280,14 @@ function newObjectAdded(evt) {
     },
     'geometry': {
       'type': 'Point',
-      'coordinates': [],
+      'coordinates': coordinatesTemp,
     },
   };
-  coordinatesTemp = evt.feature.getGeometry().getCoordinates();
+  //idTemp = evt.feature...
   // Putting the temporary feature in a geoJSON object
   var reader = new ol.format.GeoJSON();
   tempFeature = reader.readFeature(tFeature);
-  //--- vectorOuvrages.getSource().addFeature(tempFeature); // reste sur la carte sans cette ligne
+  vectorOuvrages.getSource().addFeature(tempFeature);
   // Setting the value of the element in formular to the default values
   document.getElementById('oNom').value = tFeature.properties.oNom;
   document.getElementById('oType').value = tFeature.properties.oType;
@@ -295,7 +296,6 @@ function newObjectAdded(evt) {
   document.getElementById('oPhoto').value = tFeature.properties.oPhoto;
   // Setting the visibility of the formular to visible on the webpage
   document.getElementById("OurInteraction").style.visibility="visible";
-
 };
 
 // Action executed when the button save is pressed
@@ -306,7 +306,7 @@ function saveFormular(callback){ // TO BE CONTINUED
 // Action exectuted when the button cancel is pressed
 function cancelFormular(){
   if(mode == 'add'){
-    vectorOuvrages.getSource().removeFeature(tempFeature);
+      vectorOuvrages.getSource().removeFeature(tempFeature);
   }
   onsaved(null,'Annulation');
 };
@@ -354,7 +354,7 @@ function onsaved(arg,msg){
   }
   else{
     if(mode = 'add'){
-      //tempFeature._id = arg._id; // A DEBUGGER
+        // tempFeature._id = arg._id; // A DEBUGGER
     }
   }
   setMode('addButton');
