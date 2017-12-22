@@ -9,26 +9,6 @@ var fs = require('fs');
 var multer = require('multer');
 var upload = multer({dest: 'uploads/'});
 
-//to allow writting and reading of multipart objects in Mongo DB
-var gfs = new grid(mongoose.connection.db);
-//save images on the client side
-router.post('/file', upload.single('fileToUpload'),function(rey, res, next){
-  if (!req.file){
-    return next(new ServerError('Wrong file post request: file not found in request',
-      {context: 'files route', status: 403}));
-  }
-  var writestream = grs.createWriteStream({
-    mode: 'w',
-    content_type: req.file.mimetype,
-    filename: req.file.originalname
-  })
-  fs.createReadStream(req.file.path).pipe(writestream);
-  console.log('last step');
-  writestream.on('close', function(newFile){
-    return res.status(200).json({_id: newFile._id});
-  });
-});
-
 // Mongoose connection to MongoDB
 mongoose.connect('mongodb://localhost:27017/burkina', {
   useMongoClient : true,
@@ -41,6 +21,28 @@ function(error){
     console.log('200 = Data are transmitted, no error');
     console.log('304 = Data already in cache, no error')
   }
+});
+
+// Files upload on the mongo SERVER
+//to allow writting and reading of multipart objects in Mongo DB
+grid.mongo = mongoose.mongo;
+var gfs = new grid(mongoose.connection.db);
+//save images on the node side
+router.post('/file', upload.single('fileToUpload'),function(req, res, next){
+  if (!req.file){
+    return next(new ServerError('Wrong file post request: file not found in request',
+      {context: 'files route', status: 403}));
+  }
+  var writestream = gfs.createWriteStream({
+    mode: 'w',
+    content_type: req.file.mimetype,
+    filename: req.file.originalname
+  });
+  fs.createReadStream(req.file.path).pipe(writestream);
+  console.log('last step');
+  writestream.on('close', function(newFile){
+    return res.status(200).json({_id: newFile._id});
+  });
 });
 
 
