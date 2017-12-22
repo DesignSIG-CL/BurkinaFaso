@@ -3,7 +3,10 @@
 
 console.log('mapEngine is running');
 
+// All the global variables
 var map;
+var coordinatesTemp = ''; // Global variable to store the coordinates temporary
+var featureTemp = ''; // Global variable to store the fetaure temporary
 
 // Function to load data from the pimpable layers
 function loadData(url, layerSrc, callback){
@@ -279,10 +282,6 @@ function setMode(buttonId) {
   }
 };
 
-// A global variable to store the coordinates temporary
-var coordinatesTemp = '';
-var featureTemp = '';
-
 // Action executed when the button save is pressed
 function saveFormular(callback){ // TO BE CONTINUED
   saveData(callback);
@@ -395,4 +394,4 @@ function setVisibleLayers(){
 
   //RoadLayer.setVisible(document.getElementById("interactionsCheck").checked); // TO BE UPDATED
   console.log('Changing the layers visibility.');
-}
+};
