@@ -208,7 +208,7 @@ var snap = new ol.interaction.Snap({source: selectedSrc});
 // Interactions supplémentaires
 var select = new ol.interaction.Select({
     wrapX: false,
-    layer : vectorOuvrages // NE SUFFIT PAS POUR NE POUVOIR SELECTIONNER QUE CA
+    layer: vectorOuvrages, // NE SUFFIT PAS POUR NE POUVOIR SELECTIONNER QUE CA
 });
 var modify = new ol.interaction.Modify({
     features: select.getFeatures(),
@@ -257,10 +257,18 @@ function setMode(buttonId) {
       document.getElementById(id).style.color = "green";
       map.addInteraction(select);
       map.addInteraction(modify);
-      modify.on('modifyend',function(){
+      select.on('select', function(evt) {
+        selectedFeatures = evt.target.getFeatures();
+        console.log(selectedFeatures);
+        //console.log(evt.target.getFeatures().getGeometry().getCoordinates());
+        // --> Continuer ici !
+        //var selectedFeatures = evt.selected.feature;
+        //objectSelected(selectedFeatures);
+      });
+      /*modify.on('modifyend',function(){
         var selectedFeatures = select.getFeatures();
         objectSelected(selectedFeatures);
-      })
+      }) */
       //modify.on('modifyend',function(evt) {objectMoved(evt)} ); // NE MARCHE PAS
 
       // ...
@@ -299,10 +307,10 @@ function cancelFormular(){
 //--> MODIFIER LES VALEURS AVEC CELLES QUI SONT DANS L'OBJET
 function objectSelected(featureEdit) {
   console.log('Un point a été modifié.');
-  console.log(featureEdit.properties);
+  console.log(featureEdit);
   //map.removeInteraction(select);
   //map.removeInteraction(modify);
-  document.getElementById('oNom').value = featureEdit.getProperties().nom;
+  document.getElementById('oNom').value = featureEdit;
   document.getElementById('oType').value = 'modifier';
   document.getElementById('oDate').value = '';
   document.getElementById('oCommentaire').value = '';
