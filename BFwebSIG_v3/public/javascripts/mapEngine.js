@@ -208,7 +208,8 @@ var snap = new ol.interaction.Snap({source: selectedSrc});
 // Interactions supplémentaires
 var select = new ol.interaction.Select({
     wrapX: false,
-    layer: vectorOuvrages, // NE SUFFIT PAS POUR NE POUVOIR SELECTIONNER QUE CA
+    //layer: vectorOuvrages,
+    layers: [vectorOuvrages] // A TESTER, MODIFIE HORS LIGNE.
 });
 var modify = new ol.interaction.Modify({
     features: select.getFeatures(),
@@ -264,6 +265,8 @@ function setMode(buttonId) {
         // --> Continuer ici !
         //var selectedFeatures = evt.selected.feature;
         //objectSelected(selectedFeatures);
+        // A tester : https://stackoverflow.com/questions/42371538/openlayers-display-feature-property-on-map-on-select-interaction
+        // A tester : http://openlayers.org/en/latest/examples/select-features.html
       });
       /*modify.on('modifyend',function(){
         var selectedFeatures = select.getFeatures();
