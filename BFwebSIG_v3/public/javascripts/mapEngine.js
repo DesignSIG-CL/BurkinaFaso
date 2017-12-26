@@ -208,12 +208,11 @@ var snap = new ol.interaction.Snap({source: selectedSrc});
 // Interactions supplémentaires
 var select = new ol.interaction.Select({
     wrapX: false,
-    //layer: vectorOuvrages,
-    layers: [vectorOuvrages] // A TESTER, MODIFIE HORS LIGNE.
+    layers: [vectorOuvrages]
 });
 var modify = new ol.interaction.Modify({
     features: select.getFeatures(),
-    layer: vectorOuvrages // NE SUFFIT PAS POUR NE POUVOIR SELECTIONNER QUE CA
+    layers: [vectorOuvrages]
 });
 //var modifier à ajouter et delete
 
@@ -260,13 +259,12 @@ function setMode(buttonId) {
       map.addInteraction(modify);
       select.on('select', function(evt) {
         selectedFeatures = evt.target.getFeatures();
-        console.log(selectedFeatures);
-        //console.log(evt.target.getFeatures().getGeometry().getCoordinates());
-        // --> Continuer ici !
-        //var selectedFeatures = evt.selected.feature;
-        //objectSelected(selectedFeatures);
-        // A tester : https://stackoverflow.com/questions/42371538/openlayers-display-feature-property-on-map-on-select-interaction
-        // A tester : http://openlayers.org/en/latest/examples/select-features.html
+        console.log('Un point a été sélectionné.');
+        // The seletect feature is in an array => Loop to find element of array
+        selectedFeatures.forEach((feature) => {
+          console.log(feature.getProperties().nom);
+          objectSelected(feature) // call function objectSelected
+        });
       });
       /*modify.on('modifyend',function(){
         var selectedFeatures = select.getFeatures();
@@ -309,14 +307,13 @@ function cancelFormular(){
 
 //--> MODIFIER LES VALEURS AVEC CELLES QUI SONT DANS L'OBJET
 function objectSelected(featureEdit) {
-  console.log('Un point a été modifié.');
-  console.log(featureEdit);
+  featureTemp = featureEdit.getProperties();
   //map.removeInteraction(select);
   //map.removeInteraction(modify);
-  document.getElementById('oNom').value = featureEdit;
-  document.getElementById('oType').value = 'modifier';
-  document.getElementById('oDate').value = '';
-  document.getElementById('oCommentaire').value = '';
+  document.getElementById('oNom').value = featureTemp.nom;
+  document.getElementById('oType').value = featureTemp.type;
+  document.getElementById('oDate').value = featureTemp.date;
+  document.getElementById('oCommentaire').value = featureTemp.commentaire;
   document.getElementById('oPhoto').value = '';
   // Setting the visibility of the formular to visible on the webpage
   document.getElementById("OurInteraction").style.visibility="visible";
