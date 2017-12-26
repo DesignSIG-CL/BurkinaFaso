@@ -36,6 +36,24 @@ function edit() {
       etatEditor = 0;
     }
 };
+
+function popupInteraction(msg,state){
+  document.getElementById('OurPopup').innerHTML=msg;
+  if(state==1){
+    document.getElementById('OurPopup').style.backgroundColor='rgba(0,100,100,1.0)';
+  }
+  else{
+    document.getElementById('OurPopup').style.backgroundColor='rgba(200,0,0,1.0)';
+  }
+  document.getElementById('OurPopup').style.visibility='visible';
+  setTimeout(popupEnd, 5000)
+
+};
+
+function popupEnd(){
+  document.getElementById('OurPopup').style.visibility='collapse';
+};
+
 //Bonjour Benoît tu peux déplacer tout cecicela dans mapengine.js
 function onFileSelected(event){
   var selectedFile = event.target.files[0];

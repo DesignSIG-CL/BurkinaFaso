@@ -7,6 +7,7 @@ console.log('mapEngine is running');
 var map;
 var coordinatesTemp = ''; // Global variable to store the coordinates temporary
 var featureTemp = ''; // Global variable to store the feature temporary
+var featureBackup = ''; // Globale variable to backup featureTemp
 var idTemp = ''; // Global variable to store the id of the temporary feature
 var newObjectOnTheMap = '';  // Global variable to store object to send to Mongo
 
@@ -261,13 +262,7 @@ function setMode(buttonId) {
       map.addInteraction(select);
       map.addInteraction(modify);
       select.on('select', function(evt) {objectSelected(evt)});
-      /*modify.on('modifyend',function(){
-        var selectedFeatures = select.getFeatures();
-        objectSelected(selectedFeatures);
-      }) */
-      //modify.on('modifyend',function(evt) {objectMoved(evt)} ); // NE MARCHE PAS
-
-      // ...
+      modify.on('modifyend',function(evt){objectModified(evt)});
     }
   }
   else if(id == "delButton") {
@@ -296,9 +291,11 @@ function cancelFormular(){
   if(mode == 'add'){
       vectorOuvrages.getSource().removeFeature(featureTemp)
       setMode('addButton');
+      popupInteraction('Ajout annulé',0)
   }
   if(mode == 'mod'){
     setMode('setButton');
+    popupInteraction('Modifications annulées',0)
   }
   onsaved(null,'Annulation');
   featureTemp = null;
@@ -314,8 +311,6 @@ function objectSelected(evt) {
     featureTempPr = feature.getProperties();
     coordinatesTemp = feature.getGeometry().getCoordinates();
     idTemp = featureTempPr.id;
-    //map.removeInteraction(select);
-    //map.removeInteraction(modify);
     document.getElementById('oNom').value = featureTempPr.nom;
     document.getElementById('oType').value = featureTempPr.type;
     document.getElementById('oDate').value = featureTempPr.date;
@@ -324,6 +319,19 @@ function objectSelected(evt) {
     // Setting the visibility of the formular to visible on the webpage
     document.getElementById("OurInteraction").style.visibility="visible";
   });
+};
+
+// This function update the position after we change it on the map.
+function objectModified(evt){
+    if (confirm("Voulez-vous vraiment déplacer cet élément ?") == true) {
+      coordinatesTemp = featureTemp.getGeometry().getCoordinates();
+      popupInteraction('Le point est déplacé',1)
+      console.log('Le point est déplacé.')
+    } else {
+      console.log('Le point reste à sa position initiale.')
+      window.alert('La page va être rechargée pour annuler votre modification')
+      window.location.reload()
+    }
 };
 
 // Adding an event at the end of the draw. // TO BE UPDATED
@@ -373,9 +381,11 @@ function saveData(callback){ // TO BE UPDATED
         console.log('Statut de la requête : ' + res.status)
         if(err){
           return callback(null, 'Erreur de connexion au serveur, ' + err.message);
+          popupInteraction('Erreur ! --> F12',0)
         }
         if(res.status !== 200){
           return callback(null, res.text);
+          popupInteraction('Erreur ! --> F12',0)
         }
         var jsonResp = JSON.parse(res.text);
         callback(jsonResp);
@@ -389,9 +399,11 @@ function saveData(callback){ // TO BE UPDATED
         console.log('Statut de la requête : ' + res.status)
         if(err){
           return callback(null, 'Erreur de connexion au serveur, ' + err.message);
+          popupInteraction('Erreur ! --> F12',0)
         }
         if(res.status !== 200){
           return callback(null, res.text);
+          popupInteraction('Erreur ! --> F12',0)
         }
         var jsonResp = JSON.parse(res.text);
         callback(jsonResp); // /!\ PAS comme sur exemple
@@ -408,12 +420,14 @@ function onsaved(arg,msg){
     if(mode == 'add'){
       setMode('addButton');
       console.log('Données enregistrées avec succès.');
+      popupInteraction('Enregistrement réussi !',1)
       featureTemp.setProperties(arg.properties);
       featureTemp._id = arg._id;
     }
     if(mode == 'mod'){
       setMode('modButton');
       console.log('Données mises à jour avec succès.');
+      popupInteraction('Mise à jour réussie !',1)
       featureTemp.setProperties(newObjectOnTheMap.properties);
       featureTemp = null;
     }

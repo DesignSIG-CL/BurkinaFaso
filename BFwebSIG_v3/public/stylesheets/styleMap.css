@@ -197,3 +197,20 @@ body
 {
   right : 2%;
 }
+
+#OurPopup
+{
+  position: absolute;
+  right :3em;
+  bottom :3em;
+  height: 5em;
+  width: 8em;
+  background-color: rgba(255,255,255,0.5);
+  text-align:center;
+  display: flex; /* contexte sur le parent */
+  flex-direction: column; /* direction d'affichage verticale */
+  justify-content: center; /* alignement vertical */
+  color: rgb(255,255,255);
+  box-shadow: 2px 2px 2px rgb(0,0,0);
+  visibility: collapse;
+}
