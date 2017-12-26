@@ -1,4 +1,4 @@
-Démarrer la base de données, dans un terminal particulier, à part!:
+﻿Démarrer la base de données, dans un terminal particulier, à part!:
  --> Nouveau terminal : mongod
 
 Dans un autre terminal:
@@ -26,6 +26,9 @@ Renommer une collection
 
 Trouver un élément dans une collection
  --> Dans le shell : db.staticlayercollection.find({"name":"roadlines"})
+
+Edtier les données selon l'id (créé par utilisateur)
+ --> Dans le shell : db.ouvragesLL.update({'properties.id':'id-2017-12-26T15:14:32.849Z-dsry'},{$set: {'properties.nom':'test2'}})
 
 Quitter le shell mongo
  --> quit()

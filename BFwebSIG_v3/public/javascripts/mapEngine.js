@@ -6,7 +6,9 @@ console.log('mapEngine is running');
 // All the global variables
 var map;
 var coordinatesTemp = ''; // Global variable to store the coordinates temporary
-var featureTemp = ''; // Global variable to store the fetaure temporary
+var featureTemp = ''; // Global variable to store the feature temporary
+var idTemp = ''; // Global variable to store the id of the temporary feature
+var newObjectOnTheMap = '';  // Global variable to store object to send to Mongo
 
 // Function to load data from the pimpable layers
 function loadData(url, layerSrc, callback){
@@ -247,6 +249,7 @@ function setMode(buttonId) {
       console.log('Leaving the modify mode');
       mode = "none";
       document.getElementById(id).style.color = "black";
+      select.getFeatures().clear(); // To clear the selection
       map.removeInteraction(select);
       map.removeInteraction(modify);
       // ...
@@ -257,15 +260,7 @@ function setMode(buttonId) {
       document.getElementById(id).style.color = "green";
       map.addInteraction(select);
       map.addInteraction(modify);
-      select.on('select', function(evt) {
-        selectedFeatures = evt.target.getFeatures();
-        console.log('Un point a été sélectionné.');
-        // The seletect feature is in an array => Loop to find element of array
-        selectedFeatures.forEach((feature) => {
-          console.log(feature.getProperties().nom);
-          objectSelected(feature) // call function objectSelected
-        });
-      });
+      select.on('select', function(evt) {objectSelected(evt)});
       /*modify.on('modifyend',function(){
         var selectedFeatures = select.getFeatures();
         objectSelected(selectedFeatures);
@@ -302,21 +297,33 @@ function cancelFormular(){
       vectorOuvrages.getSource().removeFeature(featureTemp)
       setMode('addButton');
   }
+  if(mode == 'mod'){
+    setMode('setButton');
+  }
   onsaved(null,'Annulation');
+  featureTemp = null;
 };
 
 //--> MODIFIER LES VALEURS AVEC CELLES QUI SONT DANS L'OBJET
-function objectSelected(featureEdit) {
-  featureTemp = featureEdit.getProperties();
-  //map.removeInteraction(select);
-  //map.removeInteraction(modify);
-  document.getElementById('oNom').value = featureTemp.nom;
-  document.getElementById('oType').value = featureTemp.type;
-  document.getElementById('oDate').value = featureTemp.date;
-  document.getElementById('oCommentaire').value = featureTemp.commentaire;
-  document.getElementById('oPhoto').value = '';
-  // Setting the visibility of the formular to visible on the webpage
-  document.getElementById("OurInteraction").style.visibility="visible";
+function objectSelected(evt) {
+  selectedFeatures = evt.target.getFeatures();
+  console.log('Un point a été sélectionné.');
+  // The seletect feature is in an array => Loop to find element of array
+  selectedFeatures.forEach((feature) => {
+    featureTemp = feature;
+    featureTempPr = feature.getProperties();
+    coordinatesTemp = feature.getGeometry().getCoordinates();
+    idTemp = featureTempPr.id;
+    //map.removeInteraction(select);
+    //map.removeInteraction(modify);
+    document.getElementById('oNom').value = featureTempPr.nom;
+    document.getElementById('oType').value = featureTempPr.type;
+    document.getElementById('oDate').value = featureTempPr.date;
+    document.getElementById('oCommentaire').value = featureTempPr.commentaire;
+    document.getElementById('oPhoto').value = '';
+    // Setting the visibility of the formular to visible on the webpage
+    document.getElementById("OurInteraction").style.visibility="visible";
+  });
 };
 
 // Adding an event at the end of the draw. // TO BE UPDATED
@@ -327,6 +334,8 @@ function newObjectAdded(evt) {
   // Temporary saving the coordinates in a variable
   coordinatesTemp = evt.feature.getGeometry().getCoordinates();
   featureTemp = evt.feature;
+  dateNow = new Date();
+  idTemp = 'id-' + dateNow.toISOString() + '-' + Math.random().toString(36).substr(2, 4);
   // Setting the value of the element in formular to the default values
   document.getElementById('oNom').value = '';
   document.getElementById('oType').value = 'test';
@@ -341,10 +350,10 @@ function newObjectAdded(evt) {
 function saveData(callback){ // TO BE UPDATED
   console.log('Saving the data')
   var request = window.superagent;
-
   var newObjectOnTheMap = {
   'type' : 'Feature', // comme dans les éléments de base
   'properties':{
+    'id'          : idTemp,
     'nom'         : document.getElementById('oNom').value,
     'type'        : document.getElementById('oType').value,
     'date'        : document.getElementById('oDate').value,
@@ -358,7 +367,7 @@ function saveData(callback){ // TO BE UPDATED
   };
   if(mode =='add'){
     request
-      .post('/data/oForm')
+      .post('/data/oFormAdd')
       .send(newObjectOnTheMap)
       .end(function(err,res){
         console.log('Statut de la requête : ' + res.status)
@@ -372,6 +381,22 @@ function saveData(callback){ // TO BE UPDATED
         callback(jsonResp);
       });
   }
+  if(mode == 'mod'){
+    request
+      .put('/data/oFormUpdate')
+      .send(newObjectOnTheMap)
+      .end(function(err,res){
+        console.log('Statut de la requête : ' + res.status)
+        if(err){
+          return callback(null, 'Erreur de connexion au serveur, ' + err.message);
+        }
+        if(res.status !== 200){
+          return callback(null, res.text);
+        }
+        var jsonResp = JSON.parse(res.text);
+        callback(jsonResp); // /!\ PAS comme sur exemple
+      });
+  }
 };
 
 // Action exetuted when the data are saved in the MongoDB or cancelled
@@ -381,10 +406,16 @@ function onsaved(arg,msg){
   }
   else{
     if(mode == 'add'){
-        setMode('addButton');
-        console.log('Données enregistrées avec succès.');
-        featureTemp.setProperties(arg.properties);
-        featureTemp._id = arg._id;
+      setMode('addButton');
+      console.log('Données enregistrées avec succès.');
+      featureTemp.setProperties(arg.properties);
+      featureTemp._id = arg._id;
+    }
+    if(mode == 'mod'){
+      setMode('modButton');
+      console.log('Données mises à jour avec succès.');
+      featureTemp.setProperties(newObjectOnTheMap.properties);
+      featureTemp = null;
     }
   }
   document.getElementById('OurInteraction').style.visibility = 'collapse';

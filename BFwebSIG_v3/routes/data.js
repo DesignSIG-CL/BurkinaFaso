@@ -18,8 +18,8 @@ function(error){
   if(error){console.log('IS THE SERVER RUNNING ?');console.log(error)}
   if(!error){
     console.log('Connect to database MongoDB, some usefull info :');
-    console.log('200 = Data are transmitted, no error');
-    console.log('304 = Data already in cache, no error')
+    console.log('200 = Data are transmitted');
+    console.log('304 = Data already in cache')
   }
 });
 
@@ -91,6 +91,7 @@ var pistes = mongoose.model('pistes', pistesSchema, 'pistesLL');
 var ouvragesSchema = new Schema({
   type : String,
   properties : {
+    id          : {type : String},
     nom         : {type : String},
     type        : {type : String},
     date        : {type : String},
@@ -132,7 +133,7 @@ router.get('/ouvrages', function(req,res) {
   });
 });
 
-router.post('/oForm', function(req, res){
+router.post('/oFormAdd', function(req, res){
   console.log(req.body);
   var newObjectOnTheMap = new ouvrages(req.body);
   newObjectOnTheMap.save(function(err,savedObjectOnTheMap){
@@ -144,5 +145,23 @@ router.post('/oForm', function(req, res){
     };
   });
 });
+
+router.put('/oFormUpdate', function(req, res){
+  console.log(req.body.id);
+  var idPerso = req.body.properties.id, body = req.body
+  ouvrages.findOneAndUpdate(
+    {'properties.id':idPerso},
+    body,
+    {upsert:true},
+    function(err,savedObjectOnTheMap){
+    if(err){
+      res.send(err.message);
+    }
+    else {
+      res.send(savedObjectOnTheMap);
+    };
+  });
+});
+
 
 module.exports = router;
