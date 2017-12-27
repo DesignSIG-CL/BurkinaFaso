@@ -274,7 +274,6 @@ function setMode(buttonId) {
       document.getElementById('delButton').disabled = true;
       document.getElementById(id).style.color = "green";
       // Interactions
-      document.getElementById(id).style.color = "green";
       map.addInteraction(select);
       map.addInteraction(modify);
       select.on('select', function(evt) {objectSelected(evt)});
@@ -314,7 +313,7 @@ function setMode(buttonId) {
 };
 
 // Action executed when the button save is pressed
-function saveFormular(callback){ // TO BE CONTINUED
+function saveFormular(callback){
   saveData(callback);
 };
 
@@ -328,6 +327,10 @@ function cancelFormular(){
   if(mode == 'mod'){
     setMode('setButton');
     popupInteraction('Modifications annulées',0)
+  }
+  if(mode == 'del'){
+    setMode('delButton');
+    popupInteraction('Suppression annulée',0)
   }
   onsaved(null,'Annulation');
   featureTemp = null;
@@ -461,22 +464,27 @@ function saveData(callback){ // TO BE UPDATED
       });
   }
   if(mode =='del'){
-    request
-      .put('/data/oFormDelete')
-      .send(newObjectOnTheMap)
-      .end(function(err,res){
-        console.log('Statut de la requête : ' + res.status)
-        if(err){
-          return callback(null, 'Erreur de connexion au serveur, ' + err.message);
-          popupInteraction('Erreur ! --> F12',0)
-        }
-        if(res.status !== 200){
-          return callback(null, res.text);
-          popupInteraction('Erreur ! --> F12',0)
-        }
-        var jsonResp = JSON.parse(res.text);
-        callback(jsonResp); // /!\ PAS comme sur exemple
-      });
+    if (confirm("Voulez-vous vraiment supprimer cet élément ?") == true) {
+      request
+        .put('/data/oFormDelete')
+        .send(newObjectOnTheMap)
+        .end(function(err,res){
+          console.log('Statut de la requête : ' + res.status)
+          if(err){
+            return callback(null, 'Erreur de connexion au serveur, ' + err.message);
+            popupInteraction('Erreur ! --> F12',0)
+          }
+          if(res.status !== 200){
+            return callback(null, res.text);
+            popupInteraction('Erreur ! --> F12',0)
+          }
+          var jsonResp = JSON.parse(res.text);
+          callback(jsonResp); // /!\ PAS comme sur exemple
+        });
+    } else {
+      console.log('Le point reste à sa position initiale.')
+      cancelFormular()
+    }
   }
 };
 
