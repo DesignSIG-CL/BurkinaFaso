@@ -6,7 +6,7 @@ console.log('mapEngine is running');
 // All the global variables
 var map;
 var coordinatesTemp = ''; // Global variable to store the coordinates temporary
-var featureTemp = ''; // Global variable to store the feature temporary
+var featureTemp = null; // Global variable to store the feature temporary
 var featureBackup = ''; // Globale variable to backup featureTemp
 var idTemp = ''; // Global variable to store the id of the temporary feature
 var newObjectOnTheMap = '';  // Global variable to store object to send to Mongo
@@ -239,6 +239,10 @@ function setMode(buttonId) {
       // Interactions
       map.removeInteraction(draw);
       map.removeInteraction(snap);
+      if(featureTemp !== null){
+        vectorOuvrages.getSource().removeFeature(featureTemp)
+      }
+      onsaved(null,'Annulation');
     }
     else {
       console.log('Entering into the add mode');
@@ -265,6 +269,7 @@ function setMode(buttonId) {
       select.getFeatures().clear(); // To clear the selection
       map.removeInteraction(select);
       map.removeInteraction(modify);
+      onsaved(null,'Annulation');
     }
     else {
       console.log('Entering into the modify mode');
@@ -294,6 +299,7 @@ function setMode(buttonId) {
       // Removing interaction select
       select.getFeatures().clear(); // To clear the selection
       map.removeInteraction(select);
+      onsaved(null,'Annulation');
     }
     else {
       console.log('Entering into the delete mode');
@@ -485,6 +491,7 @@ function saveData(callback){ // TO BE UPDATED
 function onsaved(arg,msg){
   if(arg == null){
     console.log(msg);
+    popupInteraction(msg,0);
   }
   else{
     if(mode == 'add'){
@@ -498,9 +505,7 @@ function onsaved(arg,msg){
       setMode('modButton');
       console.log('Données mises à jour avec succès.');
       popupInteraction('Mise à jour réussie !',1)
-      featureTemp.setProperties(newObjectOnTheMap.properties); // MARCHE PAS
-      console.log(newObjectOnTheMap.properties);
-      console.log(featureTemp);
+      featureTemp.setProperties(newObjectOnTheMap.properties);
       featureTemp = null;
     }
     if(mode == 'del'){
@@ -510,7 +515,7 @@ function onsaved(arg,msg){
       vectorOuvrages.getSource().removeFeature(featureTemp);
       featureTemp = null;
     }
-  }
+  };
   document.getElementById('OurInteraction').style.visibility = 'collapse';
 };
 
