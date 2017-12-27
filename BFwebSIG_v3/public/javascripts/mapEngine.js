@@ -336,59 +336,7 @@ function cancelFormular(){
   featureTemp = null;
 };
 
-//--> MODIFIER LES VALEURS AVEC CELLES QUI SONT DANS L'OBJET
-function objectSelected(evt) {
-  selectedFeatures = evt.target.getFeatures();
-  console.log('Un point a été sélectionné.');
-  // The seletect feature is in an array => Loop to find element of array
-  selectedFeatures.forEach((feature) => {
-    featureTemp = feature;
-    featureTempPr = feature.getProperties();
-    coordinatesTemp = feature.getGeometry().getCoordinates();
-    idTemp = featureTempPr.id;
-    document.getElementById('oNom').value = featureTempPr.nom;
-    document.getElementById('oType').value = featureTempPr.type;
-    document.getElementById('oDate').value = featureTempPr.date;
-    document.getElementById('oCommentaire').value = featureTempPr.commentaire;
-    document.getElementById('oPhoto').value = '';
-    // Setting the visibility of the formular to visible on the webpage
-    document.getElementById("OurInteraction").style.visibility="visible";
-  });
-};
-
-// This function update the position after we change it on the map.
-function objectModified(evt){
-    if (confirm("Voulez-vous vraiment déplacer cet élément ?") == true) {
-      coordinatesTemp = featureTemp.getGeometry().getCoordinates();
-      popupInteraction('Le point est déplacé',1)
-      console.log('Le point est déplacé.')
-    } else {
-      console.log('Le point reste à sa position initiale.')
-      window.alert('La page va être rechargée pour annuler votre modification')
-      window.location.reload()
-    }
-};
-
-function objectDeleted(evt) {
-  selectedFeatures = evt.target.getFeatures();
-  console.log('Un point a été sélectionné.');
-  // The seletect feature is in an array => Loop to find element of array
-  selectedFeatures.forEach((feature) => {
-    featureTemp = feature;
-    featureTempPr = feature.getProperties();
-    coordinatesTemp = feature.getGeometry().getCoordinates();
-    idTemp = featureTempPr.id;
-    document.getElementById('oNom').value = featureTempPr.nom;
-    document.getElementById('oType').value = featureTempPr.type;
-    document.getElementById('oDate').value = featureTempPr.date;
-    document.getElementById('oCommentaire').value = featureTempPr.commentaire;
-    document.getElementById('oPhoto').value = '';
-    // Setting the visibility of the formular to visible on the webpage
-    document.getElementById("OurInteraction").style.visibility="visible";
-  });
-};
-
-// Adding an event at the end of the draw. // TO BE UPDATED
+// Adding an event at the end of the draw.
 function newObjectAdded(evt) {
   console.log('Un point a été dessiné.');
   map.removeInteraction(draw);
@@ -408,11 +356,56 @@ function newObjectAdded(evt) {
   document.getElementById("OurInteraction").style.visibility="visible";
 };
 
+// Action executed when an object is selected on the map
+function objectSelected(evt) {
+  featureTemp = evt.selected[0]; // The feature is in at the array's first position
+  console.log('Un point a été sélectionné.');
+  featureTempPr = featureTemp.getProperties();
+  coordinatesTemp = featureTemp.getGeometry().getCoordinates();
+  idTemp = featureTempPr.id;
+  document.getElementById('oNom').value = featureTempPr.nom;
+  document.getElementById('oType').value = featureTempPr.type;
+  document.getElementById('oDate').value = featureTempPr.date;
+  document.getElementById('oCommentaire').value = featureTempPr.commentaire;
+  document.getElementById('oPhoto').value = '';
+  // Setting the visibility of the formular to visible on the webpage
+  document.getElementById("OurInteraction").style.visibility="visible";
+};
+
+// This function update the position after we change it on the map.
+function objectModified(evt){
+    if (confirm("Voulez-vous vraiment déplacer cet élément ?") == true) {
+      coordinatesTemp = featureTemp.getGeometry().getCoordinates();
+      popupInteraction('Le point est déplacé',1)
+      console.log('Le point est déplacé.')
+    } else {
+      console.log('Le point reste à sa position initiale.')
+      window.alert('La page va être rechargée pour annuler votre modification')
+      window.location.reload()
+    }
+};
+
+// Action exectuted when an object has to be deleted on the map
+function objectDeleted(evt) {
+  featureTemp = evt.selected[0]; // The feature is in at the array's first position
+  console.log('Un point a été sélectionné.');
+  featureTempPr = featureTemp.getProperties();
+  coordinatesTemp = featureTemp.getGeometry().getCoordinates();
+  idTemp = featureTempPr.id;
+  document.getElementById('oNom').value = featureTempPr.nom;
+  document.getElementById('oType').value = featureTempPr.type;
+  document.getElementById('oDate').value = featureTempPr.date;
+  document.getElementById('oCommentaire').value = featureTempPr.commentaire;
+  document.getElementById('oPhoto').value = '';
+  // Setting the visibility of the formular to visible on the webpage
+  document.getElementById("OurInteraction").style.visibility="visible";
+};
+
 // Action executed to save the data
 function saveData(callback){ // TO BE UPDATED
   console.log('Saving the data')
   var request = window.superagent;
-  var newObjectOnTheMap = {
+  newObjectOnTheMap = {
   'type' : 'Feature', // comme dans les éléments de base
   'properties':{
     'id'          : idTemp,
@@ -434,12 +427,12 @@ function saveData(callback){ // TO BE UPDATED
       .end(function(err,res){
         console.log('Statut de la requête : ' + res.status)
         if(err){
-          return callback(null, 'Erreur de connexion au serveur, ' + err.message);
           popupInteraction('Erreur ! --> F12',0)
+          return callback(null, 'Erreur de connexion au serveur, ' + err.message);
         }
         if(res.status !== 200){
-          return callback(null, res.text);
           popupInteraction('Erreur ! --> F12',0)
+          return callback(null, res.text);
         }
         var jsonResp = JSON.parse(res.text);
         callback(jsonResp);
@@ -452,12 +445,12 @@ function saveData(callback){ // TO BE UPDATED
       .end(function(err,res){
         console.log('Statut de la requête : ' + res.status)
         if(err){
-          return callback(null, 'Erreur de connexion au serveur, ' + err.message);
           popupInteraction('Erreur ! --> F12',0)
+          return callback(null, 'Erreur de connexion au serveur, ' + err.message);
         }
         if(res.status !== 200){
-          return callback(null, res.text);
           popupInteraction('Erreur ! --> F12',0)
+          return callback(null, res.text);
         }
         var jsonResp = JSON.parse(res.text);
         callback(jsonResp); // /!\ PAS comme sur exemple
@@ -471,12 +464,12 @@ function saveData(callback){ // TO BE UPDATED
         .end(function(err,res){
           console.log('Statut de la requête : ' + res.status)
           if(err){
-            return callback(null, 'Erreur de connexion au serveur, ' + err.message);
             popupInteraction('Erreur ! --> F12',0)
+            return callback(null, 'Erreur de connexion au serveur, ' + err.message);
           }
           if(res.status !== 200){
-            return callback(null, res.text);
             popupInteraction('Erreur ! --> F12',0)
+            return callback(null, res.text);
           }
           var jsonResp = JSON.parse(res.text);
           callback(jsonResp); // /!\ PAS comme sur exemple
@@ -506,12 +499,15 @@ function onsaved(arg,msg){
       console.log('Données mises à jour avec succès.');
       popupInteraction('Mise à jour réussie !',1)
       featureTemp.setProperties(newObjectOnTheMap.properties); // MARCHE PAS
+      console.log(newObjectOnTheMap.properties);
+      console.log(featureTemp);
       featureTemp = null;
     }
     if(mode == 'del'){
       setMode('delButton');
       console.log('Données supprimées avec succès.');
-      popupInteraction('Données supprimées !',0)
+      popupInteraction('Données supprimées !',0);
+      vectorOuvrages.getSource().removeFeature(featureTemp);
       featureTemp = null;
     }
   }
