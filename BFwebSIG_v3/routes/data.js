@@ -153,15 +153,30 @@ router.put('/oFormUpdate', function(req, res){
     {'properties.id':idPerso},
     body,
     {upsert:true},
-    function(err,savedObjectOnTheMap){
+    function(err,updatedObjectOnTheMap){
     if(err){
       res.send(err.message);
     }
     else {
-      res.send(savedObjectOnTheMap);
+      res.send(updatedObjectOnTheMap);
     };
   });
 });
 
+//MyModel.findOneAndRemove({field: 'newValue'}, function(err){...});
+router.put('/oFormDelete', function(req, res){
+  console.log(req.body.id);
+  var idPerso = req.body.properties.id, body = req.body
+  ouvrages.findOneAndRemove(
+    {'properties.id':idPerso},
+    function(err,deletedObjectOnTheMap){
+    if(err){
+      res.send(err.message);
+    }
+    else {
+      res.send(deletedObjectOnTheMap);
+    };
+  });
+});
 
 module.exports = router;

@@ -232,14 +232,22 @@ function setMode(buttonId) {
     if(mode == "add"){
       console.log('Leaving the add mode');
       mode = "none";
+      // Operations on the interface
+      document.getElementById('modButton').disabled = false;
+      document.getElementById('delButton').disabled = false;
       document.getElementById(id).style.color = "black";
+      // Interactions
       map.removeInteraction(draw);
       map.removeInteraction(snap);
     }
     else {
       console.log('Entering into the add mode');
       mode = "add";
+      // Operations on the interface
+      document.getElementById('modButton').disabled = true;
+      document.getElementById('delButton').disabled = true;
       document.getElementById(id).style.color = "green";
+      // Interactions
       draw.on('drawend', function(evt) {newObjectAdded(evt)} );
       map.addInteraction(draw);
       map.addInteraction(snap);
@@ -249,15 +257,23 @@ function setMode(buttonId) {
     if(mode == "mod"){
       console.log('Leaving the modify mode');
       mode = "none";
+      // Operations on the interface
+      document.getElementById('addButton').disabled = false;
+      document.getElementById('delButton').disabled = false;
       document.getElementById(id).style.color = "black";
+      // Interactions
       select.getFeatures().clear(); // To clear the selection
       map.removeInteraction(select);
       map.removeInteraction(modify);
-      // ...
     }
     else {
       console.log('Entering into the modify mode');
       mode = "mod";
+      // Operations on the interface
+      document.getElementById('addButton').disabled = true;
+      document.getElementById('delButton').disabled = true;
+      document.getElementById(id).style.color = "green";
+      // Interactions
       document.getElementById(id).style.color = "green";
       map.addInteraction(select);
       map.addInteraction(modify);
@@ -269,14 +285,30 @@ function setMode(buttonId) {
     if(mode == "del"){
       console.log('Leaving the delete mode');
       mode = "none";
+      // Operations on the interface
+      document.getElementById('modButton').disabled = false;
+      document.getElementById('addButton').disabled = false;
       document.getElementById(id).style.color = "black";
-      // ...
+      // Adapting the interaction to delete the object
+      document.getElementById("saveButton").innerHTML = 'Sauver';
+      document.getElementById('saveButton').style.color = "black";
+      // Removing interaction select
+      select.getFeatures().clear(); // To clear the selection
+      map.removeInteraction(select);
     }
     else {
       console.log('Entering into the delete mode');
       mode = "del";
+      // Operations on the interface
+      document.getElementById('modButton').disabled = true;
+      document.getElementById('addButton').disabled = true;
       document.getElementById(id).style.color = "green";
-      // ...
+      // Adapting the interaction to delete the object
+      document.getElementById("saveButton").innerHTML = 'Supprimer';
+      document.getElementById('saveButton').style.color = "red";
+      // Adding interaction select
+      map.addInteraction(select);
+      select.on('select', function(evt) {objectDeleted(evt)});
     }
   }
 };
@@ -332,6 +364,25 @@ function objectModified(evt){
       window.alert('La page va être rechargée pour annuler votre modification')
       window.location.reload()
     }
+};
+
+function objectDeleted(evt) {
+  selectedFeatures = evt.target.getFeatures();
+  console.log('Un point a été sélectionné.');
+  // The seletect feature is in an array => Loop to find element of array
+  selectedFeatures.forEach((feature) => {
+    featureTemp = feature;
+    featureTempPr = feature.getProperties();
+    coordinatesTemp = feature.getGeometry().getCoordinates();
+    idTemp = featureTempPr.id;
+    document.getElementById('oNom').value = featureTempPr.nom;
+    document.getElementById('oType').value = featureTempPr.type;
+    document.getElementById('oDate').value = featureTempPr.date;
+    document.getElementById('oCommentaire').value = featureTempPr.commentaire;
+    document.getElementById('oPhoto').value = '';
+    // Setting the visibility of the formular to visible on the webpage
+    document.getElementById("OurInteraction").style.visibility="visible";
+  });
 };
 
 // Adding an event at the end of the draw. // TO BE UPDATED
@@ -409,6 +460,24 @@ function saveData(callback){ // TO BE UPDATED
         callback(jsonResp); // /!\ PAS comme sur exemple
       });
   }
+  if(mode =='del'){
+    request
+      .put('/data/oFormDelete')
+      .send(newObjectOnTheMap)
+      .end(function(err,res){
+        console.log('Statut de la requête : ' + res.status)
+        if(err){
+          return callback(null, 'Erreur de connexion au serveur, ' + err.message);
+          popupInteraction('Erreur ! --> F12',0)
+        }
+        if(res.status !== 200){
+          return callback(null, res.text);
+          popupInteraction('Erreur ! --> F12',0)
+        }
+        var jsonResp = JSON.parse(res.text);
+        callback(jsonResp); // /!\ PAS comme sur exemple
+      });
+  }
 };
 
 // Action exetuted when the data are saved in the MongoDB or cancelled
@@ -428,7 +497,13 @@ function onsaved(arg,msg){
       setMode('modButton');
       console.log('Données mises à jour avec succès.');
       popupInteraction('Mise à jour réussie !',1)
-      featureTemp.setProperties(newObjectOnTheMap.properties);
+      featureTemp.setProperties(newObjectOnTheMap.properties); // MARCHE PAS
+      featureTemp = null;
+    }
+    if(mode == 'del'){
+      setMode('delButton');
+      console.log('Données supprimées avec succès.');
+      popupInteraction('Données supprimées !',0)
       featureTemp = null;
     }
   }
