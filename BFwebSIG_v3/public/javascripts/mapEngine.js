@@ -519,6 +519,9 @@ function setVisibleLayers(){
   vectorlayerregions.setVisible(document.getElementById("regionsCheck").checked);
   vectorlayerprovinces.setVisible(document.getElementById("provincesCheck").checked);
   vectorlayerlocalites.setVisible(document.getElementById("localitesCheck").checked);
+  vectorRoutes.setVisible(document.getElementById("routesCheck").checked);
+  vectorPistes.setVisible(document.getElementById("pistesCheck").checked);
+  vectorOuvrages.setVisible(document.getElementById("ouvragesCheck").checked);
 
   //RoadLayer.setVisible(document.getElementById("interactionsCheck").checked); // TO BE UPDATED
   console.log('Changing the layers visibility.');
