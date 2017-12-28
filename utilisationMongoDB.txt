@@ -1,4 +1,4 @@
-﻿Démarrer la base de données, dans un terminal particulier, à part!:
+Démarrer la base de données, dans un terminal particulier, à part!:
  --> Nouveau terminal : mongod
 
 Dans un autre terminal:
@@ -23,6 +23,9 @@ Ajouter une collection
 
 Renommer une collection
  --> db.routes.renameCollection('routesLL')
+
+Eliminer des éléments d'une collection
+--> exemple: db.ouvragesLL.remove({}) dans le shell mongo
 
 Trouver un élément dans une collection
  --> Dans le shell : db.staticlayercollection.find({"name":"roadlines"})

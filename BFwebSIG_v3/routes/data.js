@@ -23,7 +23,7 @@ function(error){
   }
 });
 
-/*
+
 // Files upload on the mongo SERVER
 //to allow writting and reading of multipart objects in Mongo DB
 grid.mongo = mongoose.mongo;
@@ -45,7 +45,7 @@ router.post('/file', upload.single('fileToUpload'),function(req, res, next){
     return res.status(200).json({_id: newFile._id});
   });
 });
-*/
+
 
 // Mongoose general Schema & model definition: mongoose.model(name, schema, collection)
 var JsonSchema = new Schema({
