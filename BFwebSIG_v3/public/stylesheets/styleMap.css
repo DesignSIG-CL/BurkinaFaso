@@ -28,7 +28,7 @@ styleMap.css
   {
     top: 0em;
     height: 2.5em;
-    padding: 0.2em;
+    padding: 0.5em;
     display: inline-flex;
 
   }
@@ -61,7 +61,7 @@ styleMap.css
   {
     margin : auto;
     font-weight: bold;
-    font-size: 1em;
+    font-size: 2em;
     color: rgb(0,100,100);
   }
 
@@ -70,7 +70,7 @@ styleMap.css
   {
     align-self: center;
     text-align: center; /* ne marche pas */
-    font-size: 50%;
+    font-size: 0.7em;
     font-style: italic;
     color: rgb(100,100,100);
   }
@@ -92,7 +92,7 @@ styleMap.css
     width: 16em;
     position: absolute;
     left: 0px;
-    top: 2.9em;
+    top: 3.5em;
     /*bottom: 1.5em;
     background-color: rgba(0,0,0,0);
     overflow-x: scroll;
@@ -101,6 +101,8 @@ styleMap.css
 /* Legend */
   #OurLegend
   {
+    box-shadow: 2px 2px 2px rgb(0,0,0);
+    top: 0.1em;
   }
 
 /* Elements inside the pannel */
@@ -122,7 +124,7 @@ styleMap.css
     text-align: center;
     color: rgb(255,255,255);
     position: relative;
-    top: 0px;
+    top: 0em;
   }
   /* Content of the container */
   .WindowsContent
@@ -131,7 +133,8 @@ styleMap.css
     font-size: 1em;
     color: rgb(0,0,0);
     position: relative;
-    top: 0px;
+    top: 0em;
+    padding: 0.5em;
   }
   /* For interaction: add/edit/delete modes */
   /* Group add/edit/delete buttons */
@@ -143,6 +146,9 @@ styleMap.css
   {
     visibility: collapse;
     word-wrap: break-word;
+    box-shadow: 2px 2px 2px rgb(0,0,0);
+    top: 0.1em;
+
   }
   /* Window for edition */
   #EditorOption
@@ -151,11 +157,11 @@ styleMap.css
     position: absolute;
     top: 6em;
     left: 17em; */
-    
     width: flex;
     visibility: collapse;
     box-shadow: 2px 2px 2px rgb(0,0,0);
     z-index: 10000; /* The z-index property specifies the stack order of an element. An element with greater stack order is always in front of an element with a lower stack order. */
+    top: 0.1em;
   }
   /* Container for ouvrages formulaire */
   #BridgeInfosContent
@@ -171,10 +177,9 @@ styleMap.css
 /* All buttons*/
   .OurButton
   {
-    height: 1.5em;
-    width: 1.5em;
+    height: 1.7em;
+    width: 1.7em;
     position: absolute;
-    top: 3.5em;
     background-color: rgb(230,230,230);
     box-shadow: 2px 2px 2px rgb(0,0,0);
     border-radius: 0px;
@@ -182,12 +187,14 @@ styleMap.css
   /* Button to show/hide legend */
   #OurButtonLegend
   {
+    top: 4em;
     left: 17em;
   }
   /* Button to show/hide edit pannel*/
   #OurButtonEdit
   {
-    left: 19em;
+    top: 6em;
+    left: 17em;
   }
 
   .ButtonImg
@@ -208,6 +215,18 @@ styleMap.css
   #saveButton
   {
     right : 2%;
+  }
+  #addButton
+  {
+    position: left
+  }
+  #modButton
+  {
+    position: center;
+  }
+  #delButton
+  {
+    position: right;
   }
 /* Popup window */
   #OurPopup
