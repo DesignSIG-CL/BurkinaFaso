@@ -36,7 +36,7 @@ styleMap.css
   {
     bottom: 0em;
     height: 1.5em;
-    padding: 1em;
+    padding-top: 1em;
   }
   #header, #footer
   {
@@ -92,11 +92,15 @@ styleMap.css
     width: 16em;
     position: absolute;
     left: 0px;
-    top: 2.5em;
-    bottom: 1.5em;
+    top: 2.9em;
+    /*bottom: 1.5em;
     background-color: rgba(0,0,0,0);
     overflow-x: scroll;
-    overflow-y: scroll;
+    overflow-y: scroll;*/
+  }
+/* Legend */
+  #OurLegend
+  {
   }
 
 /* Elements inside the pannel */
@@ -104,9 +108,10 @@ styleMap.css
   .Windows
   {
     position: relative;
-    background-color: rgba(255,255,255,0.4); /* Just to see the windows during development*/
+    background-color: rgba(255,255,255,0.4);
     padding: 6px;
-    position: relative;
+    width: 16em;
+    left: 0px;
   }
   /* Title for the element in container */
   .WindowsTitle
@@ -142,15 +147,15 @@ styleMap.css
   /* Window for edition */
   #EditorOption
   {
-    background-color: rgba(255,255,255,0.4);
+    /* background-color: rgba(255,255,255,0.4);
     position: absolute;
     top: 6em;
-    left: 17em;
-    height: 9em;
+    left: 17em; */
+    
     width: flex;
     visibility: collapse;
     box-shadow: 2px 2px 2px rgb(0,0,0);
-    z-index: 10000;
+    z-index: 10000; /* The z-index property specifies the stack order of an element. An element with greater stack order is always in front of an element with a lower stack order. */
   }
   /* Container for ouvrages formulaire */
   #BridgeInfosContent

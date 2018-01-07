@@ -24,13 +24,13 @@
 
 <!-- lateral panel -->
   <div id='LateralPanel'>
-  <!-- legend -->
+<!-- legend -->
         <div id='OurLegend' class='Windows'>
-      <!-- title -->
+  <!-- title -->
           <div class='WindowsTitle'>
             Légende
           </div>
-      <!-- legend content -->
+  <!-- legend content -->
           <div class='WindowsContent'>
             <form>
               <input type="checkbox" id="roadlinesCheck" onclick="setVisibleLayers()" checked> Axes routiers<br>
@@ -47,9 +47,37 @@
             </form>
           </div>
         </div>
+<!-- option to edit layers (here only "ponts") -->
+    <div id='EditorOption' class='Windows'>
+      <div class='WindowsTitle'>
+        Éditer la carte
+      </div>
+<!--      <form id="options-form" autocomplete="off" class='WindowsContent'>
+-->
+        <!--
+        <div id="OurNewModifyOption">
+        The actions button below are defined in the js. -->
+      <div class='WindowsContent'>
+        <button type="button" id="addButton">Ajouter</button>
+        <button type="button" id="modButton">Modifier</button>
+        <button type="button" id="delButton">Supprimer</button>
+      </div>
+    </div>
 
-
-
+<!--
+        <div id="OurSelector" class="form-group">
+          <label>Type d'ouvrage &nbsp;</label>
+          <select name="draw-type" id="draw-type">
+            <option value="Point">Ponctuel</option>
+            <option value="LineString">Linéaire</option>
+            <option value="Polygon">Polygone</option>
+            <option value="Circle">Cercle</option>
+          </select>
+        </div>
+-->
+<!--      </form> -->
+ 
+<!-- fin nouvel emplacementttttttttttttttttttttttttttt -->
 
 <!-- attribute table -->
     <div id='OurInteraction' class='Windows'>
@@ -77,22 +105,23 @@
             	<label>Photo</label>
             	<div style="min-height: 12em; border: solid1px lightgrey"
                 <img id='loadimage' src="" width=280px>
-            </div>
+              </div>
 	            <input id="fileinput" type_"file" enctype='multipart/form-data' onchange="onFileSelected(event)"></input>
 	            <input id='oPhoto' type="file"></input>
-              <<!--<button type="button" id="saveBtt">Sauver</button>
+              <!--<button type="button" id="saveBtt">Sauver</button>
               <button type="button" id="cancelBtt">Annuler</button> ON A VRAIMENT BESOIN DES BOUTONS A DOUBLE ?-->
-	         </div>
-	    	</div>
+	           </div>
+	    	    </div>
           <button type="button" id="saveButton">Sauver</button>
           <button type="button" id="cancelButton">Annuler</button>
-	    	</div>
-	      <div id='OurInput'>
+	        <div id='OurInput'>
 	            <!-- dynamic content -->
-	      </div>
+	        </div>
 
         </div>
 
+    </div>
+  </div>
     </div>
 
 <!-- display legend or not -->
@@ -105,37 +134,7 @@
     </div>
 
 <!-- ancien emplacement pour le bloc d'édition -->
-
-<!-- option to edit layers (here only "ponts") -->
-    <div id='EditorOption' class='Windows'>
-      <div class='WindowsTitle'>
-        Éditer la carte
-      </div>
-<!--      <form id="options-form" autocomplete="off" class='WindowsContent'>
--->
-        <div id="OurNewModifyOption">
-          <!-- The actions button below are defined in the js. -->
-          <button type="button" id="addButton">Ajouter</button>
-          <button type="button" id="modButton">Modifier</button>
-          <button type="button" id="delButton">Supprimer</button>
-        </div>
-<!--
-        <div id="OurSelector" class="form-group">
-          <label>Type d'ouvrage &nbsp;</label>
-          <select name="draw-type" id="draw-type">
-            <option value="Point">Ponctuel</option>
-            <option value="LineString">Linéaire</option>
-            <option value="Polygon">Polygone</option>
-            <option value="Circle">Cercle</option>
-          </select>
-        </div>
--->
-<!--      </form> -->
- 
-    </div>
 <!-- end edit block -->
-
-
 
 <!-- logo, title, image (appears over the map) -->
   <div id="header">
@@ -148,7 +147,7 @@
     <div id="footer">
       <div id="author"> B. CORDAY & R. LUGRIN - Design de SIG - V 37'649 </div>
     </div>
-    
+
 <!-- Popup -->
     <div id='OurPopup'>
 
