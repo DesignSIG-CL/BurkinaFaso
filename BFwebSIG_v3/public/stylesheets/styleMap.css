@@ -1,17 +1,20 @@
 /*
 styleMap.css
----------
-Projet pour le cours "Design de SIG"
-Par Benoît CORDAY et René LUGRIN
+-----------------------------------------
+--Projet pour le cours "Design de SIG" --
+----Par Benoît CORDAY et René LUGRIN ----
+-----------------------------------------
+-------STYLE SHEET FOR THE PROJECT-------
+-----------------------------------------
 */
 
-/* Defining an universal font for all the code*/
+/* Defining an universal font for all the code */
   *
   {
     font-family: "Verdana";
   }
 
-/* Fixing the size of the webpage as the size of the web-browser's windows*/
+/* Fixing the size of the webpage as the size of the web-browser's windows */
   body
   {
     top: 0;
@@ -20,29 +23,31 @@ Par Benoît CORDAY et René LUGRIN
     right: 0;
   }
 
-/* page header and page footer */
+/* Page header & page footer */
   #header
   {
-    top: 0px;
-    left: 0px;
+    top: 0em;
     height: 2.5em;
+    padding: 0.2em;
+    display: inline-flex;
+
   }
   #footer
   {
-    bottom: 0px;
-    left: 0px;
+    bottom: 0em;
     height: 1.5em;
+    padding: 1em;
   }
   #header, #footer
   {
     position: absolute;
-    align-self:center;
-    width:100%;
+    left: 0em;
+    right: 0em;
+    align-self: center;
     background-color: rgba(255,255,255,0.85);
     box-shadow: 0px 0px 2px 2px rgb(0,50,50);
     text-align: center;
     overflow: hidden;
-    display: inline-flex;
     justify-content: space-between;
   }
 
@@ -63,7 +68,8 @@ Par Benoît CORDAY et René LUGRIN
 /* footer content */
   #author
   {
-    align-self:center;
+    align-self: center;
+    text-align: center; /* ne marche pas */
     font-size: 50%;
     font-style: italic;
     color: rgb(100,100,100);
@@ -146,13 +152,13 @@ Par Benoît CORDAY et René LUGRIN
     box-shadow: 2px 2px 2px rgb(0,0,0);
     z-index: 10000;
   }
-  /*  */
+  /* Container for ouvrages formulaire */
   #BridgeInfosContent
   {
     height: 76%;
     overflow: scroll;
   }
-  /* Add/edit/delete */
+  /* Add/edit/delete modes */
   #options-form
   {
   }
@@ -184,7 +190,7 @@ Par Benoît CORDAY et René LUGRIN
     height:inherit;
     width:inherit;
   }
-
+  /* Buttons for formulaire validation */
   #cancelButton, #saveButton
   {
     position: absolute;
@@ -198,7 +204,7 @@ Par Benoît CORDAY et René LUGRIN
   {
     right : 2%;
   }
-
+/* Popup window */
   #OurPopup
   {
     position: absolute;
