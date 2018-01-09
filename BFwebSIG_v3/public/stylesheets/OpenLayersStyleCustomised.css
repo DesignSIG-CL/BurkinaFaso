@@ -24,7 +24,7 @@
 .ol-control button:focus,.ol-control button:hover{text-decoration:none;background-color:rgba(0,60,136,.7)}
 .ol-zoom .ol-zoom-in{border-radius:0 0 0 0} /* for round corners */
 .ol-zoom .ol-zoom-out{border-radius:0 0 0 0} /* for round corners */
-.ol-attribution{text-align:right;bottom:2.8em;left:.2em;max-width:calc(100% - 1.3em)} /* Info button*/
+.ol-attribution{text-align:right;bottom:2.8em;right:18.5em;max-width:calc(100% - 1.3em)} /* Info button*/
 .ol-attribution ul{margin:0;padding:0.5em;font-size:.7rem;line-height:1.375em;color:#000;text-shadow:0 0 2px #fff}
 .ol-attribution li{display:inline;list-style:none;line-height:inherit}
 .ol-attribution li:not(:last-child):after{content:" "}
