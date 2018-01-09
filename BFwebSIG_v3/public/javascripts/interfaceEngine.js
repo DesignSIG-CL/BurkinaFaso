@@ -1,3 +1,12 @@
+/* interfaceEngine.css
+-----------------------------------------
+--Projet pour le cours "Design de SIG" --
+----Par Benoît CORDAY et René LUGRIN ----
+-----------------------------------------
+-------aaaaaaaaa-------
+-----------------------------------------
+*/
+
 var etatLegend = 1;
 var etatEditor = 0;
 var osmORdigital = 0;
