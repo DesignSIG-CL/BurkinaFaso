@@ -492,7 +492,6 @@ function setMode(buttonId) {
 // Action exetuted when the data are saved in the MongoDB or cancelled
   function onsaved(arg,msg){
     if(arg == null){
-      console.log(msg);
       popupInteraction(msg,0);
     }
     else{
@@ -502,6 +501,8 @@ function setMode(buttonId) {
         popupInteraction('Enregistrement réussi !',1)
         featureTemp.setProperties(arg.properties);
         featureTemp._id = arg._id;
+        vectorOuvrages.getSource().addFeature(featureTemp);
+        featureTemp = null;
       }
       if(mode == 'mod'){
         setMode('modButton');
