@@ -109,7 +109,7 @@ styleMap.css
   /* Container for legend, interaction, ... */
   .Windows
   {
-    position: relative;
+    position: static;
     background-color: rgba(255,255,255,0.4);
     padding: 0.4em;
     width: 16em;
@@ -148,7 +148,6 @@ styleMap.css
     word-wrap: break-word;
     box-shadow: 0.1em 0.1em 0.1em rgb(0,0,0);
     top: 0.2em;
-
   }
   /* Window for edition */
   #EditorOption
@@ -195,6 +194,7 @@ styleMap.css
   {
     top: 6em;
     left: 17.5em;
+    font-size: 1em;
   }
 
   .ButtonImg
