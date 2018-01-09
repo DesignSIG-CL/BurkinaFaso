@@ -5,6 +5,8 @@ console.log('mapEngine is running');
 
 // All the global variables
 var map;
+var osm;
+var DigitalGlobe;
 var coordinatesTemp = ''; // Global variable to store the coordinates temporary
 var featureTemp = null; // Global variable to store the feature temporary
 var featureBackup = ''; // Globale variable to backup featureTemp
@@ -49,12 +51,21 @@ var newObjectOnTheMap = '';  // Global variable to store object to send to Mongo
 // This function generate and display the openlayer integration when the webpage is loaded
   function init() {
   // Creation of a new map with a OSM layer
+  osm = new ol.layer.Tile({
+    title: 'OSM',
+    source: new ol.source.OSM()
+  });
+  DigitalGlobe = new ol.layer.Tile({
+          title: 'DigitalGlobe',
+          //title: 'DigitalGlobe Maps API: Recent Imagery',
+          source: new ol.source.XYZ({
+              url: 'http://api.tiles.mapbox.com/v4/digitalglobe.92ee07af/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNqNTVpcXdiNzA3NTczM3RnYnRqb2g2anEifQ.DziD_BPlGaeFqp3VXMqMvQ', // You will need to replace the 'access_token' and 'Map ID' values with your own. http://developer.digitalglobe.com/docs/maps-api
+              attribution: "© DigitalGlobe, Inc"
+          }),
+          visible: false,
+      }),
     map = new ol.Map({
-      layers: [
-        new ol.layer.Tile({
-          source: new ol.source.OSM()
-      })
-      ],
+      layers: [osm, DigitalGlobe],
       target: 'OurMap',
       renderer: 'canvas',
       view: new ol.View({
@@ -144,7 +155,6 @@ var newObjectOnTheMap = '';  // Global variable to store object to send to Mongo
           format: new ol.format.GeoJSON(),
         })
       });
-
 
 // Source for the pimpable data
   var rSrc = new ol.source.Vector({

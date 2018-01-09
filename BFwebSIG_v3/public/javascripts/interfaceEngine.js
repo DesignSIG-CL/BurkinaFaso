@@ -1,5 +1,6 @@
 var etatLegend = 1;
 var etatEditor = 0;
+var osmORdigital = 0;
 
 function menu() {
     if (etatLegend==0) {
@@ -54,3 +55,14 @@ function popupEnd(){
   document.getElementById('OurPopup').style.visibility='collapse';
 };
 
+function baseLayerChange(){
+  if (osmORdigital==0) {
+    osmORdigital = 1;
+    DigitalGlobe.setVisible(true);
+    osm.setVisible(false);
+  } else {
+    osmORdigital = 0;
+    DigitalGlobe.setVisible(false);
+    osm.setVisible(true);
+  }
+};

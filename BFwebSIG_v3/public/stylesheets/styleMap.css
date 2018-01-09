@@ -198,6 +198,13 @@ styleMap.css
     font-size: 1em;
   }
 
+  #OurButtonBaseLayer
+  {
+    top: 12em;
+    right: 18.5em;
+    font-size: 1em;
+  }
+
   .ButtonImg
   {
     height:inherit;
