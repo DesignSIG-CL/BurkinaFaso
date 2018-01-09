@@ -42,10 +42,10 @@ styleMap.css
     position: absolute;
     left: 0em;
     right: 0em;
-    align-self: center;
     background-color: rgba(255,255,255,0.85);
     box-shadow: 0em 0.1em 0.1em 0.1em rgb(0,50,50);
     text-align: center;
+    align-self: center;
     overflow: hidden;
     justify-content: space-between;
   }
@@ -68,7 +68,6 @@ styleMap.css
   #author
   {
     align-self: center;
-    text-align: center; /* ne marche pas */
     font-size: 0.7em;
     font-style: italic;
     color: rgb(100,100,100);
@@ -224,24 +223,36 @@ styleMap.css
   {
     right : 2%;
   }
+  #editButtongroup
+  {
+    justify-content: center;
+    display: inline-flex;
+    padding: 0.4em;
+  }
   #addButton
   {
-    position: left
+    font-size: 0.8em;
+    border-radius: 0.3em;
+    justify-content: left;
   }
   #modButton
   {
-    position: center;
+    font-size: 0.8em;
+    border-radius: 0.3em;
+    justify-content: center;
   }
   #delButton
   {
-    position: right;
+    font-size: 0.8em;
+    border-radius: 0.3em;
+    justify-content: right;
   }
 /* Popup window */
   #OurPopup
   {
     position: absolute;
-    right :3em;
-    bottom :3em;
+    left: 3em;
+    bottom: 3em;
     height: 5em;
     width: 8em;
     background-color: rgba(255,255,255,0.5); /* red/green/blue/transparency */
