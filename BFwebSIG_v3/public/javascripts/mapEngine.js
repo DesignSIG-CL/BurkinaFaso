@@ -71,6 +71,9 @@ var overlay;
           visible: false,
       }),
 
+  container = document.getElementById('popup');
+  content = document.getElementById('popup-content');
+  closer = document.getElementById('popup-closer');
   overlay = new ol.Overlay({
       element: container,
       autoPan: true,
@@ -114,10 +117,6 @@ var overlay;
 // Button to save the formular
   document.getElementById("saveButton").onclick = function(){saveFormular(onsaved)};
   document.getElementById("cancelButton").onclick = cancelFormular;
-
-  container = document.getElementById('popup');
-  content = document.getElementById('popup-content');
-  closer = document.getElementById('popup-closer');
 
 // Add a click handler to hide the popup. @return {boolean} Don't follow the href.
   closer.onclick = function() {
@@ -510,6 +509,7 @@ function setMode(buttonId) {
     document.getElementById('popDateMa').innerText = featurePopPr.dateM;
     document.getElementById('popCommen').innerText = featurePopPr.cmntr;
     // Setting the visibility of the formular to visible on the webpage
+    var element = overlay.getElement();
     overlay.setPosition(coordinatesPop);
   };
 
