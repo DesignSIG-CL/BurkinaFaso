@@ -384,6 +384,8 @@ function setMode(buttonId) {
       // Interactions
       select.getFeatures().clear(); // To clear the selection
       map.removeInteraction(select);
+      overlay.setPosition(undefined);
+      closer.blur();
       onsaved(null,'Annulation');
     }
     else {
