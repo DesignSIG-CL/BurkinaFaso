@@ -110,6 +110,7 @@ styleMap.css
   .Windows
   {
     position: static;
+    display: block;
     background-color: rgba(255,255,255,0.4);
     padding: 0.4em;
     width: 16em;
@@ -140,11 +141,11 @@ styleMap.css
   /* Group add/edit/delete buttons */
   #OurNewModifyOption
   {
-    display: inline
+    display: inline;
   }
   #OurInteraction
   {
-    visibility: collapse;
+    display: none;
     word-wrap: break-word;
     box-shadow: 0.1em 0.1em 0.1em rgb(0,0,0);
     top: 0.2em;
@@ -157,7 +158,7 @@ styleMap.css
     top: 6em;
     left: 17em; */
     width: flex;
-    visibility: collapse;
+    display: none;
     box-shadow: 0.1em 0.1em 0.1em rgb(0,0,0);
     z-index: 10000; /* The z-index property specifies the stack order of an element. An element with greater stack order is always in front of an element with a lower stack order. */
     top: 0.1em;
