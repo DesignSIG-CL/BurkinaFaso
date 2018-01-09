@@ -1,5 +1,11 @@
-/* B. Corday et R. Lugrin
-    This javascript's file generate the style for each layer on the map.*/
+/* mapEngineStyle.js
+-----------------------------------------
+--Projet pour le cours "Design de SIG" --
+----Par Benoît CORDAY et René LUGRIN ----
+-----------------------------------------
+------GENERATE STYLE FOR MAP LAYERS------
+-----------------------------------------
+*/
 
 // Styles of the GeoJSON static layers
 var roadlinesStyle = new ol.style.Style({

@@ -1,9 +1,9 @@
-/* interfaceEngine.css
+/* interfaceEngine.js
 -----------------------------------------
 --Projet pour le cours "Design de SIG" --
 ----Par Benoît CORDAY et René LUGRIN ----
 -----------------------------------------
--------aaaaaaaaa-------
+------- Apparitions/Disparitions-------
 -----------------------------------------
 */
 

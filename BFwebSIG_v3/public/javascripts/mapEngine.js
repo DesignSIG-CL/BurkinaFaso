@@ -1,5 +1,11 @@
-/* B. Corday et R. Lugrin
-    This javascript's file is the main part of the client-side js.*/
+/* mapEngine.js
+-----------------------------------------
+--Projet pour le cours "Design de SIG" --
+----Par Benoît CORDAY et René LUGRIN ----
+-----------------------------------------
+------JAVASCRIPT, MAIN PART CLIENT ------
+-----------------------------------------
+*/
 
 console.log('mapEngine is running');
 
