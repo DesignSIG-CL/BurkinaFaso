@@ -366,11 +366,16 @@ function setMode(buttonId) {
     dateNow = new Date();
     idTemp = 'id-' + dateNow.toISOString() + '-' + Math.random().toString(36).substr(2, 4);
     // Setting the value of the element in formular to the default values
-    document.getElementById('oNom').value = '';
-    document.getElementById('oType').value = 'test';
-    document.getElementById('oDate').value = '';
-    document.getElementById('oCommentaire').value = '';
-    document.getElementById('oPhoto').value = '';
+    document.getElementById('oNomPon').value = '';
+    document.getElementById('oDateCo').value = '';
+    document.getElementById('oDateMa').value = '';
+    document.getElementById('oNtrave').value = '';
+    document.getElementById('oLoOuve').value = '';
+    document.getElementById('oPortee').value = '';
+    document.getElementById('oHauteu').value = '';
+    document.getElementById('oLaRoul').value = '';
+    document.getElementById('oGabari').value = '';
+    document.getElementById('oCommen').value = '';
     // Setting the visibility of the formular to visible on the webpage
     document.getElementById("OurInteraction").style.display="block";
   };
@@ -382,11 +387,16 @@ function setMode(buttonId) {
     featureTempPr = featureTemp.getProperties();
     coordinatesTemp = featureTemp.getGeometry().getCoordinates();
     idTemp = featureTempPr.id;
-    document.getElementById('oNom').value = featureTempPr.nom;
-    document.getElementById('oType').value = featureTempPr.type;
-    document.getElementById('oDate').value = featureTempPr.date;
-    document.getElementById('oCommentaire').value = featureTempPr.commentaire;
-    document.getElementById('oPhoto').value = '';
+    document.getElementById('oNomPon').value = featureTempPr.nom;
+    document.getElementById('oDateCo').value = featureTempPr.dateC;
+    document.getElementById('oDateMa').value = featureTempPr.dateM;
+    document.getElementById('oNtrave').value = featureTempPr.nTrav;
+    document.getElementById('oLoOuve').value = featureTempPr.lOuve;
+    document.getElementById('oPortee').value = featureTempPr.porte;
+    document.getElementById('oHauteu').value = featureTempPr.haute;
+    document.getElementById('oLaRoul').value = featureTempPr.lRoul;
+    document.getElementById('oGabari').value = featureTempPr.gabar;
+    document.getElementById('oCommen').value = featureTempPr.cmntr;
     // Setting the visibility of the formular to visible on the webpage
     document.getElementById("OurInteraction").style.display="block";
   };
@@ -411,11 +421,16 @@ function setMode(buttonId) {
     featureTempPr = featureTemp.getProperties();
     coordinatesTemp = featureTemp.getGeometry().getCoordinates();
     idTemp = featureTempPr.id;
-    document.getElementById('oNom').value = featureTempPr.nom;
-    document.getElementById('oType').value = featureTempPr.type;
-    document.getElementById('oDate').value = featureTempPr.date;
-    document.getElementById('oCommentaire').value = featureTempPr.commentaire;
-    document.getElementById('oPhoto').value = '';
+    document.getElementById('oNomPon').value = featureTempPr.nom;
+    document.getElementById('oDateCo').value = featureTempPr.dateC;
+    document.getElementById('oDateMa').value = featureTempPr.dateM;
+    document.getElementById('oNtrave').value = featureTempPr.nTrav;
+    document.getElementById('oLoOuve').value = featureTempPr.lOuve;
+    document.getElementById('oPortee').value = featureTempPr.porte;
+    document.getElementById('oHauteu').value = featureTempPr.haute;
+    document.getElementById('oLaRoul').value = featureTempPr.lRoul;
+    document.getElementById('oGabari').value = featureTempPr.gabar;
+    document.getElementById('oCommen').value = featureTempPr.cmntr;
     // Setting the visibility of the formular to visible on the webpage
     document.getElementById("OurInteraction").style.display="block";
   };
@@ -427,12 +442,17 @@ function setMode(buttonId) {
     newObjectOnTheMap = {
     'type' : 'Feature', // comme dans les éléments de base
     'properties':{
-      'id'          : idTemp,
-      'nom'         : document.getElementById('oNom').value,
-      'type'        : document.getElementById('oType').value,
-      'date'        : document.getElementById('oDate').value,
-      'commentaire' : document.getElementById('oCommentaire').value,
-      'photoid'     : document.getElementById('oPhoto').value,
+      'id'      : idTemp,
+      'nom'     : document.getElementById('oNomPon').value,
+      'dateC'   : document.getElementById('oDateCo').value,
+      'dateM'   : document.getElementById('oDateMa').value,
+      'nTrav'   : document.getElementById('oNtrave').value,
+      'lOuve'   : document.getElementById('oLoOuve').value,
+      'porte'   : document.getElementById('oPortee').value,
+      'haute'   : document.getElementById('oHauteu').value,
+      'lRoul'   : document.getElementById('oLaRoul').value,
+      'gabar'   : document.getElementById('oGabari').value,
+      'cmntr'   : document.getElementById('oCommen').value,
     },
     'geometry': {
       'type'         : 'Point',
