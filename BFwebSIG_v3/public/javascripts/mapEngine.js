@@ -283,6 +283,7 @@ function setMode(buttonId) {
       // Operations on the interface
       document.getElementById('modButton').disabled = false;
       document.getElementById('delButton').disabled = false;
+      document.getElementById('infoButton').disabled = false;
       document.getElementById(id).style.color = "black";
       // Interactions
       map.removeInteraction(draw);
@@ -298,6 +299,7 @@ function setMode(buttonId) {
       // Operations on the interface
       document.getElementById('modButton').disabled = true;
       document.getElementById('delButton').disabled = true;
+      document.getElementById('infoButton').disabled = true;
       document.getElementById(id).style.color = "green";
       // Interactions
       draw.on('drawend', function(evt) {newObjectAdded(evt)} );
@@ -313,6 +315,7 @@ function setMode(buttonId) {
       // Operations on the interface
       document.getElementById('addButton').disabled = false;
       document.getElementById('delButton').disabled = false;
+      document.getElementById('infoButton').disabled = false;
       document.getElementById(id).style.color = "black";
       // Interactions
       select.getFeatures().clear(); // To clear the selection
@@ -326,6 +329,7 @@ function setMode(buttonId) {
       // Operations on the interface
       document.getElementById('addButton').disabled = true;
       document.getElementById('delButton').disabled = true;
+      document.getElementById('infoButton').disabled = true;
       document.getElementById(id).style.color = "green";
       // Interactions
       map.addInteraction(select);
@@ -342,6 +346,7 @@ function setMode(buttonId) {
       // Operations on the interface
       document.getElementById('modButton').disabled = false;
       document.getElementById('addButton').disabled = false;
+      document.getElementById('infoButton').disabled = false;
       document.getElementById(id).style.color = "black";
       // Adapting the interaction to delete the object
       document.getElementById("saveButton").innerHTML = 'Sauver';
@@ -357,6 +362,7 @@ function setMode(buttonId) {
       // Operations on the interface
       document.getElementById('modButton').disabled = true;
       document.getElementById('addButton').disabled = true;
+      document.getElementById('infoButton').disabled = true;
       document.getElementById(id).style.color = "green";
       // Adapting the interaction to delete the object
       document.getElementById("saveButton").innerHTML = 'Supprimer';
@@ -372,8 +378,9 @@ function setMode(buttonId) {
       mode = "none";
       // Operations on the interface
       document.getElementById('addButton').disabled = false;
+      document.getElementById('modButton').disabled = false;
       document.getElementById('delButton').disabled = false;
-      document.getElementById(id).style.color = "black";
+      document.getElementById(id).style.background = "rgb(230,230,230)";
       // Interactions
       select.getFeatures().clear(); // To clear the selection
       map.removeInteraction(select);
@@ -384,8 +391,9 @@ function setMode(buttonId) {
       mode = "inf";
       // Operations on the interface
       document.getElementById('addButton').disabled = true;
+      document.getElementById('modButton').disabled = true;
       document.getElementById('delButton').disabled = true;
-      document.getElementById(id).style.color = "green";
+      document.getElementById(id).style.background = "rgb(0,100,100)";
       // Interactions
       map.addInteraction(select);
       select.on('select', function(evt) {objectInfo(evt)});
