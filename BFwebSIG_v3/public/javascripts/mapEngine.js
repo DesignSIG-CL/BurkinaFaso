@@ -329,6 +329,31 @@ function setMode(buttonId) {
       select.on('select', function(evt) {objectDeleted(evt)});
     }
   }
+  else if(id == "infoButton") {
+    if(mode == "inf"){
+      console.log('Leaving the info mode');
+      mode = "none";
+      // Operations on the interface
+      document.getElementById('addButton').disabled = false;
+      document.getElementById('delButton').disabled = false;
+      document.getElementById(id).style.color = "black";
+      // Interactions
+      select.getFeatures().clear(); // To clear the selection
+      map.removeInteraction(select);
+      onsaved(null,'Annulation');
+    }
+    else {
+      console.log('Entering into the modify mode');
+      mode = "inf";
+      // Operations on the interface
+      document.getElementById('addButton').disabled = true;
+      document.getElementById('delButton').disabled = true;
+      document.getElementById(id).style.color = "green";
+      // Interactions
+      map.addInteraction(select);
+      select.on('select', function(evt) {objectInfo(evt)});
+    }
+  }
 };
 
 // Action executed when the button save is pressed
@@ -433,6 +458,21 @@ function setMode(buttonId) {
     document.getElementById('oCommen').value = featureTempPr.cmntr;
     // Setting the visibility of the formular to visible on the webpage
     document.getElementById("OurInteraction").style.display="block";
+  };
+
+// Action exectuted when informations are requested
+  function objectInfo(evt){
+    featurePop = evt.selected[0]; // The feature is in at the array's first position
+    console.log('Un point a été sélectionné pour des informations.');
+    featurePopPr = featureTemp.getProperties();
+    coordinatesPop = featureTemp.getGeometry().getCoordinates();
+    idTemp = featureTempPr.id;
+    document.getElementById('popNomPon').value = featurePopPr.nom;
+    document.getElementById('popDateCo').value = featurePopPr.dateC;
+    document.getElementById('popDateMa').value = featurePopPr.dateM;
+    document.getElementById('popCommen').value = featurePopPr.cmntr;
+    // Setting the visibility of the formular to visible on the webpage
+    overlay.setPosition(coordinatesPop);
   };
 
 // Action executed to save the data
