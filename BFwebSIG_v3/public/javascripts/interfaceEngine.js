@@ -6,7 +6,7 @@ function menu() {
     if (etatLegend==0) {
       // We want to display the legend
       document.getElementById("OurLegend").style.display="block";
-      document.getElementById("OurButtonLegend").style.backgroundColor="rgb(0,100,100)";
+      document.getElementById("OurButtonLegend").style.backgroundColor="rgb(230,230,230)";
       document.getElementById("OurInteraction").style.top = '31em';
       console.log('Display menu')
       etatLegend = 1;
@@ -14,7 +14,7 @@ function menu() {
     } else {
       // We want to hide the legend
       document.getElementById("OurLegend").style.display="none";
-      document.getElementById("OurButtonLegend").style.backgroundColor="rgb(100,0,0)";
+      document.getElementById("OurButtonLegend").style.backgroundColor="rgb(255,230,230)";
       document.getElementById("OurInteraction").style.top = '10.5em';
       console.log('Hide menu')
       etatLegend = 0;
@@ -25,14 +25,14 @@ function edit() {
     if (etatEditor==0) {
       // We want to display the editor options
       document.getElementById("EditorOption").style.display="block";
-      document.getElementById("OurButtonEdit").style.backgroundColor="rgb(0,100,100)";
+      document.getElementById("OurButtonEdit").style.backgroundColor="rgb(230,230,230)";
       console.log('Display editor')
       etatEditor = 1;
 
     } else {
       // We want to hide the editor options
       document.getElementById("EditorOption").style.display="none";
-      document.getElementById("OurButtonEdit").style.backgroundColor="rgb(100,0,0)";
+      document.getElementById("OurButtonEdit").style.backgroundColor="rgb(255,230,230)";
       console.log('Hide editor')
       etatEditor = 0;
     }
