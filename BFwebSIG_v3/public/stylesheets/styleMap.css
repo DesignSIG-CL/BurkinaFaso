@@ -207,6 +207,13 @@ styleMap.css
     font-size: 1em;
   }
 
+  #infoButton
+  {
+    top: 16em;
+    right: 18.5em;
+    font-size: 1em;
+  }
+
   .ButtonImg
   {
     height:inherit;

@@ -110,6 +110,7 @@ var overlay;
   document.getElementById("addButton").onclick = setMode;
   document.getElementById("modButton").onclick = setMode;
   document.getElementById("delButton").onclick = setMode;
+  document.getElementById("infoButton").onclick = setMode;
 // Button to save the formular
   document.getElementById("saveButton").onclick = function(){saveFormular(onsaved)};
   document.getElementById("cancelButton").onclick = cancelFormular;
@@ -501,13 +502,13 @@ function setMode(buttonId) {
   function objectInfo(evt){
     featurePop = evt.selected[0]; // The feature is in at the array's first position
     console.log('Un point a été sélectionné pour des informations.');
-    featurePopPr = featureTemp.getProperties();
-    coordinatesPop = featureTemp.getGeometry().getCoordinates();
-    idTemp = featureTempPr.id;
-    document.getElementById('popNomPon').value = featurePopPr.nom;
-    document.getElementById('popDateCo').value = featurePopPr.dateC;
-    document.getElementById('popDateMa').value = featurePopPr.dateM;
-    document.getElementById('popCommen').value = featurePopPr.cmntr;
+    featurePopPr = featurePop.getProperties();
+    coordinatesPop = featurePop.getGeometry().getCoordinates();
+    idTemp = featurePopPr.id;
+    document.getElementById('popNomPon').innerText = featurePopPr.nom;
+    document.getElementById('popDateCo').innerText = featurePopPr.dateC;
+    document.getElementById('popDateMa').innerText = featurePopPr.dateM;
+    document.getElementById('popCommen').innerText = featurePopPr.cmntr;
     // Setting the visibility of the formular to visible on the webpage
     overlay.setPosition(coordinatesPop);
   };
