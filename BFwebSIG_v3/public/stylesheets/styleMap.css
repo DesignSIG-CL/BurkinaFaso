@@ -28,9 +28,8 @@ styleMap.css
   {
     top: 0em;
     height: 2.5em;
-    padding: 0.5em;
+    padding: 0.4em;
     display: inline-flex;
-
   }
   #footer
   {
@@ -45,7 +44,7 @@ styleMap.css
     right: 0em;
     align-self: center;
     background-color: rgba(255,255,255,0.85);
-    box-shadow: 0px 0px 2px 2px rgb(0,50,50);
+    box-shadow: 0em 0.1em 0.1em 0.1em rgb(0,50,50);
     text-align: center;
     overflow: hidden;
     justify-content: space-between;
@@ -55,7 +54,7 @@ styleMap.css
   #logo, #imageHeader
   {
     height: 2.5em;
-    border-radius: 0px;
+    border-radius: 0em;
   }
   #mainTitle
   {
@@ -89,20 +88,21 @@ styleMap.css
 /* Global pannel including legend and attribute table */
   #LateralPanel
   {
-    width: 16em;
+    width: 17em;
     position: absolute;
-    left: 0px;
-    top: 3.5em;
-    /*bottom: 1.5em;
-    background-color: rgba(0,0,0,0);
+    left: 0em;
+    top: 3.6em;
+    bottom: 2.7em;
+    background-color: rgba(255,255,255,0.5);
     overflow-x: scroll;
-    overflow-y: scroll;*/
+    overflow-y: scroll;
+    box-shadow: 0.1em 0.1em 0.1em rgb(0,0,0);
   }
 /* Legend */
   #OurLegend
   {
-    box-shadow: 2px 2px 2px rgb(0,0,0);
-    top: 0.1em;
+    box-shadow: 0.1em 0.1em 0.1em rgb(0,0,0);
+    top: 0.2em;
   }
 
 /* Elements inside the pannel */
@@ -111,9 +111,9 @@ styleMap.css
   {
     position: relative;
     background-color: rgba(255,255,255,0.4);
-    padding: 6px;
+    padding: 0.4em;
     width: 16em;
-    left: 0px;
+    left: 0em;
   }
   /* Title for the element in container */
   .WindowsTitle
@@ -134,7 +134,7 @@ styleMap.css
     color: rgb(0,0,0);
     position: relative;
     top: 0em;
-    padding: 0.5em;
+    padding: 0.4em;
   }
   /* For interaction: add/edit/delete modes */
   /* Group add/edit/delete buttons */
@@ -146,8 +146,8 @@ styleMap.css
   {
     visibility: collapse;
     word-wrap: break-word;
-    box-shadow: 2px 2px 2px rgb(0,0,0);
-    top: 0.1em;
+    box-shadow: 0.1em 0.1em 0.1em rgb(0,0,0);
+    top: 0.2em;
 
   }
   /* Window for edition */
@@ -159,7 +159,7 @@ styleMap.css
     left: 17em; */
     width: flex;
     visibility: collapse;
-    box-shadow: 2px 2px 2px rgb(0,0,0);
+    box-shadow: 0.1em 0.1em 0.1em rgb(0,0,0);
     z-index: 10000; /* The z-index property specifies the stack order of an element. An element with greater stack order is always in front of an element with a lower stack order. */
     top: 0.1em;
   }
@@ -181,20 +181,20 @@ styleMap.css
     width: 1.7em;
     position: absolute;
     background-color: rgb(230,230,230);
-    box-shadow: 2px 2px 2px rgb(0,0,0);
-    border-radius: 0px;
+    box-shadow: 0.1em 0.1em 0.1em rgb(0,0,0);
+    border-radius: 0em;
   }
   /* Button to show/hide legend */
   #OurButtonLegend
   {
     top: 4em;
-    left: 17em;
+    left: 17.5em;
   }
   /* Button to show/hide edit pannel*/
   #OurButtonEdit
   {
     top: 6em;
-    left: 17em;
+    left: 17.5em;
   }
 
   .ButtonImg
@@ -242,7 +242,7 @@ styleMap.css
     flex-direction: column; /* direction d'affichage verticale */
     justify-content: center; /* alignement vertical */
     color: rgb(255,255,255);
-    box-shadow: 2px 2px 2px rgb(0,0,0);
+    box-shadow: 0.1em 0.1em 0.1em rgb(0,0,0);
     visibility: collapse;
   }
 
