@@ -69,12 +69,13 @@ var newObjectOnTheMap = '';  // Global variable to store object to send to Mongo
   map.addLayer(vectorlayerregions);
   map.addLayer(vectorlayerprovinces);
   map.addLayer(vectorlayerlocalites);
+  map.addLayer(vectorlayerwaterareas);
+  map.addLayer(vectorlayerwaterlines);
   map.addLayer(vectorlayerroad);
   map.addLayer(vectorRoutes);
   map.addLayer(vectorPistes);
   map.addLayer(vectorOuvrages);
-  map.addLayer(vectorlayerwaterareas);
-  map.addLayer(vectorlayerwaterlines);
+
 
 // The buttons below don't work out off the init function
 // Button for the edition mode
