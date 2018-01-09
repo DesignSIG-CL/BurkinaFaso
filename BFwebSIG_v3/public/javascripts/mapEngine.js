@@ -12,6 +12,12 @@ var featureTemp = null; // Global variable to store the feature temporary
 var featureBackup = ''; // Globale variable to backup featureTemp
 var idTemp = ''; // Global variable to store the id of the temporary feature
 var newObjectOnTheMap = '';  // Global variable to store object to send to Mongo
+// Popup elements (bridge)
+var container;
+var content;
+var closer;
+// Create an overlay to anchor the popup to the map.
+var overlay;
 
 // Function to load data from the pimpable layers
   function loadData(url, layerSrc, callback){
@@ -64,6 +70,16 @@ var newObjectOnTheMap = '';  // Global variable to store object to send to Mongo
           }),
           visible: false,
       }),
+
+  overlay = new ol.Overlay({
+      element: container,
+      autoPan: true,
+      autoPanAnimation: {
+        duration: 250
+        }
+    });
+
+
     map = new ol.Map({
       layers: [osm, DigitalGlobe],
       target: 'OurMap',
@@ -72,7 +88,8 @@ var newObjectOnTheMap = '';  // Global variable to store object to send to Mongo
         center: [-2, 12.1],
         zoom: 7,
         projection: 'EPSG:4326',
-      })
+      }),
+    overlays: [overlay],
     });
 
 // Adding all the layers to the map we created (first = back layer, last = front layer)
@@ -96,6 +113,18 @@ var newObjectOnTheMap = '';  // Global variable to store object to send to Mongo
 // Button to save the formular
   document.getElementById("saveButton").onclick = function(){saveFormular(onsaved)};
   document.getElementById("cancelButton").onclick = cancelFormular;
+
+  container = document.getElementById('popup');
+  content = document.getElementById('popup-content');
+  closer = document.getElementById('popup-closer');
+
+// Add a click handler to hide the popup. @return {boolean} Don't follow the href.
+  closer.onclick = function() {
+    overlay.setPosition(undefined);
+    closer.blur();
+    return false;
+  };
+
 };
 
 // Link to "cosmetic" layers
@@ -228,6 +257,14 @@ var newObjectOnTheMap = '';  // Global variable to store object to send to Mongo
       features: select.getFeatures(),
       layers: [vectorOuvrages]
   });
+
+/*/ Add a click handler to the map to render the popup.
+map.on('singleclick', function(evt) {
+  var coordinate = evt.coordinate;
+  var hdms = ol.coordinate.toStringHDMS(ol.proj.transform(coordinate, 'EPSG:3857', 'EPSG:4326'));
+    content.innerHTML = '<p>You clicked here:</p><code>' + hdms + '</code>';
+    overlay.setPosition(coordinate);
+});*/
 
 // Buttons to set the editing mode: add/modify/delete
 function setMode(buttonId) {

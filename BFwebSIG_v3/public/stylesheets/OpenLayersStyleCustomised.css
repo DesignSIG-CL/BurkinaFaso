@@ -13,11 +13,11 @@
 .ol-zoom{top:10em;right:18.5em} /* position of zoom buttons (upper-left corner) */
 .ol-rotate{top:.5em;right:.5em;transition:opacity .25s linear,visibility 0s linear}
 .ol-rotate.ol-hidden{opacity:0;visibility:hidden;transition:opacity .25s linear,visibility 0s linear .25s}
-/*.ol-zoom-extent{top:0em;left:10em} /* extent */
+.ol-zoom-extent{top:0em;left:10em} /* extent */
 .ol-full-screen{right:.5em;top:.5em}@media print{.ol-control{display:none}}
 .ol-control button{display:block;margin:1px;padding:0;color:#fff;font-size:1.14em;font-weight:700;text-decoration:none;text-align:center;height:1.375em;width:1.375em;line-height:.4em;background-color:rgba(0,60,136,.5);border:none;border-radius:0px}
 .ol-control button::-moz-focus-inner{border:none;padding:0}
-/*.ol-zoom-extent button{line-height:1.7em} /* zoom extent */
+.ol-zoom-extent button{line-height:1.7em} /* zoom extent */
 .ol-compass{display:block;font-weight:400;font-size:1.2em;will-change:transform}
 .ol-touch .ol-control button{font-size:1.5em}
 .ol-touch .ol-zoom-extent{top:5.7em}
