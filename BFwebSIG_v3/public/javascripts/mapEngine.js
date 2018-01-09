@@ -361,7 +361,7 @@ function setMode(buttonId) {
     document.getElementById('oCommentaire').value = '';
     document.getElementById('oPhoto').value = '';
     // Setting the visibility of the formular to visible on the webpage
-    document.getElementById("OurInteraction").style.visibility="visible";
+    document.getElementById("OurInteraction").style.display="block";
   };
 
 // Action executed when an object is selected on the map
@@ -377,7 +377,7 @@ function setMode(buttonId) {
     document.getElementById('oCommentaire').value = featureTempPr.commentaire;
     document.getElementById('oPhoto').value = '';
     // Setting the visibility of the formular to visible on the webpage
-    document.getElementById("OurInteraction").style.visibility="visible";
+    document.getElementById("OurInteraction").style.display="block";
   };
 
 // This function update the position after we change it on the map.
@@ -406,7 +406,7 @@ function setMode(buttonId) {
     document.getElementById('oCommentaire').value = featureTempPr.commentaire;
     document.getElementById('oPhoto').value = '';
     // Setting the visibility of the formular to visible on the webpage
-    document.getElementById("OurInteraction").style.visibility="visible";
+    document.getElementById("OurInteraction").style.display="block";
   };
 
 // Action executed to save the data
@@ -519,7 +519,7 @@ function setMode(buttonId) {
         featureTemp = null;
       }
     };
-    document.getElementById('OurInteraction').style.visibility = 'collapse';
+    document.getElementById('OurInteraction').style.display = 'none';
   };
 
 // Setting the visible layers, this function is for the legend, no link with database or data edition
