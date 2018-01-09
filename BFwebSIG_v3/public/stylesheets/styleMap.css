@@ -125,6 +125,8 @@ styleMap.css
     color: rgb(255,255,255);
     position: relative;
     top: 0em;
+    padding: 0.4em;
+    width: 12.55em;
   }
   /* Content of the container */
   .WindowsContent
@@ -135,6 +137,7 @@ styleMap.css
     position: relative;
     top: 0em;
     padding: 0.4em;
+    width: 15.25em;
   }
   /* For interaction: add/edit/delete modes */
   /* Group add/edit/delete buttons */
@@ -225,27 +228,26 @@ styleMap.css
   }
   #editButtongroup
   {
-    justify-content: center;
     display: inline-flex;
+    align-self: center;
+    text-align: center;
+    justify-content: space-between;
     padding: 0.4em;
   }
   #addButton
   {
     font-size: 0.8em;
     border-radius: 0.3em;
-    justify-content: left;
   }
   #modButton
   {
     font-size: 0.8em;
     border-radius: 0.3em;
-    justify-content: center;
   }
   #delButton
   {
     font-size: 0.8em;
     border-radius: 0.3em;
-    justify-content: right;
   }
 /* Popup window */
   #OurPopup

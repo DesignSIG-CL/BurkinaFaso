@@ -57,10 +57,12 @@
         <!--
         <div id="OurNewModifyOption">
         The actions button below are defined in the js. -->
-      <div id='editButtongroup' class='WindowsContent'>
-        <button type="button" id="addButton">Ajouter</button>
-        <button type="button" id="modButton">Modifier</button>
-        <button type="button" id="delButton">Supprimer</button>
+      <div class='WindowsContent'>
+        <div id='editButtongroup'>
+          <button type="button" id="addButton">Ajouter</button>
+          <button type="button" id="modButton">Modifier</button>
+          <button type="button" id="delButton">Supprimer</button>
+        </div>
       </div>
     </div>
 
@@ -86,46 +88,31 @@
         </div>
         <div id='form' class='WindowsContent'>
             <div class="container">
-              <label>Nom du pont</label>
-              <input id="oNomPon" type="text"></input>
+              <label>Nom</label>
+              <input id="oNom" type="text"></input>
             </div>
             <div class="container">
-              <label>Date mise en service</label>
-              <input id="oDateCo" type="date"></input>
+              <label>Type</label>
+              <input id="oType" type="text"></input>
             </div>
             <div class="container">
-                <label>Date de maintenance</label>
-                <input id="oDateMa" type="date"></input>
-            </div>
-
-            <div class="container">
-            	<label>Nombre de travées</label>
-            	<input id="oNtrave" type="text"></input>
+                <label>Date</label>
+                <input id="oDate" type="date"></input>
             </div>
             <div class="container">
-            	<label>Longueur du pont</label>
-            	<input id="oLoOuve" type="text"></input>
+            	<label>Commentaire</label>
+            	<input id="oCommentaire" type="text"></input>
             </div>
             <div class="container">
-            	<label>Plus grande portée</label>
-            	<input id="oPortee" type="text"></input>
-            </div>
-            <div class="container">
-            	<label>Hauteur du pont</label>
-            	<input id="oHauteu" type="text"></input>
-            </div>
-            <div class="container">
-            	<label>Largeur roulable</label>
-            	<input id="oLaRoul" type="text"></input>
-            </div>
-            <div class="container">
-            	<label>Gabarit</label>
-            	<input id="oGabari" type="text"></input>
-            </div>
-            <div class="container">
-            	<label>Commentaires</label>
-            	<input id="oCommen" type="text"></input>
-            </div>
+            	<label>Photo</label>
+            	<div style="min-height: 12em; border: solid1px lightgrey"
+                <img id='loadimage' src="" width=280px>
+              </div>
+	            <input id="fileinput" type_"file" enctype='multipart/form-data' onchange="onFileSelected(event)"></input>
+	            <input id='oPhoto' type="file"></input>
+              <!--<button type="button" id="saveBtt">Sauver</button>
+              <button type="button" id="cancelBtt">Annuler</button> ON A VRAIMENT BESOIN DES BOUTONS A DOUBLE ?-->
+	           </div>
              <button type="button" id="saveButton">Sauver</button>
              <button type="button" id="cancelButton">Annuler</button>
 	    	    </div>
