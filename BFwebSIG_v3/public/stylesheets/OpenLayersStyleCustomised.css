@@ -1,3 +1,11 @@
+/* OpenLayersStyleCustomised.css
+-----------------------------------------
+--Projet pour le cours "Design de SIG" --
+----Par Benoît CORDAY et René LUGRIN ----
+-----------------------------------------
+------OPEN LAYER INTERFACE ADAPTED ------
+-----------------------------------------
+*/
 .ol-box{box-sizing:border-box;border-radius:2px;border:2px solid #00f}
 .ol-mouse-position{top:8px;right:8px;position:absolute}
 .ol-scale-line{background:rgba(0,60,136,.3);border-radius:4px;bottom:8px;left:8px;padding:2px;position:absolute}
