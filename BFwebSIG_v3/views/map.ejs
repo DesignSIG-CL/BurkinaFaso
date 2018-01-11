@@ -127,6 +127,15 @@
             	<label>Commentaires</label><br>
             	<input id="oCommen" type="text"></input>
             </div>
+
+            <div class="container">
+            	<label>Photo</label><br>
+              <div style='min-height:10em; border:solid 1px lightgrey'>
+                <img id = 'imgElement' src = '' width='100%'>
+              </div>
+            	<input id="fileinput" type="file" enctype='multipart/form-data' onchange='onFileSelected(event)'></input>
+            </div>
+
             <br><br>
             <div>
              <button type="button" id="saveButton">Sauver</button>
@@ -181,6 +190,7 @@
       <div> Date de mise en service : <span id='popDateCo'></span></div>
       <div> Date de la maintenance : <span id='popDateMa'></span></div>
       <div> Commentaires : <span id='popCommen'></span></div>
+      <img id = 'imgElementInfo' src = '' width='80%'>
     </div>
 
   </body>

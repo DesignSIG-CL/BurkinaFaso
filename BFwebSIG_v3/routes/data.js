@@ -4,7 +4,8 @@ var request = require('superagent');
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var grid = require('gridfs-stream');
+var GridFsStorage = require('multer-gridfs-storage');
+var Grid = require('gridfs-stream');
 var fs = require('fs');
 var multer = require('multer');
 var upload = multer({dest: 'uploads/'});
@@ -23,29 +24,59 @@ function(error){
   }
 });
 
-/*
 // Files upload on the mongo SERVER
 //to allow writting and reading of multipart objects in Mongo DB
-grid.mongo = mongoose.mongo;
-var gfs = new grid(mongoose.connection.db);
-//save images on the node side
-router.post('/file', upload.single('fileToUpload'),function(req, res, next){
-  if (!req.file){
-    return next(new ServerError('Wrong file post request: file not found in request',
-      {context: 'files route', status: 403}));
-  }
-  var writestream = gfs.createWriteStream({
-    mode: 'w',
-    content_type: req.file.mimetype,
-    filename: req.file.originalname
+
+var conn = mongoose.connection;
+Grid.mongo = mongoose.mongo;
+conn.once('open', function () {
+  var gfs = Grid(conn.db);
+
+  //save images on the node side
+  router.post('/file', upload.single('fileToUpload'),function(req, res, next){
+    if (!req.file){
+      return next(new ServerError('Wrong file post request: file not found in request',
+        {context: 'files route', status: 403}));
+    }
+    var writestream = gfs.createWriteStream({
+      mode: 'w',
+      content_type: req.file.mimetype,
+      filename: req.file.originalname
+    });
+    fs.createReadStream(req.file.path).pipe(writestream);
+    console.log('last step');
+    writestream.on('close', function(newFile){
+      return res.status(200).json({_id: newFile._id});
+    });
   });
-  fs.createReadStream(req.file.path).pipe(writestream);
-  console.log('last step');
-  writestream.on('close', function(newFile){
-    return res.status(200).json({_id: newFile._id});
+
+  router.get('/getFile/:fileId', function(req,res,next){
+    if(!req.params || !req.params.fileId){
+      return next(new ServerError('Pas de ID spécifié.',{context:'files route', status: 403}));
+    }
+    var id = gfs.tryParseObjectId(req.params.fileId);
+    if(!id){
+      return next(new ServerError('Pas de fichier correspondant à ID spécifié.',{context:'files route', status: 403}));
+    }
+    gfs.files.find({_id : id}).toArray(function(err,files){
+      if(err || !files || files.length !==1){
+        return next(new ServerError('Impossible de lire les informations du fichier ' + req.params.fileId + ' error ' + err, {context:'files route', status: 403}));
+      }
+      var fileInfo = files[0];
+      var readstream = gfs.createReadStream({
+        _id: req.params.fileId
+      });
+      readstream.on('error',function(err){
+        return next(new ServerError('Impossible de lire le fichier ' + req.params.fileId + ' error ' + err, {context:'files route', status: 403}));
+      });
+      if(fileInfo.contentType){
+        res.setHeader('Content-type', fileInfo.contentType);
+      }
+      res.setHeader('Content-disposition', 'filename='+fileInfo.filename);
+      return readstream.pipe(res);
+    });
   });
 });
-*/
 
 // Mongoose general Schema & model definition: mongoose.model(name, schema, collection)
 var JsonSchema = new Schema({
@@ -91,8 +122,8 @@ var pistes = mongoose.model('pistes', pistesSchema, 'pistesLL');
 var ouvragesSchema = new Schema({
   type : String,
   properties : {
-    id          : {type : String},
-    nom         : {type : String},
+    id      : {type : String},
+    nom     : {type : String},
     dateC   : {type : String},
     dateM   : {type : String},
     nTrav   : {type : String},
@@ -102,6 +133,7 @@ var ouvragesSchema = new Schema({
     lRoul   : {type : String},
     gabar   : {type : String},
     cmntr   : {type : String},
+    photoid : {type : String}
   },
   geometry    : {
     type: {type: String},
