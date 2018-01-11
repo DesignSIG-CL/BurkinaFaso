@@ -127,6 +127,15 @@
             	<label>Commentaires</label><br>
             	<input id="oCommen" type="text"></input>
             </div>
+
+            <div class="container">
+            	<label>Photo</label><br>
+              <div style='min-height:10em; border:solid 1px lightgrey'>
+                <img id = 'imgElement' src = '' width=10em>
+              </div>
+            	<input id="fileinput" type="file" enctype='multipart/form-data' onchange='onFileSelected(event)'></input>
+            </div>
+
             <br><br>
             <div>
              <button type="button" id="saveButton">Sauver</button>

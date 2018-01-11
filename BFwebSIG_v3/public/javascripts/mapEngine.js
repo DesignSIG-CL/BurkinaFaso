@@ -411,7 +411,27 @@ function setMode(buttonId) {
 
 // Action executed when the button save is pressed
   function saveFormular(callback){
-    saveData(callback);
+    var files = document.getElementById("fileinput").files;
+    if(files.length>0){
+      var file = files[0];
+      var request = window.superagent;
+      request
+        .post('/data/file')
+        .attach('fileToUpload',file,file.name)
+        .end(function(err, res){
+          if (res.status !== 200){
+            return callback(null, res.text);
+          }
+          else {
+            console.log('IMAGE SAUVEE')
+            console.log(res.body._id)
+            saveData(callback);
+          }
+        });
+    }
+    else{
+      saveData(callback);
+    }
   };
 
 // Action exectuted when the button cancel is pressed
@@ -665,28 +685,14 @@ function setMode(buttonId) {
 };
 
 // To download images (facultative part)
-/*function onFileSelected(event){
+function onFileSelected(event){
   var selectedFile = event.target.files[0];
-  var reader = new FileReadElementById("imgElement");
+  var reader = new FileReader();
+
+  var imgtag = document.getElementById("imgElement");
   imgtag.title= selectedFile.name;
   reader.onload = function(event){
     imgtag.src = event.target.result;
   };
   reader.readAsDataURL(selectedFile);
 };
-function saveform(callback){
-  var files = document.getElementById("fileinput").files;
-  var request = window.superagent;
-  request
-    .post('/file')
-    .attach('fileToUpload',file,file.name)
-    .end(function(err, res){
-      if (res.status !== 200){
-        return callback(null, res.text);
-      }
-      else {
-        savedata(callback);
-      }
-    });
-};
-*/

@@ -4,7 +4,8 @@ var request = require('superagent');
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var grid = require('gridfs-stream');
+var GridFsStorage = require('multer-gridfs-storage');
+var Grid = require('gridfs-stream');
 var fs = require('fs');
 var multer = require('multer');
 var upload = multer({dest: 'uploads/'});
@@ -23,30 +24,79 @@ function(error){
   }
 });
 
-/*
 // Files upload on the mongo SERVER
 //to allow writting and reading of multipart objects in Mongo DB
-grid.mongo = mongoose.mongo;
-var gfs = new grid(mongoose.connection.db);
-//save images on the node side
-router.post('/file', upload.single('fileToUpload'),function(req, res, next){
-  if (!req.file){
-    return next(new ServerError('Wrong file post request: file not found in request',
-      {context: 'files route', status: 403}));
-  }
-  var writestream = gfs.createWriteStream({
-    mode: 'w',
-    content_type: req.file.mimetype,
-    filename: req.file.originalname
-  });
-  fs.createReadStream(req.file.path).pipe(writestream);
-  console.log('last step');
-  writestream.on('close', function(newFile){
-    return res.status(200).json({_id: newFile._id});
-  });
-});
-*/
 
+var conn = mongoose.connection;
+Grid.mongo = mongoose.mongo;
+conn.once('open', function () {
+  var gfs = Grid(conn.db);
+
+  //save images on the node side
+  router.post('/file', upload.single('fileToUpload'),function(req, res, next){
+    if (!req.file){
+      return next(new ServerError('Wrong file post request: file not found in request',
+        {context: 'files route', status: 403}));
+    }
+    var writestream = gfs.createWriteStream({
+      mode: 'w',
+      content_type: req.file.mimetype,
+      filename: req.file.originalname
+    });
+    fs.createReadStream(req.file.path).pipe(writestream);
+    console.log('last step');
+    writestream.on('close', function(newFile){
+      return res.status(200).json({_id: newFile._id});
+    });
+  });
+/** Setting up storage using multer-gridfs-storage */
+    /*var storage = GridFsStorage({
+        gfs : gfs,
+        filename: function (req, file, cb) {
+            var datetimestamp = Date.now();
+            cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
+        },
+        // With gridfs we can store aditional meta-data along with the file
+        metadata: function(req, file, cb) {
+            cb(null, { originalname: file.originalname });
+        },
+        root: 'filesUploaded' //root name for collection to store files into
+    });
+    var upload = multer({ //multer settings for single upload
+        storage: storage
+    }).single('file');
+    // API path that will upload the files
+    app.post('/upload', function(req, res) {
+        upload(req,res,function(err){
+            if(err){
+                 res.json({error_code:1,err_desc:err});
+                 return;
+            }
+             res.json({error_code:0,err_desc:null});
+        });
+    });
+    app.get('/file/:filename', function(req, res){
+        gfs.collection('ctFiles'); //set collection name to lookup into
+        // First check if file exists
+        gfs.files.find({filename: req.params.filename}).toArray(function(err, files){
+            if(!files || files.length === 0){
+                return res.status(404).json({
+                    responseCode: 1,
+                    responseMessage: "error"
+                });
+            }
+            // create read stream
+            var readstream = gfs.createReadStream({
+                filename: files[0].filename,
+                root: "filesUploaded"
+            });
+            // set the proper content type
+            res.set('Content-Type', files[0].contentType)
+            // return response
+            return readstream.pipe(res);
+        });
+    });*/
+});
 // Mongoose general Schema & model definition: mongoose.model(name, schema, collection)
 var JsonSchema = new Schema({
   name : String,
