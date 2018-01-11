@@ -497,6 +497,9 @@ function setMode(buttonId) {
     document.getElementById('oLaRoul').value = featureTempPr.lRoul;
     document.getElementById('oGabari').value = featureTempPr.gabar;
     document.getElementById('oCommen').value = featureTempPr.cmntr;
+    if(photoidTemp != null || photoidTemp != ''){
+      document.getElementById('imgElement').src = '/data/getFile/' + photoidTemp;
+    }
     // Setting the visibility of the formular to visible on the webpage
     document.getElementById("OurInteraction").style.display="block";
   };
@@ -531,6 +534,9 @@ function setMode(buttonId) {
     document.getElementById('oLaRoul').value = featureTempPr.lRoul;
     document.getElementById('oGabari').value = featureTempPr.gabar;
     document.getElementById('oCommen').value = featureTempPr.cmntr;
+    if(photoidTemp != null || photoidTemp != ''){
+      document.getElementById('imgElement').src = '/data/getFile/' + photoidTemp;
+    }
     // Setting the visibility of the formular to visible on the webpage
     document.getElementById("OurInteraction").style.display="block";
   };
@@ -547,6 +553,15 @@ function setMode(buttonId) {
     document.getElementById('popDateCo').innerText = featurePopPr.dateC;
     document.getElementById('popDateMa').innerText = featurePopPr.dateM;
     document.getElementById('popCommen').innerText = featurePopPr.cmntr;
+
+    if(photoidTemp !== null || photoidTemp != ''){
+      document.getElementById('imgElementInfo').src = '/data/getFile/' + photoidTemp;
+      console.log(photoidTemp)
+    }
+    else{
+      document.getElementById('imgElementInfo').src = '/images/nomedia.png'
+      console.log(defaultImg)
+    }
     // Setting the visibility of the formular to visible on the webpage
     var element = overlay.getElement();
     overlay.setPosition(coordinatesPop);
@@ -610,7 +625,7 @@ function setMode(buttonId) {
             return callback(null, res.text);
           }
           var jsonResp = JSON.parse(res.text);
-          callback(jsonResp); // /!\ PAS comme sur exemple
+          callback(jsonResp,photoid); // /!\ PAS comme sur exemple
         });
     }
     if(mode =='del'){
@@ -629,7 +644,7 @@ function setMode(buttonId) {
               return callback(null, res.text);
             }
             var jsonResp = JSON.parse(res.text);
-            callback(jsonResp); // /!\ PAS comme sur exemple
+            callback(jsonResp,photoid); // /!\ PAS comme sur exemple
           });
       } else {
         console.log('Le point reste à sa position initiale.')

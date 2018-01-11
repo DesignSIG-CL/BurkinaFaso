@@ -49,54 +49,35 @@ conn.once('open', function () {
       return res.status(200).json({_id: newFile._id});
     });
   });
-/** Setting up storage using multer-gridfs-storage */
-    /*var storage = GridFsStorage({
-        gfs : gfs,
-        filename: function (req, file, cb) {
-            var datetimestamp = Date.now();
-            cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
-        },
-        // With gridfs we can store aditional meta-data along with the file
-        metadata: function(req, file, cb) {
-            cb(null, { originalname: file.originalname });
-        },
-        root: 'filesUploaded' //root name for collection to store files into
+
+  router.get('/getFile/:fileId', function(req,res,next){
+    if(!req.params || !req.params.fileId){
+      return next(new ServerError('Pas de ID spécifié.',{context:'files route', status: 403}));
+    }
+    var id = gfs.tryParseObjectId(req.params.fileId);
+    if(!id){
+      return next(new ServerError('Pas de fichier correspondant à ID spécifié.',{context:'files route', status: 403}));
+    }
+    gfs.files.find({_id : id}).toArray(function(err,files){
+      if(err || !files || files.length !==1){
+        return next(new ServerError('Impossible de lire les informations du fichier ' + req.params.fileId + ' error ' + err, {context:'files route', status: 403}));
+      }
+      var fileInfo = files[0];
+      var readstream = gfs.createReadStream({
+        _id: req.params.fileId
+      });
+      readstream.on('error',function(err){
+        return next(new ServerError('Impossible de lire le fichier ' + req.params.fileId + ' error ' + err, {context:'files route', status: 403}));
+      });
+      if(fileInfo.contentType){
+        res.setHeader('Content-type', fileInfo.contentType);
+      }
+      res.setHeader('Content-disposition', 'filename='+fileInfo.filename);
+      return readstream.pipe(res);
     });
-    var upload = multer({ //multer settings for single upload
-        storage: storage
-    }).single('file');
-    // API path that will upload the files
-    app.post('/upload', function(req, res) {
-        upload(req,res,function(err){
-            if(err){
-                 res.json({error_code:1,err_desc:err});
-                 return;
-            }
-             res.json({error_code:0,err_desc:null});
-        });
-    });
-    app.get('/file/:filename', function(req, res){
-        gfs.collection('ctFiles'); //set collection name to lookup into
-        // First check if file exists
-        gfs.files.find({filename: req.params.filename}).toArray(function(err, files){
-            if(!files || files.length === 0){
-                return res.status(404).json({
-                    responseCode: 1,
-                    responseMessage: "error"
-                });
-            }
-            // create read stream
-            var readstream = gfs.createReadStream({
-                filename: files[0].filename,
-                root: "filesUploaded"
-            });
-            // set the proper content type
-            res.set('Content-Type', files[0].contentType)
-            // return response
-            return readstream.pipe(res);
-        });
-    });*/
+  });
 });
+
 // Mongoose general Schema & model definition: mongoose.model(name, schema, collection)
 var JsonSchema = new Schema({
   name : String,
