@@ -18,7 +18,7 @@ var featureTemp = null; // Global variable to store the feature temporary
 var featureBackup = ''; // Globale variable to backup featureTemp
 var idTemp = ''; // Global variable to store the id of the temporary feature
 var newObjectOnTheMap = '';  // Global variable to store object to send to Mongo
-var photoidTemp;
+var photoidTemp = 0;
 // Popup elements (bridge)
 var container;
 var content;
@@ -295,9 +295,6 @@ function setMode(buttonId) {
       // Interactions
       map.removeInteraction(draw);
       map.removeInteraction(snap);
-      if(featureTemp !== null){
-        vectorOuvrages.getSource().removeFeature(featureTemp)
-      }
       onsaved(null,'Annulation');
     }
     else {
@@ -328,6 +325,7 @@ function setMode(buttonId) {
       select.getFeatures().clear(); // To clear the selection
       map.removeInteraction(select);
       map.removeInteraction(modify);
+      overlay.setPosition(undefined);
       onsaved(null,'Annulation');
     }
     else {
@@ -361,6 +359,7 @@ function setMode(buttonId) {
       // Removing interaction select
       select.getFeatures().clear(); // To clear the selection
       map.removeInteraction(select);
+      overlay.setPosition(undefined);
       onsaved(null,'Annulation');
     }
     else {
@@ -431,7 +430,7 @@ function setMode(buttonId) {
         });
     }
     else{
-      saveData(callback);
+      saveData(callback,0);
     }
   };
 
@@ -452,6 +451,7 @@ function setMode(buttonId) {
     }
     onsaved(null,'Annulation');
     featureTemp = null;
+    photoidTemp = 0;
   };
 
 // Adding an event at the end of the draw.
@@ -475,6 +475,7 @@ function setMode(buttonId) {
     document.getElementById('oLaRoul').value = '';
     document.getElementById('oGabari').value = '';
     document.getElementById('oCommen').value = '';
+    document.getElementById('fileinput').value = '';
     // Setting the visibility of the formular to visible on the webpage
     document.getElementById("OurInteraction").style.display="block";
   };
@@ -497,8 +498,13 @@ function setMode(buttonId) {
     document.getElementById('oLaRoul').value = featureTempPr.lRoul;
     document.getElementById('oGabari').value = featureTempPr.gabar;
     document.getElementById('oCommen').value = featureTempPr.cmntr;
-    if(photoidTemp != null || photoidTemp != ''){
+    document.getElementById('fileinput').value = '';
+    if(photoidTemp != null && photoidTemp != '' && photoidTemp != 0){
       document.getElementById('imgElement').src = '/data/getFile/' + photoidTemp;
+    }
+    else{
+      document.getElementById('imgElement').src = '/images/nomedia.png'
+      console.log('Image par défaut')
     }
     // Setting the visibility of the formular to visible on the webpage
     document.getElementById("OurInteraction").style.display="block";
@@ -524,6 +530,7 @@ function setMode(buttonId) {
     featureTempPr = featureTemp.getProperties();
     coordinatesTemp = featureTemp.getGeometry().getCoordinates();
     idTemp = featureTempPr.id;
+    photoidTemp = featureTempPr.photoid;
     document.getElementById('oNomPon').value = featureTempPr.nom;
     document.getElementById('oDateCo').value = featureTempPr.dateC;
     document.getElementById('oDateMa').value = featureTempPr.dateM;
@@ -534,8 +541,13 @@ function setMode(buttonId) {
     document.getElementById('oLaRoul').value = featureTempPr.lRoul;
     document.getElementById('oGabari').value = featureTempPr.gabar;
     document.getElementById('oCommen').value = featureTempPr.cmntr;
-    if(photoidTemp != null || photoidTemp != ''){
+    document.getElementById('fileinput').value = '';
+    if(photoidTemp != null && photoidTemp != '' && photoidTemp != 0){
       document.getElementById('imgElement').src = '/data/getFile/' + photoidTemp;
+    }
+    else{
+      document.getElementById('imgElement').src = '/images/nomedia.png'
+      console.log('Image par défaut')
     }
     // Setting the visibility of the formular to visible on the webpage
     document.getElementById("OurInteraction").style.display="block";
@@ -554,13 +566,13 @@ function setMode(buttonId) {
     document.getElementById('popDateMa').innerText = featurePopPr.dateM;
     document.getElementById('popCommen').innerText = featurePopPr.cmntr;
 
-    if(photoidTemp !== null || photoidTemp != ''){
+    if(photoidTemp != null && photoidTemp != '' && photoidTemp != 0){
       document.getElementById('imgElementInfo').src = '/data/getFile/' + photoidTemp;
       console.log(photoidTemp)
     }
     else{
       document.getElementById('imgElementInfo').src = '/images/nomedia.png'
-      console.log(defaultImg)
+      console.log('Image par défaut')
     }
     // Setting the visibility of the formular to visible on the webpage
     var element = overlay.getElement();
@@ -665,8 +677,9 @@ function setMode(buttonId) {
         popupInteraction('Enregistrement réussi !',1)
         featureTemp.setProperties(arg.properties);
         featureTemp._id = arg._id;
-        vectorOuvrages.getSource().addFeature(featureTemp);
+        //vectorOuvrages.getSource().addFeature(featureTemp); // Pas utile aujourd'hui..
         featureTemp = null;
+        photoidTemp = 0;
       }
       if(mode == 'mod'){
         setMode('modButton');
@@ -674,6 +687,7 @@ function setMode(buttonId) {
         popupInteraction('Mise à jour réussie !',1)
         featureTemp.setProperties(newObjectOnTheMap.properties);
         featureTemp = null;
+        photoidTemp = 0;
       }
       if(mode == 'del'){
         setMode('delButton');
@@ -681,6 +695,7 @@ function setMode(buttonId) {
         popupInteraction('Données supprimées !',0);
         vectorOuvrages.getSource().removeFeature(featureTemp);
         featureTemp = null;
+        photoidTemp = 0;
       }
     };
     document.getElementById('OurInteraction').style.display = 'none';
