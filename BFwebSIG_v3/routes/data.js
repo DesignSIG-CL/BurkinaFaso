@@ -141,8 +141,8 @@ var pistes = mongoose.model('pistes', pistesSchema, 'pistesLL');
 var ouvragesSchema = new Schema({
   type : String,
   properties : {
-    id          : {type : String},
-    nom         : {type : String},
+    id      : {type : String},
+    nom     : {type : String},
     dateC   : {type : String},
     dateM   : {type : String},
     nTrav   : {type : String},
@@ -152,6 +152,7 @@ var ouvragesSchema = new Schema({
     lRoul   : {type : String},
     gabar   : {type : String},
     cmntr   : {type : String},
+    photoid : {type : String}
   },
   geometry    : {
     type: {type: String},

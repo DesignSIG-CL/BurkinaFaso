@@ -18,6 +18,7 @@ var featureTemp = null; // Global variable to store the feature temporary
 var featureBackup = ''; // Globale variable to backup featureTemp
 var idTemp = ''; // Global variable to store the id of the temporary feature
 var newObjectOnTheMap = '';  // Global variable to store object to send to Mongo
+var photoidTemp;
 // Popup elements (bridge)
 var container;
 var content;
@@ -425,7 +426,7 @@ function setMode(buttonId) {
           else {
             console.log('IMAGE SAUVEE')
             console.log(res.body._id)
-            saveData(callback);
+            saveData(callback, res.body._id);
           }
         });
     }
@@ -485,6 +486,7 @@ function setMode(buttonId) {
     featureTempPr = featureTemp.getProperties();
     coordinatesTemp = featureTemp.getGeometry().getCoordinates();
     idTemp = featureTempPr.id;
+    photoidTemp = featureTempPr.photoid;
     document.getElementById('oNomPon').value = featureTempPr.nom;
     document.getElementById('oDateCo').value = featureTempPr.dateC;
     document.getElementById('oDateMa').value = featureTempPr.dateM;
@@ -540,6 +542,7 @@ function setMode(buttonId) {
     featurePopPr = featurePop.getProperties();
     coordinatesPop = featurePop.getGeometry().getCoordinates();
     idTemp = featurePopPr.id;
+    photoidTemp = featurePopPr.photoid;
     document.getElementById('popNomPon').innerText = featurePopPr.nom;
     document.getElementById('popDateCo').innerText = featurePopPr.dateC;
     document.getElementById('popDateMa').innerText = featurePopPr.dateM;
@@ -550,7 +553,7 @@ function setMode(buttonId) {
   };
 
 // Action executed to save the data
-  function saveData(callback){ // TO BE UPDATED
+  function saveData(callback,photoid){ // TO BE UPDATED
     console.log('Saving the data')
     var request = window.superagent;
     newObjectOnTheMap = {
@@ -567,6 +570,7 @@ function setMode(buttonId) {
       'lRoul'   : document.getElementById('oLaRoul').value,
       'gabar'   : document.getElementById('oGabari').value,
       'cmntr'   : document.getElementById('oCommen').value,
+      'photoid' : photoid,
     },
     'geometry': {
       'type'         : 'Point',
