@@ -3,7 +3,7 @@
 --Projet pour le cours "Design de SIG" --
 ----Par Benoît CORDAY et René LUGRIN ----
 -----------------------------------------
-------- Apparitions/Disparitions-------
+------- Apparitions/Disparitions---------
 -----------------------------------------
 */
 
