@@ -78,13 +78,20 @@ function baseLayerChange(){
 
 function dateFr(dateString)
 {
-  var msec = Date.parse(dateString);
-  var date = new Date(msec);
-  // les noms de mois
-  var mois = new Array("janvier", "fevrier", "mars", "avril", "mai", "juin", "juillet", "aout", "septembre", "octobre", "novembre", "decembre");
-  // on construit le message
-  var message = date.getDate() + " ";   // numero du jour
-  message += mois[date.getMonth()] + " ";   // mois
-  message += date.getFullYear();
-  return message;
+  if(dateString != ''){
+    console.log(dateString);
+    var msec = Date.parse(dateString);
+    var date = new Date(msec);
+    // les noms de mois
+    var mois = new Array("janvier", "fevrier", "mars", "avril", "mai", "juin", "juillet", "aout", "septembre", "octobre", "novembre", "decembre");
+    // on construit le message
+    var message = date.getDate() + " ";   // numero du jour
+    message += mois[date.getMonth()] + " ";   // mois
+    message += date.getFullYear();
+    return message;
+  }
+  else{
+    return 'Non définie.'
+  }
+
 }
