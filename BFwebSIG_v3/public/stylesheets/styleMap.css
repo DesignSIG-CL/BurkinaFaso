@@ -315,6 +315,7 @@
       .ol-popup-closer {
         text-decoration: none;
         position: absolute;
+        color: rgb(0,100,100);
         top: 2px;
         right: 8px;
       }
