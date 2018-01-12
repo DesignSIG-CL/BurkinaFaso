@@ -280,13 +280,33 @@
   }
 
   /* Popup info about bridge layer elements */
+  .subtitle
+      {
+        font-size: 1em;
+        color: rgb(0,100,100);
+        font-weight: bold;
+      }
+  .attribut
+      {
+        font-size: 1em;
+        color: rgb(0,0,0);
+        font-weight: bold;
+      }
+  #imgElementBloc
+  {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .ol-popup {
         position: absolute;
         background-color: white;
-        -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
-        filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+        /*-webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+        filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));*/
         padding: 15px;
-        border-radius: 0em;
+        /*border-radius: 0em;*/
         border: 1px solid #cccccc;
         bottom: 12px;
         left: -50px;
