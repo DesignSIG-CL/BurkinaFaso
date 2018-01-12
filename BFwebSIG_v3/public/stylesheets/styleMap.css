@@ -183,8 +183,6 @@
     width: 1.7em;
     position: absolute;
     background-color: rgb(230,230,230);
-    box-shadow: 0.1em 0.1em 0.1em rgb(0,0,0);
-    border-radius: 0em;
   }
   /* Button to show/hide legend */
   #OurButtonLegend
@@ -224,6 +222,7 @@
   {
     position: absolute;
     bottom : 2%;
+    border-radius: 0em;
   }
   #cancelButton
   {
@@ -244,17 +243,17 @@
   #addButton
   {
     font-size: 0.8em;
-    border-radius: 0.3em;
+    border-radius: 0em;
   }
   #modButton
   {
     font-size: 0.8em;
-    border-radius: 0.3em;
+    border-radius: 0em;
   }
   #delButton
   {
     font-size: 0.8em;
-    border-radius: 0.3em;
+    border-radius: 0em;
   }
 /* Popup window */
   #OurPopup
@@ -307,7 +306,6 @@
         /*-webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
         filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));*/
         padding: 15px;
-        /*border-radius: 0em;*/
         border: 1px solid #cccccc;
         bottom: 12px;
         left: -50px;
