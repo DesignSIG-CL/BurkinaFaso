@@ -300,6 +300,10 @@ function setMode(buttonId) {
       document.getElementById('delButton').disabled = false;
       document.getElementById('infoButton').disabled = false;
       document.getElementById(id).style.color = "black";
+      // remove potential new feature if exist and not saved
+      if(featureTemp != null){
+          vectorOuvrages.getSource().removeFeature(featureTemp)
+      }
       // Interactions
       map.removeInteraction(draw);
       map.removeInteraction(snap);
@@ -445,7 +449,6 @@ function setMode(buttonId) {
 // Action exectuted when the button cancel is pressed
   function cancelFormular(){
     if(mode == 'add'){
-        vectorOuvrages.getSource().removeFeature(featureTemp)
         setMode('addButton');
         popupInteraction('Ajout annulé',0)
     }
@@ -686,7 +689,7 @@ function setMode(buttonId) {
         popupInteraction('Enregistrement réussi !',1)
         featureTemp.setProperties(arg.properties);
         featureTemp._id = arg._id;
-        //vectorOuvrages.getSource().addFeature(featureTemp); // Pas utile aujourd'hui..
+        vectorOuvrages.getSource().addFeature(featureTemp); // Pas utile aujourd'hui..
         featureTemp = null;
         photoidTemp = 0;
       }
