@@ -571,8 +571,8 @@ function setMode(buttonId) {
     idTemp = featurePopPr.id;
     photoidTemp = featurePopPr.photoid;
     document.getElementById('popNomPon').innerText = featurePopPr.nom;
-    document.getElementById('popDateCo').innerText = featurePopPr.dateC;
-    document.getElementById('popDateMa').innerText = featurePopPr.dateM;
+    document.getElementById('popDateCo').innerText = dateFr(featurePopPr.dateC);
+    document.getElementById('popDateMa').innerText = dateFr(featurePopPr.dateM);
     document.getElementById('popCommen').innerText = featurePopPr.cmntr;
 
     if(photoidTemp != null && photoidTemp != '' && photoidTemp != 0){
