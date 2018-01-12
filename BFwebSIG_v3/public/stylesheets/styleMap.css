@@ -113,6 +113,7 @@
     padding: 0.4em;
     width: 16em;
     left: 0em;
+
   }
   /* Title for the element in container */
   .WindowsTitle
@@ -161,7 +162,7 @@
     width: flex;
     display: none;
     box-shadow: 0.1em 0.1em 0.1em rgb(0,0,0);
-    z-index: 10000; /* The z-index property specifies the stack order of an element. An element with greater stack order is always in front of an element with a lower stack order. */
+    z-index: 100; /* The z-index property specifies the stack order of an element. An element with greater stack order is always in front of an element with a lower stack order. */
     top: 0.1em;
   }
   /* Container for ouvrages formulaire */
@@ -285,11 +286,12 @@
         -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
         filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
         padding: 15px;
-        border-radius: 10px;
+        border-radius: 0em;
         border: 1px solid #cccccc;
         bottom: 12px;
         left: -50px;
         min-width: 280px;
+        box-shadow: 0.1em 0.1em 0.1em rgb(0,0,0);
       }
       .ol-popup:after, .ol-popup:before {
         top: 100%;
