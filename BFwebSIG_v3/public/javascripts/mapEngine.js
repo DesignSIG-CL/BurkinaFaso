@@ -19,6 +19,7 @@ var featureBackup = ''; // Globale variable to backup featureTemp
 var idTemp = ''; // Global variable to store the id of the temporary feature
 var newObjectOnTheMap = '';  // Global variable to store object to send to Mongo
 var photoidTemp = 0;
+var pointMoved = 0;
 // Popup elements (bridge)
 var container;
 var content;
@@ -339,6 +340,11 @@ function setMode(buttonId) {
       map.removeInteraction(modify);
       overlay.setPosition(undefined);
       onsaved(null,'Annulation');
+      console.log('POINT ' + pointMoved)
+      if(pointMoved === 1){
+        window.location.reload()
+        pointMoved = 0;
+      };
     }
     else {
       console.log('Entering into the modify mode');
@@ -476,6 +482,7 @@ function setMode(buttonId) {
     dateNow = new Date();
     idTemp = 'id-' + dateNow.toISOString() + '-' + Math.random().toString(36).substr(2, 4);
     // Setting the value of the element in formular to the default values
+    document.getElementById('interactionTitle').innerText = 'Nouveau Pont';
     document.getElementById('oNomPon').value = '';
     document.getElementById('oDateCo').value = '';
     document.getElementById('oDateMa').value = '';
@@ -499,6 +506,7 @@ function setMode(buttonId) {
     coordinatesTemp = featureTemp.getGeometry().getCoordinates();
     idTemp = featureTempPr.id;
     photoidTemp = featureTempPr.photoid;
+    document.getElementById('interactionTitle').innerText = 'Modifier Pont';
     document.getElementById('oNomPon').value = featureTempPr.nom;
     document.getElementById('oDateCo').value = featureTempPr.dateC;
     document.getElementById('oDateMa').value = featureTempPr.dateM;
@@ -527,9 +535,9 @@ function setMode(buttonId) {
         coordinatesTemp = featureTemp.getGeometry().getCoordinates();
         popupInteraction('Le point est déplacé',1)
         console.log('Le point est déplacé.')
+        pointMoved = 1;
       } else {
         console.log('Le point reste à sa position initiale.')
-        window.alert('La page va être rechargée pour annuler votre modification')
         window.location.reload()
       }
   };
@@ -542,6 +550,7 @@ function setMode(buttonId) {
     coordinatesTemp = featureTemp.getGeometry().getCoordinates();
     idTemp = featureTempPr.id;
     photoidTemp = featureTempPr.photoid;
+    document.getElementById('interactionTitle').innerText = 'Supprimer Pont';
     document.getElementById('oNomPon').value = featureTempPr.nom;
     document.getElementById('oDateCo').value = featureTempPr.dateC;
     document.getElementById('oDateMa').value = featureTempPr.dateM;
@@ -694,6 +703,7 @@ function setMode(buttonId) {
         photoidTemp = 0;
       }
       if(mode == 'mod'){
+        pointMoved = 0;
         setMode('modButton');
         console.log('Données mises à jour avec succès.');
         popupInteraction('Mise à jour réussie !',1)
