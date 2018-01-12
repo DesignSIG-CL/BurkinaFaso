@@ -129,6 +129,7 @@ var overlay;
   closer.onclick = function() {
     overlay.setPosition(undefined);
     closer.blur();
+    setMode('infoButton');
     return false;
   };
 
@@ -402,7 +403,7 @@ function setMode(buttonId) {
       onsaved(null,'Annulation');
     }
     else {
-      console.log('Entering into the modify mode');
+      console.log('Entering into the info mode');
       mode = "inf";
       // Operations on the interface
       document.getElementById('addButton').disabled = true;
@@ -562,6 +563,7 @@ function setMode(buttonId) {
 
 // Action exectuted when informations are requested
   function objectInfo(evt){
+    map.removeInteraction(selectInfo);
     featurePop = evt.selected[0]; // The feature is in at the array's first position
     console.log('Un point a été sélectionné pour des informations.');
     featurePopPr = featurePop.getProperties();
