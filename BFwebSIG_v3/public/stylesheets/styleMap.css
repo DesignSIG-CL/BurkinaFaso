@@ -285,12 +285,13 @@
         font-size: 1em;
         color: rgb(0,100,100);
         font-weight: bold;
+        
       }
-  .attribut
+  .attribute
       {
         font-size: 1em;
         color: rgb(0,0,0);
-        font-weight: bold;
+        padding-bottom: 0.5em;
       }
   #imgElementBloc
   {
