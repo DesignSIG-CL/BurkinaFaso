@@ -494,6 +494,7 @@ function setMode(buttonId) {
     document.getElementById('oGabari').value = '';
     document.getElementById('oCommen').value = '';
     document.getElementById('fileinput').value = '';
+    document.getElementById('imgElement').src = '/images/addmedia.png'
     // Setting the visibility of the formular to visible on the webpage
     document.getElementById("OurInteraction").style.display="block";
   };
