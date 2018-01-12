@@ -511,7 +511,7 @@ function setMode(buttonId) {
       document.getElementById('imgElement').src = '/data/getFile/' + photoidTemp;
     }
     else{
-      document.getElementById('imgElement').src = '/images/nomedia.png'
+      document.getElementById('imgElement').src = '/images/addmedia.png'
       console.log('Image par défaut')
     }
     // Setting the visibility of the formular to visible on the webpage
