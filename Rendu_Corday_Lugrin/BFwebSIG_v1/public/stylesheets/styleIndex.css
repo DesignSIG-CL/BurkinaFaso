@@ -1,0 +1,35 @@
+/* styleIndex.css
+-----------------------------------------
+--Projet pour le cours "Design de SIG" --
+----Par Benoît CORDAY et René LUGRIN ----
+-----------------------------------------
+------STYLE SHEET FOR WELCOME PAGE ------
+-----------------------------------------
+*/
+*
+{
+  font-family: "Verdana";
+  text-align: center;
+}
+
+body
+{
+  background-color: rgba(200,200,200,0.2);
+  bottom: 0em;
+}
+
+#mainTitle
+{
+  color: rgba(0,100,100,1);
+  font-weight: bold;
+  font-size: 5em;
+}
+
+#bloccenter
+{
+  position: absolute;
+  left: 0em;
+  right: 0em;
+  top: 20%; 
+  background-color: rgba(0,0,0,0);
+}

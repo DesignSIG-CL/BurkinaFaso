@@ -1,0 +1,349 @@
+/* styleMap.css
+-----------------------------------------
+--Projet pour le cours "Design de SIG" --
+----Par Benoît CORDAY et René LUGRIN ----
+-----------------------------------------
+-------STYLE SHEET FOR THE PROJECT-------
+-----------------------------------------
+*/
+
+/* Defining an universal font for all the code */
+  *
+  {
+    font-family: "Verdana";
+  }
+
+/* Fixing the size of the webpage as the size of the web-browser's windows */
+  body
+  {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+/* Page header & page footer */
+  #header
+  {
+    top: 0em;
+    height: 2.5em;
+    padding: 0.4em;
+    display: inline-flex;
+  }
+  #footer
+  {
+    bottom: 0em;
+    height: 1.5em;
+    padding-top: 0.5em;
+  }
+  #header, #footer
+  {
+    position: absolute;
+    left: 0em;
+    right: 0em;
+    background-color: rgba(255,255,255,0.85);
+    box-shadow: 0em 0.1em 0.1em 0.1em rgb(0,50,50);
+    text-align: center;
+    align-self: center;
+    overflow: hidden;
+    justify-content: space-between;
+  }
+
+/* header content */
+  #logo, #imageHeader
+  {
+    height: 2.5em;
+    border-radius: 0em;
+  }
+  #mainTitle
+  {
+    margin : auto;
+    font-weight: bold;
+    font-size: 2em;
+    color: rgb(0,100,100);
+  }
+
+/* footer content */
+  #author
+  {
+    align-self: center;
+    font-size: 0.7em;
+    font-style: italic;
+    color: rgb(100,100,100);
+  }
+
+/* map container*/
+  #OurMap
+  {
+    position: fixed;
+    top: 3.3em;
+    left: 0;
+    bottom: 2em;
+    right: 18em;
+    background-color: rgb(0,100,100);
+  }
+
+/* Global pannel including legend and attribute table */
+  #LateralPanel
+  {
+    width: 18em;
+    position: absolute;
+    right: 0em;
+    top: 3.6em;
+    bottom: 2.2em;
+    background-color: rgba(255,255,255,0.5);
+    overflow-x: scroll;
+    overflow-y: scroll;
+    box-shadow: 0.1em 0.1em 0.1em rgb(0,0,0);
+  }
+/* Legend */
+  #OurLegend
+  {
+    box-shadow: 0.1em 0.1em 0.1em rgb(0,0,0);
+    top: 0.2em;
+  }
+
+/* Elements inside the pannel */
+  /* Container for legend, interaction, ... */
+  .Windows
+  {
+    position: static;
+    display: block;
+    background-color: rgba(255,255,255,0.4);
+    padding: 0.4em;
+    width: 16em;
+    left: 0em;
+
+  }
+  /* Title for the element in container */
+  .WindowsTitle
+  {
+    background-color: rgb(0,100,100);
+    height: 1.5em;
+    font-size: 1.2em;
+    text-align: center;
+    color: rgb(255,255,255);
+    position: relative;
+    top: 0em;
+    padding: 0.4em;
+    width: 12.55em;
+  }
+  /* Content of the container */
+  .WindowsContent
+  {
+    background-color: rgba(255,255,255,0.8);
+    font-size: 1em;
+    color: rgb(0,0,0);
+    position: relative;
+    top: 0em;
+    padding: 0.4em;
+    width: 15.25em;
+  }
+  /* For interaction: add/edit/delete modes */
+  /* Group add/edit/delete buttons */
+  #OurNewModifyOption
+  {
+    display: inline;
+  }
+  #OurInteraction
+  {
+    display: none;
+    word-wrap: break-word;
+    box-shadow: 0.1em 0.1em 0.1em rgb(0,0,0);
+    top: 0.2em;
+  }
+  /* Window for edition */
+  #EditorOption
+  {
+    /* background-color: rgba(255,255,255,0.4);
+    position: absolute;
+    top: 6em;
+    left: 17em; */
+    width: flex;
+    display: none;
+    box-shadow: 0.1em 0.1em 0.1em rgb(0,0,0);
+    z-index: 100; /* The z-index property specifies the stack order of an element. An element with greater stack order is always in front of an element with a lower stack order. */
+    top: 0.1em;
+  }
+  /* Container for ouvrages formulaire */
+  .container
+  {
+    padding-bottom: 0.7em;
+  }
+  #BridgeInfosContent
+  {
+    height: 76%;
+    overflow: scroll;
+  }
+  /* Add/edit/delete modes */
+  #options-form
+  {
+  }
+
+/* All buttons*/
+  .OurButton
+  {
+    height: 1.7em;
+    width: 1.7em;
+    position: absolute;
+    background-color: rgb(230,230,230);
+  }
+  /* Button to show/hide legend */
+  #OurButtonLegend
+  {
+    top: 4em;
+    right: 18.5em;
+  }
+  /* Button to show/hide edit pannel*/
+  #OurButtonEdit
+  {
+    top: 6em;
+    right: 18.5em;
+    font-size: 1em;
+  }
+
+  #OurButtonBaseLayer
+  {
+    top: 8em;
+    right: 18.5em;
+    font-size: 1em;
+  }
+
+  #infoButton
+  {
+    top: 10em;
+    right: 18.5em;
+    font-size: 1em;
+  }
+
+  .ButtonImg
+  {
+    height:inherit;
+    width:inherit;
+  }
+  /* Buttons for formulaire validation */
+  #cancelButton, #saveButton
+  {
+    position: absolute;
+    bottom : 2%;
+    border-radius: 0em;
+  }
+  #cancelButton
+  {
+    left : 2%;
+  }
+  #saveButton
+  {
+    right : 2%;
+  }
+  #editButtongroup
+  {
+    display: inline-flex;
+    align-self: center;
+    text-align: center;
+    justify-content: space-between;
+    padding: 0.4em;
+  }
+  #addButton
+  {
+    font-size: 0.8em;
+    border-radius: 0em;
+  }
+  #modButton
+  {
+    font-size: 0.8em;
+    border-radius: 0em;
+  }
+  #delButton
+  {
+    font-size: 0.8em;
+    border-radius: 0em;
+  }
+/* Popup window */
+  #OurPopup
+  {
+    position: absolute;
+    left: 3em;
+    bottom: 3em;
+    height: 5em;
+    width: 8em;
+    background-color: rgba(255,255,255,0.5); /* red/green/blue/transparency */
+    text-align:center;
+    display: flex; /* contexte sur le parent */
+    flex-direction: column; /* direction d'affichage verticale */
+    justify-content: center; /* alignement vertical */
+    color: rgb(255,255,255);
+    box-shadow: 0.1em 0.1em 0.1em rgb(0,0,0);
+    visibility: collapse;
+  }
+
+  button:disabled{
+    color: rgb(0,0,0);
+    background-color: rgb(220,200,200);
+  }
+
+  /* Popup info about bridge layer elements */
+  .subtitle
+      {
+        font-size: 1em;
+        color: rgb(0,100,100);
+        font-weight: bold;
+        
+      }
+  .attribute
+      {
+        font-size: 1em;
+        color: rgb(0,0,0);
+        padding-bottom: 0.5em;
+      }
+  #imgElementBloc
+  {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ol-popup {
+        position: absolute;
+        background-color: white;
+        /*-webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+        filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));*/
+        padding: 15px;
+        border: 1px solid #cccccc;
+        bottom: 12px;
+        left: -50px;
+        min-width: 280px;
+        box-shadow: 0.1em 0.1em 0.1em rgb(0,0,0);
+      }
+      .ol-popup:after, .ol-popup:before {
+        top: 100%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+      .ol-popup:after {
+        border-top-color: white;
+        border-width: 10px;
+        left: 48px;
+        margin-left: -10px;
+      }
+      .ol-popup:before {
+        border-top-color: #cccccc;
+        border-width: 11px;
+        left: 48px;
+        margin-left: -11px;
+      }
+      .ol-popup-closer {
+        text-decoration: none;
+        position: absolute;
+        color: rgb(0,100,100);
+        top: 2px;
+        right: 8px;
+      }
+      .ol-popup-closer:after {
+        content: "✖";
+      }

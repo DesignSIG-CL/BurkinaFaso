@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/styleMap.css' />
+    <link rel="stylesheet" href="/stylesheets/OpenLayersStyleCustomised.css" type="text/css">
+
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v4.4.2/build/ol.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type='text/javascript' src="/javascripts/mapEngineStyle.js"></script>
+    <script type='text/javascript' src="/javascripts/mapEngine.js"></script>
+    <!-- <script src="/javascripts/size.js"></script> -->
+    <script src="/javascripts/interfaceEngine.js"></script>
+    <script type='text/javascript' src="/javascripts/superagent.js"></script>
+  </head>
+  <body onload="setVisibleLayers()"> <!-- onload="size()" onresize="size()"> -->
+
+<!-- map + legend -->
+      <div id='OurMap' class='map'>
+      </div>
+
+<!-- lateral panel -->
+  <div id='LateralPanel'>
+<!-- legend -->
+        <div id='OurLegend' class='Windows'>
+  <!-- title -->
+          <div class='WindowsTitle'>
+            Légende
+          </div>
+  <!-- legend content -->
+          <div class='WindowsContent'>
+            <form>
+                <input type="checkbox" id="ouvragesCheck" onclick="setVisibleLayers()" checked> Ouvrages [éditables]<br>
+                <input type="checkbox" id="pistesCheck" onclick="setVisibleLayers()" checked> Pistes <br>
+                <input type="checkbox" id="routesCheck" onclick="setVisibleLayers()" checked> Routes <br>
+              <hr>
+                <input type="checkbox" id="roadlinesCheck" onclick="setVisibleLayers()" checked> Axes routiers<br>
+                <input type="checkbox" id="waterlinesCheck" onclick="setVisibleLayers()" checked> Rivières <br>
+                <input type="checkbox" id="waterareasCheck" onclick="setVisibleLayers()" checked> Lacs<br>
+                <input type="checkbox" id="localitesCheck" onclick="setVisibleLayers()" checked> Limites de localités<br>
+                <input type="checkbox" id="provincesCheck" onclick="setVisibleLayers()" checked> Limites de provinces<br>
+                <input type="checkbox" id="regionsCheck" onclick="setVisibleLayers()" checked> Limites de régions<br>
+                <input type="checkbox" id="paysCheck" onclick="setVisibleLayers()" checked> Limites du Burkina Faso<br>
+            </form>
+          </div>
+        </div>
+<!-- option to edit layers (here only "ponts") -->
+    <div id='EditorOption' class='Windows'>
+      <div class='WindowsTitle'>
+        Éditer la carte
+      </div>
+<!--      <form id="options-form" autocomplete="off" class='WindowsContent'>
+-->
+        <!--
+        <div id="OurNewModifyOption">
+        The actions button below are defined in the js. -->
+      <div class='WindowsContent'>
+        <div id='editButtongroup'>
+          <button type="button" id="addButton">Ajouter</button>
+          <button type="button" id="modButton">Modifier</button>
+          <button type="button" id="delButton">Supprimer</button>
+        </div>
+      </div>
+    </div>
+
+<!--
+        <div id="OurSelector" class="form-group">
+          <label>Type d'ouvrage &nbsp;</label>
+          <select name="draw-type" id="draw-type">
+            <option value="Point">Ponctuel</option>
+            <option value="LineString">Linéaire</option>
+            <option value="Polygon">Polygone</option>
+            <option value="Circle">Cercle</option>
+          </select>
+        </div>
+-->
+<!--      </form> -->
+
+<!-- fin nouvel emplacementttttttttttttttttttttttttttt -->
+
+<!-- attribute table -->
+    <div id='OurInteraction' class='Windows'>
+        <div class='WindowsTitle' id='interactionTitle'>
+        </div>
+        <div id='form' class='WindowsContent'>
+            <div class="container">
+              <label>Nom du pont</label><br>
+              <input id="oNomPon" type="text"></input>
+            </div>
+            <div class="container">
+              <label>Date mise en service</label><br>
+              <input id="oDateCo" type="date"></input>
+            </div>
+            <div class="container">
+                <label>Date de maintenance</label><br>
+                <input id="oDateMa" type="date"></input>
+            </div>
+            <div class="container">
+            	<label>Nombre de travées</label><br>
+            	<input id="oNtrave" type="text"></input>
+            </div>
+            <div class="container">
+            	<label>Longueur du pont [m]</label><br>
+            	<input id="oLoOuve" type="text"></input>
+            </div>
+            <div class="container">
+            	<label>Plus grande portée [m]</label><br>
+            	<input id="oPortee" type="text"></input>
+            </div>
+            <div class="container">
+            	<label>Hauteur du pont [m]</label><br>
+            	<input id="oHauteu" type="text"></input>
+            </div>
+            <div class="container">
+            	<label>Largeur roulable [m]</label><br>
+            	<input id="oLaRoul" type="text"></input>
+            </div>
+            <div class="container">
+            	<label>Gabarit [m]</label><br>
+            	<input id="oGabari" type="text"></input>
+            </div>
+            <div class="container">
+            	<label>Commentaires</label><br>
+            	<input id="oCommen" type="text"></input>
+            </div>
+
+            <div class="container">
+            	<label>Photo</label><br>
+              <div style='min-height:10em; border:solid 1px lightgrey'>
+                <img id = 'imgElement' src = '' width='100%'>
+              </div>
+            	<input id="fileinput" type="file" enctype='multipart/form-data' onchange='onFileSelected(event)'></input>
+            </div>
+
+            <br><br>
+            <div>
+             <button type="button" id="saveButton">Sauver</button>
+             <button type="button" id="cancelButton">Annuler</button>
+           </div>
+	    	 </div>
+	       <div id='OurInput'>
+	            <!-- dynamic content -->
+	       </div>
+      </div>
+    </div>
+
+
+<!-- display legend or not -->
+    <div id='OurButtonLegend' class = 'OurButton' onclick="menu()">
+        <img src="images/menu.png" alt="Menu" class='ButtonImg'>
+    </div>
+
+    <div id='OurButtonEdit' class = 'OurButton' onclick="edit()">
+        <img src="images/pen.png" alt="Edit" class='ButtonImg'>
+    </div>
+
+    <div id='OurButtonBaseLayer' class = 'OurButton' onclick="baseLayerChange()">
+        <img src="images/map.png" alt="Changer le fond de plan" class='ButtonImg'>
+    </div>
+
+    <button type='button' id='infoButton' class = 'OurButton'>i</button>
+
+<!-- ancien emplacement pour le bloc d'édition -->
+<!-- end edit block -->
+
+<!-- logo, title, image (appears over the map) -->
+  <div id="header">
+    <img src="images/logo-epfl.png" alt="Logo" id="logo">
+    <div id="mainTitle">GéoPortail du Burkina Faso</div>
+    <img src="images/photoBurkinaFaso.jpg" alt="Logo" id="imageHeader">
+  </div>
+
+<!-- pied de page (appears over the map) -->
+    <div id="footer">
+      <div id="author"> B. CORDAY & R. LUGRIN - Design de SIG - V 37'649 </div>
+    </div>
+
+<!-- Popup -->
+    <div id='OurPopup'>
+
+    </div>
+
+    <div id="popup" class="ol-popup">
+      <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+      <div class='subtitle'> Nom de l'ouvrage : </div>
+      <div id='popNomPon' class='attribute'> </div>
+      <div class='subtitle'> Mise en service : </div>
+      <div id='popDateCo' class='attribute'> </div>
+      <div class='subtitle'> Prochaine maintenance : </div>
+      <div id='popDateMa' class='attribute'> </div>
+      <div class='subtitle'> Commentaires : </div>
+      <div id='popCommen' class='attribute'> </div>
+      <div id = 'imgElementBloc'>
+        <img id = 'imgElementInfo' src = '' width='80%'>
+      </div>
+    </div>
+
+  </body>
+  <script type='text/javascript'>init();</script>
+</html>
