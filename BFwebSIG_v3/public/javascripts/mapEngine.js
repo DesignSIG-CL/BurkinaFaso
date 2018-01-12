@@ -249,13 +249,14 @@ var overlay;
   var selectedType = 'Point'; // We want to edit the ouvrages d'art as point elements
   var mode = "none";
 
+// Interaction for draw mode
   var draw = new ol.interaction.Draw({
     source: selectedSrc,
     type: selectedType
     });
   var snap = new ol.interaction.Snap({source: selectedSrc});
 
-// Supplementary interactions
+// Interaction for modify and delete mode
   var select = new ol.interaction.Select({
       wrapX: false,
       layers: [vectorOuvrages]
@@ -264,6 +265,12 @@ var overlay;
       features: select.getFeatures(),
       layers: [vectorOuvrages]
   });
+
+  // Interaction for informations mode
+    var selectInfo = new ol.interaction.Select({
+        wrapX: false,
+        layers: [vectorOuvrages]
+    });
 
 /*/ Add a click handler to the map to render the popup.
 map.on('singleclick', function(evt) {
@@ -388,8 +395,8 @@ function setMode(buttonId) {
       document.getElementById('delButton').disabled = false;
       document.getElementById(id).style.background = "rgb(230,230,230)";
       // Interactions
-      select.getFeatures().clear(); // To clear the selection
-      map.removeInteraction(select);
+      selectInfo.getFeatures().clear(); // To clear the selection
+      map.removeInteraction(selectInfo);
       overlay.setPosition(undefined);
       closer.blur();
       onsaved(null,'Annulation');
@@ -403,8 +410,8 @@ function setMode(buttonId) {
       document.getElementById('delButton').disabled = true;
       document.getElementById(id).style.background = "rgb(0,100,100)";
       // Interactions
-      map.addInteraction(select);
-      select.on('select', function(evt) {objectInfo(evt)});
+      map.addInteraction(selectInfo);
+      selectInfo.on('select', function(evt) {objectInfo(evt)});
     }
   }
 };
